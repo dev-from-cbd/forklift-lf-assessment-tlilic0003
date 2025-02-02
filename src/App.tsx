@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, Routes, Route } from 'react-router-dom';
 import { Forklift, ChevronLeft, ChevronRight } from 'lucide-react';
 import QuestionPage from './components/QuestionPage';
+import OfflineIndicator from './components/OfflineIndicator';
 import { questions } from './data/questions';
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
           <p>© {new Date().getFullYear()} Forklift Training & Assessment</p>
         </div>
       </footer>
+      
+      <OfflineIndicator />
     </div>
   );
 }
