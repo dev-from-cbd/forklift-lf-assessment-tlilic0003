@@ -13,13 +13,6 @@ import { questions } from './data/questions';
 function App() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const totalPages = questions.length;
-
-  const handleNavigation = (pageNumber: number) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      navigate(`/question/${pageNumber}`);
-    }
-  };
 
   const handleSignOut = async () => {
     try {
@@ -75,7 +68,7 @@ function App() {
                     className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <UserPlus className="w-4 h-4 mr-2" />
-                    Register
+                    Join Us
                   </button>
                 </div>
               )}
@@ -108,28 +101,6 @@ function App() {
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
           </Routes>
-
-          {user && (
-            <div className="mt-8 flex justify-between items-center">
-              <button
-                onClick={() => handleNavigation(Number(window.location.pathname.split('/').pop() || 1) - 1)}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <ChevronLeft className="mr-2" size={20} />
-                Previous
-              </button>
-              <span className="text-gray-600">
-                Question {window.location.pathname.split('/').pop() || 1} of {totalPages}
-              </span>
-              <button
-                onClick={() => handleNavigation(Number(window.location.pathname.split('/').pop() || 1) + 1)}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Next
-                <ChevronRight className="ml-2" size={20} />
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
