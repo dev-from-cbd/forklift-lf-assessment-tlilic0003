@@ -33,7 +33,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="bg-white rounded-lg shadow p-4">
-      <h2 className="text-xl font-semibold text-center mb-4">Join Our Community</h2>
+      <h2 className="text-xl font-semibold text-center mb-4">Create Account</h2>
       <form onSubmit={handleSubmit} className="space-y-3">
         {error && (
           <div className="text-sm text-red-600">
@@ -90,7 +90,7 @@ const RegisterForm: React.FC = () => {
           ) : (
             <>
               <UserPlus className="w-4 h-4 mr-2" />
-              Join Us
+              Sign up
             </>
           )}
         </button>

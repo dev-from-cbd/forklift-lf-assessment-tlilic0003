@@ -75,7 +75,7 @@ const LoginForm: React.FC = () => {
           ) : (
             <>
               <LogIn className="w-4 h-4 mr-2" />
-              Sign in
+              Log in
             </>
           )}
         </button>
