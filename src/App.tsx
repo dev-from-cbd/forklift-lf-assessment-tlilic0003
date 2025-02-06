@@ -5,10 +5,10 @@ import QuestionPage from './components/QuestionPage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import ResetPasswordForm from './components/ResetPasswordForm';
+import AdminPanel from './components/AdminPanel';
 import OfflineIndicator from './components/OfflineIndicator';
 import AuthLayout from './components/AuthLayout';
 import { useAuth } from './contexts/AuthContext';
-import { questions } from './data/questions';
 
 function App() {
   const navigate = useNavigate();
@@ -97,6 +97,11 @@ function App() {
                 <QuestionPage questionNumber={1} />
                 <ResetPasswordForm />
               </div>
+            } />
+            <Route path="/admin" element={
+              <AuthLayout requireAuth requireAdmin>
+                <AdminPanel />
+              </AuthLayout>
             } />
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
