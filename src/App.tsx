@@ -1,18 +1,38 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Forklift, ChevronLeft, ChevronRight, LogIn, LogOut, UserPlus } from 'lucide-react';
+import { Forklift, ChevronLeft, ChevronRight, LogIn, LogOut, UserPlus, User, Shield } from 'lucide-react';
 import QuestionPage from './components/QuestionPage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AdminPanel from './components/AdminPanel';
+import UserProfile from './components/UserProfile';
 import OfflineIndicator from './components/OfflineIndicator';
 import AuthLayout from './components/AuthLayout';
 import { useAuth } from './contexts/AuthContext';
+import { supabase } from './config/supabase';
+import { useState, useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (user) {
+        const { data: roleData } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user.id)
+          .single();
+
+        setIsAdmin(roleData?.role === 'admin');
+      }
+    };
+
+    checkAdminStatus();
+  }, [user]);
 
   const handleSignOut = async () => {
     try {
@@ -45,7 +65,22 @@ function App() {
             <div className="flex items-center gap-3">
               {user ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-sm opacity-90">{user.email}</span>
+                  <button
+                    onClick={() => navigate('/profile')}
+                    className="flex items-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    {user.email}
+                  </button>
+                  {isAdmin && (
+                    <button
+                      onClick={() => navigate('/admin')}
+                      className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                    >
+                      <Shield className="w-4 h-4 mr-2" />
+                      Admin Panel
+                    </button>
+                  )}
                   <button
                     onClick={handleSignOut}
                     className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
@@ -101,6 +136,11 @@ function App() {
             <Route path="/admin" element={
               <AuthLayout requireAuth requireAdmin>
                 <AdminPanel />
+              </AuthLayout>
+            } />
+            <Route path="/profile" element={
+              <AuthLayout requireAuth>
+                <UserProfile />
               </AuthLayout>
             } />
             <Route path="/" element={<QuestionPage questionNumber={1} />} />

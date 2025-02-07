@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../config/supabase';
-import { Users, Award, AlertCircle, Search } from 'lucide-react';
+import { Users, Award, AlertCircle, Search, Loader2 } from 'lucide-react';
 
 interface UserData {
   id: string;
@@ -24,43 +24,34 @@ const AdminPanel: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAdminAccess = async () => {
-      if (!user) {
-        navigate('/login');
-        return;
-      }
-
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .single();
-
-      if (!roleData || roleData.role !== 'admin') {
-        navigate('/');
-      }
-    };
-
-    checkAdminAccess();
-  }, [user, navigate]);
-
-  useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // Fetch users from auth.users
-        const { data: userData, error: userError } = await supabase
-          .from('auth.users')
-          .select('id, email, created_at');
+        // First, verify admin status
+        const { data: roleData } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user?.id)
+          .single();
 
-        if (userError) throw userError;
+        if (!roleData || roleData.role !== 'admin') {
+          navigate('/');
+          return;
+        }
+
+        // Fetch all users from auth.users
+        const { data: usersData, error: usersError } = await supabase
+          .from('auth_users_view')
+          .select('*');
+
+        if (usersError) throw usersError;
 
         // Fetch progress data for each user
         const usersWithProgress = await Promise.all(
-          userData.map(async (user) => {
+          (usersData || []).map(async (userData) => {
             const { data: progressData } = await supabase
               .from('user_progress')
-              .select('correct, attempts')
-              .eq('user_id', user.id);
+              .select('*')
+              .eq('user_id', userData.id);
 
             const progress = progressData || [];
             const total_questions = progress.length;
@@ -70,7 +61,7 @@ const AdminPanel: React.FC = () => {
               : 0;
 
             return {
-              ...user,
+              ...userData,
               progress: {
                 total_questions,
                 correct_answers,
@@ -82,15 +73,15 @@ const AdminPanel: React.FC = () => {
 
         setUsers(usersWithProgress);
       } catch (err) {
-        setError('Failed to fetch users');
-        console.error(err);
+        console.error('Error fetching users:', err);
+        setError('Failed to fetch users data');
       } finally {
         setLoading(false);
       }
     };
 
     fetchUsers();
-  }, []);
+  }, [user, navigate]);
 
   const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -98,8 +89,8 @@ const AdminPanel: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
       </div>
     );
   }
@@ -108,15 +99,20 @@ const AdminPanel: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold flex items-center">
-            <Users className="w-6 h-6 mr-2" />
-            Admin Panel
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold flex items-center">
+              <Users className="w-6 h-6 mr-2" />
+              Admin Panel
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Manage users and track their progress
+            </p>
+          </div>
           <div className="relative">
             <input
               type="text"
               placeholder="Search users..."
-              className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -135,17 +131,27 @@ const AdminPanel: React.FC = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progress</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Completion</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Joined
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Progress
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Completion
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredUsers.map((userData) => (
                 <tr key={userData.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{userData.email}</div>
+                    <div className="text-sm font-medium text-gray-900">
+                      {userData.email}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-500">
@@ -173,6 +179,13 @@ const AdminPanel: React.FC = () => {
                   </td>
                 </tr>
               ))}
+              {filteredUsers.length === 0 && (
+                <tr>
+                  <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
+                    No users found
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

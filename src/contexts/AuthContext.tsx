@@ -12,6 +12,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
+  updateEmail: (newEmail: string) => Promise<void>;
 }
 
 // Create the context with a default value
@@ -86,6 +87,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (error) throw error;
   };
 
+  // Update email function
+  const updateEmail = async (newEmail: string) => {
+    const { error } = await supabase.auth.updateUser({
+      email: newEmail,
+    });
+    if (error) throw error;
+  };
+
   // Provide the auth context value to children
   return (
     <AuthContext.Provider value={{
@@ -96,6 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       signOut,
       resetPassword,
       updatePassword,
+      updateEmail,
     }}>
       {children}
     </AuthContext.Provider>
