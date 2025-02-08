@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
@@ -13,29 +13,39 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, requireAdmin = false }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
-  const [isAdmin, setIsAdmin] = React.useState<boolean | null>(null);
-  const [checkingAdmin, setCheckingAdmin] = React.useState(requireAdmin);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [checkingAdmin, setCheckingAdmin] = useState(requireAdmin);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkAdminStatus = async () => {
-      if (requireAdmin && user) {
+      if (user) {
         try {
-          const { data: roleData } = await supabase
+          const { data: roleData, error } = await supabase
             .from('user_roles')
             .select('role')
             .eq('user_id', user.id)
             .single();
 
-          setIsAdmin(roleData?.role === 'admin');
+          if (error) {
+            console.error('Error checking admin status:', error);
+            setIsAdmin(false);
+          } else {
+            setIsAdmin(roleData?.role === 'admin');
+          }
         } catch (error) {
+          console.error('Error checking admin status:', error);
           setIsAdmin(false);
+        } finally {
+          setCheckingAdmin(false);
         }
+      } else {
+        setIsAdmin(false);
         setCheckingAdmin(false);
       }
     };
 
     checkAdminStatus();
-  }, [user, requireAdmin]);
+  }, [user]);
 
   // Show loading spinner while checking auth state or admin status
   if (loading || checkingAdmin) {
@@ -51,8 +61,8 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Redirect to home if admin access is required but user is not an admin
-  if (requireAdmin && !isAdmin) {
+  // Only redirect if we've confirmed the user is not an admin
+  if (requireAdmin && isAdmin === false) {
     return <Navigate to="/" replace />;
   }
 

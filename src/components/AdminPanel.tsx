@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../config/supabase';
 import { Users, Award, AlertCircle, Search, Loader2 } from 'lucide-react';
@@ -21,23 +20,10 @@ const AdminPanel: React.FC = () => {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // First, verify admin status
-        const { data: roleData } = await supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', user?.id)
-          .single();
-
-        if (!roleData || roleData.role !== 'admin') {
-          navigate('/');
-          return;
-        }
-
         // Fetch all users from auth.users
         const { data: usersData, error: usersError } = await supabase
           .from('auth_users_view')
@@ -81,7 +67,7 @@ const AdminPanel: React.FC = () => {
     };
 
     fetchUsers();
-  }, [user, navigate]);
+  }, [user]);
 
   const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
