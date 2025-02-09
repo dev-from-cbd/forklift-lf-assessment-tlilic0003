@@ -1,26 +1,53 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
+// Import the core ESLint JavaScript configuration
+import js from "@eslint/js";
 
+// Import predefined global variables for different environments
+import globals from "globals";
+
+// Import React Hooks ESLint plugin for enforcing Rules of Hooks
+import reactHooks from "eslint-plugin-react-hooks";
+
+// Import React Refresh ESLint plugin for handling Fast Refresh capabilities
+import reactRefresh from "eslint-plugin-react-refresh";
+
+// Import TypeScript ESLint configuration and parser
+import tseslint from "typescript-eslint";
+
+// Export the complete ESLint configuration
 export default tseslint.config(
-  { ignores: ['dist'] },
+  // Ignore the 'dist' directory during linting
+  { ignores: ["dist"] },
   {
+    // Extend from recommended JavaScript and TypeScript ESLint configurations
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+
+    // Apply these rules to TypeScript and TSX files
+    files: ["**/*.{ts,tsx}"],
+
+    // Configure language options
     languageOptions: {
+      // Set ECMAScript version to 2020
       ecmaVersion: 2020,
+      // Use browser global variables
       globals: globals.browser,
     },
+
+    // Configure ESLint plugins
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      // Add React Hooks linting rules
+      "react-hooks": reactHooks,
+      // Add React Refresh linting rules
+      "react-refresh": reactRefresh,
     },
+
+    // Define specific linting rules
     rules: {
+      // Include all recommended React Hooks rules
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
+      // Configure React Refresh rule to warn about non-component exports
+      "react-refresh/only-export-components": [
+        "warn",
+        // Allow constant exports alongside components
         { allowConstantExport: true },
       ],
     },
