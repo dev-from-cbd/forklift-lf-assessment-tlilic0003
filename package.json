@@ -1,43 +1,50 @@
 {
-  "name": "forklift-training-app",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
+  // Basic project information
+  "name": "forklift-training-app",    // Name of the application
+  "private": true,                    // Package is private, not meant for npm publishing
+  "version": "1.0.0",                 // Current version of the application
+  "type": "module",                   // Uses ES modules instead of CommonJS
+
+  // Script commands for various tasks
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "start:auth": "node services/auth/index.js",
-    "start:questions": "node services/questions/index.js",
-    "start:progress": "node services/progress/index.js"
+    "dev": "vite",                    // Start development server using Vite
+    "build": "tsc && vite build",     // Compile TypeScript and build for production
+    "lint": "eslint .",               // Run ESLint for code quality checks
+    "preview": "vite preview",        // Preview production build locally
+    "start:auth": "node services/auth/index.js",         // Start authentication service
+    "start:questions": "node services/questions/index.js", // Start questions service
+    "start:progress": "node services/progress/index.js"   // Start progress tracking service
   },
+
+  // Production dependencies
   "dependencies": {
-    "@module-federation/node": "^1.0.6",
-    "@supabase/supabase-js": "^2.39.7",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "express": "^4.18.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "jsonwebtoken": "^9.0.2",
-    "workbox-core": "^7.0.0",
-    "workbox-precaching": "^7.0.0",
-    "workbox-routing": "^7.0.0",
-    "workbox-strategies": "^7.0.0"
+    "@module-federation/node": "^1.0.6",      // Module Federation for Node.js
+    "@supabase/supabase-js": "^2.39.7",       // Supabase client for database operations
+    "lucide-react": "^0.344.0",               // Icon library for React
+    "react": "^18.3.1",                       // React core library
+    "react-dom": "^18.3.1",                   // React DOM manipulation
+    "react-router-dom": "^6.22.3",            // Routing for React
+    "express": "^4.18.3",                     // Web framework for Node.js
+    "cors": "^2.8.5",                         // Cross-Origin Resource Sharing middleware
+    "dotenv": "^16.4.5",                      // Environment variable management
+    "jsonwebtoken": "^9.0.2",                 // JWT authentication
+    "workbox-core": "^7.0.0",                 // Core Workbox library for PWA
+    "workbox-precaching": "^7.0.0",           // PWA precaching functionality
+    "workbox-routing": "^7.0.0",              // PWA routing
+    "workbox-strategies": "^7.0.0"            // PWA caching strategies
   },
+
+  // Development dependencies
   "devDependencies": {
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.2",
-    "vite-plugin-pwa": "^0.19.2"
+    "@types/react": "^18.3.5",                // TypeScript definitions for React
+    "@types/react-dom": "^18.3.0",            // TypeScript definitions for React DOM
+    "@vitejs/plugin-react": "^4.3.1",         // Vite plugin for React
+    "autoprefixer": "^10.4.18",               // CSS vendor prefix automation
+    "eslint": "^9.9.1",                       // Code linting tool
+    "postcss": "^8.4.35",                     // CSS transformation tool
+    "tailwindcss": "^3.4.1",                  // Utility-first CSS framework
+    "typescript": "^5.5.3",                   // TypeScript compiler
+    "vite": "^5.4.2",                         // Build tool and dev server
+    "vite-plugin-pwa": "^0.19.2"              // PWA plugin for Vite
   }
 }
