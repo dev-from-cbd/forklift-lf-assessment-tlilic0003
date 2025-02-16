@@ -1,7 +1,17 @@
 {
+  // "files" is an array that specifies the files to include in the TypeScript project.
+  // An empty array means no specific files are directly included here.
   "files": [],
+  
+  // "references" is an array that defines project references, enabling multi-project setups.
+  // This allows TypeScript to understand dependencies between multiple tsconfig files.
   "references": [
+    // Specifies a reference to another tsconfig file located at "./tsconfig.app.json".
+    // This is typically used for the main application configuration.
     { "path": "./tsconfig.app.json" },
+    
+    // Specifies a reference to another tsconfig file located at "./tsconfig.node.json".
+    // This is often used for Node.js-specific configurations, such as server-side code or build tools.
     { "path": "./tsconfig.node.json" }
   ]
 }
