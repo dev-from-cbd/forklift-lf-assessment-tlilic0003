@@ -1,22 +1,51 @@
 {
+  // "compilerOptions" contains configuration settings for the TypeScript compiler.
   "compilerOptions": {
+    // Specifies the ECMAScript target version for the compiled JavaScript.
+    // "ES2022" means the output will be compatible with ECMAScript 2022 features.
     "target": "ES2022",
+    
+    // Specifies the library files to include in the compilation, providing type definitions.
+    // "ES2023" includes ECMAScript 2023 features.
     "lib": ["ES2023"],
+    
+    // Defines the module system to be used. "ESNext" refers to the latest ECMAScript module system.
     "module": "ESNext",
+    
+    // Skips type checking of declaration files (*.d.ts), which can speed up compilation.
     "skipLibCheck": true,
-
-    /* Bundler mode */
+    
+    // /* Bundler mode */
+    // Configures the module resolution strategy to work well with modern bundlers like Vite or Webpack.
     "moduleResolution": "bundler",
+    
+    // Allows importing TypeScript-specific extensions (e.g., .ts, .tsx) in your code.
     "allowImportingTsExtensions": true,
+    
+    // Ensures that each file is treated as a separate module, which is useful for transpilers like Babel.
     "isolatedModules": true,
+    
+    // Forces TypeScript to detect all files as modules, even if they lack import/export statements.
     "moduleDetection": "force",
+    
+    // Disables emitting compiled JavaScript files. Useful when using a bundler that handles this step.
     "noEmit": true,
-
-    /* Linting */
+    
+    // /* Linting */
+    // Enables strict type-checking options, catching more potential errors during development.
     "strict": true,
+    
+    // Reports errors on unused local variables, helping to keep the codebase clean.
     "noUnusedLocals": true,
+    
+    // Reports errors on unused function parameters, encouraging better code hygiene.
     "noUnusedParameters": true,
+    
+    // Prevents fallthrough cases in switch statements, avoiding unintentional behavior.
     "noFallthroughCasesInSwitch": true
   },
+  
+  // Specifies the files or directories to include in the TypeScript project.
+  // In this case, only the "vite.config.ts" file is included.
   "include": ["vite.config.ts"]
 }
