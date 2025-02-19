@@ -1,23 +1,46 @@
 // vite.config.ts
+// Imports the `defineConfig` function from Vite, which helps in defining the configuration for the project.
 import { defineConfig } from "file:///home/project/node_modules/vite/dist/node/index.js";
+
+// Imports the React plugin for Vite, enabling support for React development.
 import react from "file:///home/project/node_modules/@vitejs/plugin-react/dist/index.mjs";
+
+// Imports the Progressive Web App (PWA) plugin for Vite, enabling PWA functionality in the project.
 import { VitePWA } from "file:///home/project/node_modules/vite-plugin-pwa/dist/index.js";
+
+// Defines the default Vite configuration using `defineConfig`.
 var vite_config_default = defineConfig({
   plugins: [
+    // Adds the React plugin to enable React-specific features like JSX and Fast Refresh.
     react(),
+
+    // Configures the VitePWA plugin for adding Progressive Web App functionality.
     VitePWA({
       registerType: "autoUpdate",
+      // Configures the service worker registration type to automatically update when new content is available.
+
       manifest: {
+        // Defines the web app manifest for the PWA.
         name: "Forklift Training & Assessment",
+        // The full name of the application.
         short_name: "Forklift Training",
+        // A shorter name for the application, typically used on home screens.
         description: "TLILIC0003 High Risk Licence Training and Assessment Application",
+        // A brief description of the application.
         theme_color: "#1e40af",
+        // The primary theme color for the application.
         background_color: "#ffffff",
+        // The background color for the splash screen.
         display: "standalone",
+        // Specifies how the app should be displayed (standalone mode hides browser UI).
         orientation: "portrait",
+        // Locks the orientation of the app to portrait mode.
         scope: "/",
+        // Defines the navigation scope of the PWA.
         start_url: "/",
+        // Specifies the URL to load when the app is launched.
         icons: [
+          // Defines the app icons for different sizes.
           {
             src: "/icon-192x192.png",
             sizes: "192x192",
@@ -32,50 +55,72 @@ var vite_config_default = defineConfig({
           }
         ]
       },
+
       workbox: {
+        // Configures Workbox, a library for managing service workers and caching strategies.
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
+        // Specifies the file patterns to cache during the build process.
+
         runtimeCaching: [
+          // Defines runtime caching rules for specific URL patterns.
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
+            // Matches requests to Unsplash images.
             handler: "CacheFirst",
+            // Uses the Cache First strategy for serving cached images.
             options: {
               cacheName: "image-cache",
+              // Names the cache for images.
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 30 * 24 * 60 * 60
-                // 30 days
+                // Limits the number of entries in the cache.
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+                // Sets the maximum age of cached entries to 30 days.
               }
             }
           },
           {
             urlPattern: /^https:\/\/api\/.*/i,
+            // Matches requests to API endpoints.
             handler: "NetworkFirst",
+            // Uses the Network First strategy for serving API responses.
             options: {
               cacheName: "api-cache",
+              // Names the cache for API responses.
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 24 * 60 * 60
-                // 24 hours
+                // Limits the number of entries in the cache.
+                maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                // Sets the maximum age of cached entries to 24 hours.
               }
             }
           }
         ]
       },
+
       devOptions: {
-        // Disable service worker in development
+        // Configures development-specific options for the PWA plugin.
         enabled: false
+        // Disables the service worker in development mode to avoid caching issues.
       }
     })
   ],
+
   server: {
+    // Configures the development server settings.
     proxy: {
+      // Sets up proxy rules to redirect certain API requests to backend servers.
       "/api/auth": "http://localhost:3001",
+      // Redirects requests to `/api/auth` to the authentication server running on port 3001.
       "/api/questions": "http://localhost:3002",
+      // Redirects requests to `/api/questions` to the questions server running on port 3002.
       "/api/progress": "http://localhost:3003"
+      // Redirects requests to `/api/progress` to the progress server running on port 3003.
     }
   }
 });
+
+// Exports the default Vite configuration.
 export {
   vite_config_default as default
 };
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvaG9tZS9wcm9qZWN0XCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ZpbGVuYW1lID0gXCIvaG9tZS9wcm9qZWN0L3ZpdGUuY29uZmlnLnRzXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ltcG9ydF9tZXRhX3VybCA9IFwiZmlsZTovLy9ob21lL3Byb2plY3Qvdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBkZWZpbmVDb25maWcgfSBmcm9tICd2aXRlJztcbmltcG9ydCByZWFjdCBmcm9tICdAdml0ZWpzL3BsdWdpbi1yZWFjdCc7XG5pbXBvcnQgeyBWaXRlUFdBIH0gZnJvbSAndml0ZS1wbHVnaW4tcHdhJztcblxuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKHtcbiAgcGx1Z2luczogW1xuICAgIHJlYWN0KCksXG4gICAgVml0ZVBXQSh7XG4gICAgICByZWdpc3RlclR5cGU6ICdhdXRvVXBkYXRlJyxcbiAgICAgIG1hbmlmZXN0OiB7XG4gICAgICAgIG5hbWU6ICdGb3JrbGlmdCBUcmFpbmluZyAmIEFzc2Vzc21lbnQnLFxuICAgICAgICBzaG9ydF9uYW1lOiAnRm9ya2xpZnQgVHJhaW5pbmcnLFxuICAgICAgICBkZXNjcmlwdGlvbjogJ1RMSUxJQzAwMDMgSGlnaCBSaXNrIExpY2VuY2UgVHJhaW5pbmcgYW5kIEFzc2Vzc21lbnQgQXBwbGljYXRpb24nLFxuICAgICAgICB0aGVtZV9jb2xvcjogJyMxZTQwYWYnLFxuICAgICAgICBiYWNrZ3JvdW5kX2NvbG9yOiAnI2ZmZmZmZicsXG4gICAgICAgIGRpc3BsYXk6ICdzdGFuZGFsb25lJyxcbiAgICAgICAgb3JpZW50YXRpb246ICdwb3J0cmFpdCcsXG4gICAgICAgIHNjb3BlOiAnLycsXG4gICAgICAgIHN0YXJ0X3VybDogJy8nLFxuICAgICAgICBpY29uczogW1xuICAgICAgICAgIHtcbiAgICAgICAgICAgIHNyYzogJy9pY29uLTE5MngxOTIucG5nJyxcbiAgICAgICAgICAgIHNpemVzOiAnMTkyeDE5MicsXG4gICAgICAgICAgICB0eXBlOiAnaW1hZ2UvcG5nJyxcbiAgICAgICAgICAgIHB1cnBvc2U6ICdhbnkgbWFza2FibGUnXG4gICAgICAgICAgfSxcbiAgICAgICAgICB7XG4gICAgICAgICAgICBzcmM6ICcvaWNvbi01MTJ4NTEyLnBuZycsXG4gICAgICAgICAgICBzaXplczogJzUxMng1MTInLFxuICAgICAgICAgICAgdHlwZTogJ2ltYWdlL3BuZycsXG4gICAgICAgICAgICBwdXJwb3NlOiAnYW55IG1hc2thYmxlJ1xuICAgICAgICAgIH1cbiAgICAgICAgXVxuICAgICAgfSxcbiAgICAgIHdvcmtib3g6IHtcbiAgICAgICAgZ2xvYlBhdHRlcm5zOiBbJyoqLyoue2pzLGNzcyxodG1sLGljbyxwbmcsc3ZnLHdvZmYsd29mZjJ9J10sXG4gICAgICAgIHJ1bnRpbWVDYWNoaW5nOiBbXG4gICAgICAgICAge1xuICAgICAgICAgICAgdXJsUGF0dGVybjogL15odHRwczpcXC9cXC9pbWFnZXNcXC51bnNwbGFzaFxcLmNvbVxcLy4qL2ksXG4gICAgICAgICAgICBoYW5kbGVyOiAnQ2FjaGVGaXJzdCcsXG4gICAgICAgICAgICBvcHRpb25zOiB7XG4gICAgICAgICAgICAgIGNhY2hlTmFtZTogJ2ltYWdlLWNhY2hlJyxcbiAgICAgICAgICAgICAgZXhwaXJhdGlvbjoge1xuICAgICAgICAgICAgICAgIG1heEVudHJpZXM6IDUwLFxuICAgICAgICAgICAgICAgIG1heEFnZVNlY29uZHM6IDMwICogMjQgKiA2MCAqIDYwIC8vIDMwIGRheXNcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH0sXG4gICAgICAgICAge1xuICAgICAgICAgICAgdXJsUGF0dGVybjogL15odHRwczpcXC9cXC9hcGlcXC8uKi9pLFxuICAgICAgICAgICAgaGFuZGxlcjogJ05ldHdvcmtGaXJzdCcsXG4gICAgICAgICAgICBvcHRpb25zOiB7XG4gICAgICAgICAgICAgIGNhY2hlTmFtZTogJ2FwaS1jYWNoZScsXG4gICAgICAgICAgICAgIGV4cGlyYXRpb246IHtcbiAgICAgICAgICAgICAgICBtYXhFbnRyaWVzOiA1MCxcbiAgICAgICAgICAgICAgICBtYXhBZ2VTZWNvbmRzOiAyNCAqIDYwICogNjAgLy8gMjQgaG91cnNcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH1cbiAgICAgICAgXVxuICAgICAgfSxcbiAgICAgIGRldk9wdGlvbnM6IHtcbiAgICAgICAgLy8gRGlzYWJsZSBzZXJ2aWNlIHdvcmtlciBpbiBkZXZlbG9wbWVudFxuICAgICAgICBlbmFibGVkOiBmYWxzZVxuICAgICAgfVxuICAgIH0pXG4gIF0sXG4gIHNlcnZlcjoge1xuICAgIHByb3h5OiB7XG4gICAgICAnL2FwaS9hdXRoJzogJ2h0dHA6Ly9sb2NhbGhvc3Q6MzAwMScsXG4gICAgICAnL2FwaS9xdWVzdGlvbnMnOiAnaHR0cDovL2xvY2FsaG9zdDozMDAyJyxcbiAgICAgICcvYXBpL3Byb2dyZXNzJzogJ2h0dHA6Ly9sb2NhbGhvc3Q6MzAwMydcbiAgICB9XG4gIH1cbn0pOyJdLAogICJtYXBwaW5ncyI6ICI7QUFBeU4sU0FBUyxvQkFBb0I7QUFDdFAsT0FBTyxXQUFXO0FBQ2xCLFNBQVMsZUFBZTtBQUV4QixJQUFPLHNCQUFRLGFBQWE7QUFBQSxFQUMxQixTQUFTO0FBQUEsSUFDUCxNQUFNO0FBQUEsSUFDTixRQUFRO0FBQUEsTUFDTixjQUFjO0FBQUEsTUFDZCxVQUFVO0FBQUEsUUFDUixNQUFNO0FBQUEsUUFDTixZQUFZO0FBQUEsUUFDWixhQUFhO0FBQUEsUUFDYixhQUFhO0FBQUEsUUFDYixrQkFBa0I7QUFBQSxRQUNsQixTQUFTO0FBQUEsUUFDVCxhQUFhO0FBQUEsUUFDYixPQUFPO0FBQUEsUUFDUCxXQUFXO0FBQUEsUUFDWCxPQUFPO0FBQUEsVUFDTDtBQUFBLFlBQ0UsS0FBSztBQUFBLFlBQ0wsT0FBTztBQUFBLFlBQ1AsTUFBTTtBQUFBLFlBQ04sU0FBUztBQUFBLFVBQ1g7QUFBQSxVQUNBO0FBQUEsWUFDRSxLQUFLO0FBQUEsWUFDTCxPQUFPO0FBQUEsWUFDUCxNQUFNO0FBQUEsWUFDTixTQUFTO0FBQUEsVUFDWDtBQUFBLFFBQ0Y7QUFBQSxNQUNGO0FBQUEsTUFDQSxTQUFTO0FBQUEsUUFDUCxjQUFjLENBQUMsMkNBQTJDO0FBQUEsUUFDMUQsZ0JBQWdCO0FBQUEsVUFDZDtBQUFBLFlBQ0UsWUFBWTtBQUFBLFlBQ1osU0FBUztBQUFBLFlBQ1QsU0FBUztBQUFBLGNBQ1AsV0FBVztBQUFBLGNBQ1gsWUFBWTtBQUFBLGdCQUNWLFlBQVk7QUFBQSxnQkFDWixlQUFlLEtBQUssS0FBSyxLQUFLO0FBQUE7QUFBQSxjQUNoQztBQUFBLFlBQ0Y7QUFBQSxVQUNGO0FBQUEsVUFDQTtBQUFBLFlBQ0UsWUFBWTtBQUFBLFlBQ1osU0FBUztBQUFBLFlBQ1QsU0FBUztBQUFBLGNBQ1AsV0FBVztBQUFBLGNBQ1gsWUFBWTtBQUFBLGdCQUNWLFlBQVk7QUFBQSxnQkFDWixlQUFlLEtBQUssS0FBSztBQUFBO0FBQUEsY0FDM0I7QUFBQSxZQUNGO0FBQUEsVUFDRjtBQUFBLFFBQ0Y7QUFBQSxNQUNGO0FBQUEsTUFDQSxZQUFZO0FBQUE7QUFBQSxRQUVWLFNBQVM7QUFBQSxNQUNYO0FBQUEsSUFDRixDQUFDO0FBQUEsRUFDSDtBQUFBLEVBQ0EsUUFBUTtBQUFBLElBQ04sT0FBTztBQUFBLE1BQ0wsYUFBYTtBQUFBLE1BQ2Isa0JBQWtCO0FBQUEsTUFDbEIsaUJBQWlCO0FBQUEsSUFDbkI7QUFBQSxFQUNGO0FBQ0YsQ0FBQzsiLAogICJuYW1lcyI6IFtdCn0K
