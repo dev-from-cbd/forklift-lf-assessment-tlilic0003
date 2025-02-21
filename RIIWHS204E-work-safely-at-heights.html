@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RIIWHS204E – Work Safely at Heights</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <!-- Локальный путь к красному строительному шлему -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+        padding-top: 60px; /* Отступ сверху, чтобы контент не перекрывался фиксированной шапкой */
+      }
+      .content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .header {
+        background: #d32f2f;
+        color: white;
+        padding: 10px 15px; /* Уменьшил вертикальный padding для компактности */
+        font-size: 20px; /* Уменьшил размер шрифта для более компактного вида */
+        font-weight: bold;
+        font-family: "Helvetica", sans-serif;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        position: fixed; /* Фиксируем шапку вверху */
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Убеждаемся, что шапка поверх всего остального */
+        height: 50px; /* Фиксированная высота шапки для контроля размера */
+        display: flex; /* Используем flex для центрирования и размещения флажков */
+        align-items: center; /* Центрируем содержимое по вертикали */
+        justify-content: center; /* Центрируем содержимое по горизонтали */
+      }
+      .language-switch {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        gap: 10px;
+      }
+      .flag {
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        border: 2px solid white; /* Обводка для контраста с красным фоном */
+        border-radius: 2px; /* Лёгкие скругления для аккуратности */
+      }
+      .flag.active {
+        border-color: yellow; /* Жёлтая обводка для активного флага */
+      }
+      .question {
+        background: white;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer {
+        display: block;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .answer:hover {
+        background: #f0f0f0;
+      }
+      .feedback {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+      }
+      .correct {
+        background: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #a5d6a7;
+      }
+      .incorrect {
+        background: #fbe9e7;
+        color: #c62828;
+        border: 1px solid #ffccbc;
+      }
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="header">
+        <h1>RIIWHS204E – Work Safely at Heights</h1>
+        <div class="language-switch">
+          <img
+            src="https://flagcdn.com/w20/au.png"
+            alt="Australia"
+            class="flag"
+            onclick="switchLanguage('en')"
+          />
+          <img
+            src="https://flagcdn.com/w20/ru.png"
+            alt="Russia"
+            class="flag"
+            onclick="switchLanguage('ru')"
+          />
+        </div>
+      </div>
+
+      <!-- Question 1 -->
+      <div class="question">
+        <h3
+          data-en="1. When were State or Territory Workplace Health and Safety Acts and Regulations first Harmonised?"
+          data-ru="1. Когда впервые были стандартизированы законы и правила по охране здоровья и безопасности труда штатов и территорий?"
+        >
+          1. When were State or Territory Workplace Health and Safety Acts and
+          Regulations first Harmonised?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q1"
+            value="2012"
+            onchange="checkAnswer(this, '2012', 'feedback1')"
+          />
+          <span
+            data-en="Harmonised 1st January 2012"
+            data-ru="Стандартизировано 1 января 2012 года"
+            >Harmonised 1st January 2012</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q1"
+            value="2008"
+            onchange="checkAnswer(this, '2012', 'feedback1')"
+          />
+          <span
+            data-en="Harmonised 1st January 2008"
+            data-ru="Стандартизировано 1 января 2008 года"
+            >Harmonised 1st January 2008</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q1"
+            value="not"
+            onchange="checkAnswer(this, '2012', 'feedback1')"
+          />
+          <span data-en="Not yet harmonised" data-ru="Еще не стандартизировано"
+            >Not yet harmonised</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q1"
+            value="2010"
+            onchange="checkAnswer(this, '2012', 'feedback1')"
+          />
+          <span
+            data-en="Harmonised 1st January 2010"
+            data-ru="Стандартизировано 1 января 2010 года"
+            >Harmonised 1st January 2010</span
+          >
+        </label>
+        <div id="feedback1" class="feedback"></div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question">
+        <h3
+          data-en="2. Which Australian Standard stipulates the minimum standards for Industrial Fall Arrest Systems and Devices?"
+          data-ru="2. Какой австралийский стандарт устанавливает минимальные требования для систем и устройств промышленного предотвращения падений?"
+        >
+          2. Which Australian Standard stipulates the minimum standards for
+          Industrial Fall Arrest Systems and Devices?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q2"
+            value="1891"
+            onchange="checkAnswer(this, '1891', 'feedback2')"
+          />
+          <span data-en="AS/NZS 1891" data-ru="AS/NZS 1891">AS/NZS 1891</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q2"
+            value="1892"
+            onchange="checkAnswer(this, '1891', 'feedback2')"
+          />
+          <span data-en="AS/NZS 1892" data-ru="AS/NZS 1892">AS/NZS 1892</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q2"
+            value="1893"
+            onchange="checkAnswer(this, '1891', 'feedback2')"
+          />
+          <span data-en="AS/NZS 1893" data-ru="AS/NZS 1893">AS/NZS 1893</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q2"
+            value="1894"
+            onchange="checkAnswer(this, '1891', 'feedback2')"
+          />
+          <span data-en="AS/NZS 1894" data-ru="AS/NZS 1894">AS/NZS 1894</span>
+        </label>
+        <div id="feedback2" class="feedback"></div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question">
+        <h3
+          data-en="3. What is the strength requirement for a single person anchorage point used for free-fall arrest purposes?"
+          data-ru="3. Каково требование к прочности точки крепления для одного человека, используемой для предотвращения свободного падения?"
+        >
+          3. What is the strength requirement for a single person anchorage
+          point used for free-fall arrest purposes?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q3"
+            value="15"
+            onchange="checkAnswer(this, '15', 'feedback3')"
+          />
+          <span data-en="15kN" data-ru="15 кН">15kN</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q3"
+            value="12"
+            onchange="checkAnswer(this, '15', 'feedback3')"
+          />
+          <span data-en="12kN" data-ru="12 кН">12kN</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q3"
+            value="18"
+            onchange="checkAnswer(this, '15', 'feedback3')"
+          />
+          <span data-en="18kN" data-ru="18 кН">18kN</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q3"
+            value="21"
+            onchange="checkAnswer(this, '15', 'feedback3')"
+          />
+          <span data-en="21kN" data-ru="21 кН">21kN</span>
+        </label>
+        <div id="feedback3" class="feedback"></div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="question">
+        <h3
+          data-en="4. Can single action karabiners be used in industrial applications?"
+          data-ru="4. Можно ли использовать карабины с одним действием в промышленных приложениях?"
+        >
+          4. Can single action karabiners be used in industrial applications?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q4"
+            value="yes"
+            onchange="checkAnswer(this, 'no', 'feedback4')"
+          />
+          <span data-en="Yes" data-ru="Да">Yes</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q4"
+            value="no"
+            onchange="checkAnswer(this, 'no', 'feedback4')"
+          />
+          <span data-en="No" data-ru="Нет">No</span>
+        </label>
+        <div id="feedback4" class="feedback"></div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="question">
+        <h3
+          data-en="5. What is the purpose of a shock absorber?"
+          data-ru="5. Какова цель амортизатора?"
+        >
+          5. What is the purpose of a shock absorber?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q5"
+            value="reduce"
+            onchange="checkAnswer(this, 'reduce', 'feedback5')"
+          />
+          <span
+            data-en="To reduce the load / force exerted on your body in the event of a fall to no more than 6kN"
+            data-ru="Снизить нагрузку / силу, оказываемую на ваше тело при падении, не более 6 кН"
+            >To reduce the load / force exerted on your body in the event of a
+            fall to no more than 6kN</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q5"
+            value="increase"
+            onchange="checkAnswer(this, 'reduce', 'feedback5')"
+          />
+          <span
+            data-en="To increase the load / force exerted on your body in the event of a fall"
+            data-ru="Увеличить нагрузку / силу, оказываемую на ваше тело при падении"
+            >To increase the load / force exerted on your body in the event of a
+            fall</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q5"
+            value="none"
+            onchange="checkAnswer(this, 'reduce', 'feedback5')"
+          />
+          <span data-en="It has no purpose" data-ru="У него нет цели"
+            >It has no purpose</span
+          >
+        </label>
+        <div id="feedback5" class="feedback"></div>
+      </div>
+
+      <!-- Question 6a -->
+      <div class="question">
+        <h3
+          data-en="6a. 1st harness check"
+          data-ru="6a. Первая проверка ремня безопасности"
+        >
+          6a. 1st harness check
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6a"
+            value="straps"
+            onchange="checkAnswer(this, 'straps', 'feedback6a')"
+          />
+          <span
+            data-en="Check that all straps are laying flat against the body and are not twisted."
+            data-ru="Проверьте, что все ремни лежат плоско на теле и не перекручены."
+            >Check that all straps are laying flat against the body and are not
+            twisted.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6a"
+            value="buckles"
+            onchange="checkAnswer(this, 'straps', 'feedback6a')"
+          />
+          <span
+            data-en="Ensure all buckles are securely fastened."
+            data-ru="Убедитесь, что все пряжки надежно застегнуты."
+            >Ensure all buckles are securely fastened.</span
+          >
+        </label>
+        <div id="feedback6a" class="feedback"></div>
+      </div>
+
+      <!-- Question 6b -->
+      <div class="question">
+        <h3
+          data-en="6b. 2nd harness check"
+          data-ru="6b. Вторая проверка ремня безопасности"
+        >
+          6b. 2nd harness check
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6b"
+            value="dorsal"
+            onchange="checkAnswer(this, 'dorsal', 'feedback6b')"
+          />
+          <span
+            data-en="Ensure that the dorsal D-ring is high up between the shoulder blades."
+            data-ru="Убедитесь, что спинное D-кольцо расположено высоко между лопатками."
+            >Ensure that the dorsal D-ring is high up between the shoulder
+            blades.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6b"
+            value="other"
+            onchange="checkAnswer(this, 'dorsal', 'feedback6b')"
+          />
+          <span
+            data-en="Ensure that the harness is tight around the waist."
+            data-ru="Убедитесь, что ремень плотно прилегает к талии."
+            >Ensure that the harness is tight around the waist.</span
+          >
+        </label>
+        <div id="feedback6b" class="feedback"></div>
+      </div>
+
+      <!-- Question 6c -->
+      <div class="question">
+        <h3
+          data-en="6c. 3rd harness check"
+          data-ru="6c. Третья проверка ремня безопасности"
+        >
+          6c. 3rd harness check
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6c"
+            value="fists"
+            onchange="checkAnswer(this, 'fists', 'feedback6c')"
+          />
+          <span
+            data-en="Ensure that your fists will not pass through the leg straps but your fingers will have enough clearance."
+            data-ru="Убедитесь, что ваши кулаки не проходят через ножные ремни, но пальцы имеют достаточно места."
+            >Ensure that your fists will not pass through the leg straps but
+            your fingers will have enough clearance.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6c"
+            value="other"
+            onchange="checkAnswer(this, 'fists', 'feedback6c')"
+          />
+          <span
+            data-en="Ensure that the leg straps are loose."
+            data-ru="Убедитесь, что ножные ремни свободны."
+            >Ensure that the leg straps are loose.</span
+          >
+        </label>
+        <div id="feedback6c" class="feedback"></div>
+      </div>
+
+      <!-- Question 6d -->
+      <div class="question">
+        <h3
+          data-en="6d. 4th harness check"
+          data-ru="6d. Четвертая проверка ремня безопасности"
+        >
+          6d. 4th harness check
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6d"
+            value="pressure"
+            onchange="checkAnswer(this, 'pressure', 'feedback6d')"
+          />
+          <span
+            data-en="Ensure there is no undue pressure transmitted to the area of the body under the armpits or between the legs."
+            data-ru="Убедитесь, что нет избыточного давления, передаваемого на область тела под мышками или между ногами."
+            >Ensure there is no undue pressure transmitted to the area of the
+            body under the armpits or between the legs.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q6d"
+            value="other"
+            onchange="checkAnswer(this, 'pressure', 'feedback6d')"
+          />
+          <span
+            data-en="Ensure that the harness is loose around the chest."
+            data-ru="Убедитесь, что ремень свободен вокруг груди."
+            >Ensure that the harness is loose around the chest.</span
+          >
+        </label>
+        <div id="feedback6d" class="feedback"></div>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="question">
+        <h3
+          data-en="7. What is 'rested pendulum' in your travel restraint system?"
+          data-ru="7. Что такое 'задержанный маятник' в вашей системе ограничения перемещений?"
+        >
+          7. What is "rested pendulum" in your travel restraint system?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q7"
+            value="point"
+            onchange="checkAnswer(this, 'point', 'feedback7')"
+          />
+          <span
+            data-en="The point you end up if you have a fall but stay on the roof."
+            data-ru="Точка, в которой вы окажетесь, если упадете, но останетесь на крыше."
+            >The point you end up if you have a fall but stay on the roof.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q7"
+            value="fall"
+            onchange="checkAnswer(this, 'point', 'feedback7')"
+          />
+          <span
+            data-en="The point you will end up if you fall off the roof."
+            data-ru="Точка, в которой вы окажетесь, если упадете с крыши."
+            >The point you will end up if you fall off the roof.</span
+          >
+        </label>
+        <div id="feedback7" class="feedback"></div>
+      </div>
+
+      <!-- Question 8a -->
+      <div class="question">
+        <h3 data-en="8a. 1st obligation" data-ru="8a. Первое обязательство">
+          8a. 1st obligation
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8a"
+            value="comply"
+            onchange="checkAnswer(this, 'comply', 'feedback8a')"
+          />
+          <span
+            data-en="To comply with instructions."
+            data-ru="Соблюдать инструкции."
+            >To comply with instructions.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8a"
+            value="other"
+            onchange="checkAnswer(this, 'comply', 'feedback8a')"
+          />
+          <span
+            data-en="To ignore instructions."
+            data-ru="Игнорировать инструкции."
+            >To ignore instructions.</span
+          >
+        </label>
+        <div id="feedback8a" class="feedback"></div>
+      </div>
+
+      <!-- Question 8b -->
+      <div class="question">
+        <h3 data-en="8b. 2nd obligation" data-ru="8b. Второе обязательство">
+          8b. 2nd obligation
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8b"
+            value="injure"
+            onchange="checkAnswer(this, 'injure', 'feedback8b')"
+          />
+          <span
+            data-en="Not willfully injure yourself."
+            data-ru="Не наносить себе умышленный вред."
+            >Not willfully injure yourself.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8b"
+            value="other"
+            onchange="checkAnswer(this, 'injure', 'feedback8b')"
+          />
+          <span
+            data-en="Willfully injure yourself."
+            data-ru="Умышленно наносить себе вред."
+            >Willfully injure yourself.</span
+          >
+        </label>
+        <div id="feedback8b" class="feedback"></div>
+      </div>
+
+      <!-- Question 8c -->
+      <div class="question">
+        <h3 data-en="8c. 3rd obligation" data-ru="8c. Третье обязательство">
+          8c. 3rd obligation
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8c"
+            value="ppe"
+            onchange="checkAnswer(this, 'ppe', 'feedback8c')"
+          />
+          <span
+            data-en="Use your PPE that is supplied by your employer."
+            data-ru="Используйте СИЗ, предоставленные вашим работодателем."
+            >Use your PPE that is supplied by your employer.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q8c"
+            value="other"
+            onchange="checkAnswer(this, 'ppe', 'feedback8c')"
+          />
+          <span data-en="Do not use any PPE." data-ru="Не используйте СИЗ."
+            >Do not use any PPE.</span
+          >
+        </label>
+        <div id="feedback8c" class="feedback"></div>
+      </div>
+
+      <!-- Question 9a -->
+      <div class="question">
+        <h3 data-en="9a. 1st stage" data-ru="9a. Первый этап">9a. 1st stage</h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9a"
+            value="identify"
+            onchange="checkAnswer(this, 'identify', 'feedback9a')"
+          />
+          <span data-en="Identify the hazards." data-ru="Определите опасности."
+            >Identify the hazards.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9a"
+            value="other"
+            onchange="checkAnswer(this, 'identify', 'feedback9a')"
+          />
+          <span data-en="Ignore the hazards." data-ru="Игнорируйте опасности."
+            >Ignore the hazards.</span
+          >
+        </label>
+        <div id="feedback9a" class="feedback"></div>
+      </div>
+
+      <!-- Question 9b -->
+      <div class="question">
+        <h3 data-en="9b. 2nd stage" data-ru="9b. Второй этап">9b. 2nd stage</h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9b"
+            value="assess"
+            onchange="checkAnswer(this, 'assess', 'feedback9b')"
+          />
+          <span
+            data-en="Assess the risk, likelihood, and severity of potential injuries."
+            data-ru="Оцените риск, вероятность и тяжесть возможных травм."
+            >Assess the risk, likelihood, and severity of potential
+            injuries.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9b"
+            value="other"
+            onchange="checkAnswer(this, 'assess', 'feedback9b')"
+          />
+          <span data-en="Ignore the risks." data-ru="Игнорируйте риски."
+            >Ignore the risks.</span
+          >
+        </label>
+        <div id="feedback9b" class="feedback"></div>
+      </div>
+
+      <!-- Question 9c -->
+      <div class="question">
+        <h3 data-en="9c. 3rd stage" data-ru="9c. Третий этап">9c. 3rd stage</h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9c"
+            value="control"
+            onchange="checkAnswer(this, 'control', 'feedback9c')"
+          />
+          <span data-en="Control the risks." data-ru="Контролируйте риски."
+            >Control the risks.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9c"
+            value="other"
+            onchange="checkAnswer(this, 'control', 'feedback9c')"
+          />
+          <span data-en="Ignore the risks." data-ru="Игнорируйте риски."
+            >Ignore the risks.</span
+          >
+        </label>
+        <div id="feedback9c" class="feedback"></div>
+      </div>
+
+      <!-- Question 9d -->
+      <div class="question">
+        <h3 data-en="9d. 4th stage" data-ru="9d. Четвертый этап">
+          9d. 4th stage
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9d"
+            value="implement"
+            onchange="checkAnswer(this, 'implement', 'feedback9d')"
+          />
+          <span
+            data-en="Implement control procedures."
+            data-ru="Внедрите процедуры контроля."
+            >Implement control procedures.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9d"
+            value="other"
+            onchange="checkAnswer(this, 'implement', 'feedback9d')"
+          />
+          <span
+            data-en="Ignore control procedures."
+            data-ru="Игнорируйте процедуры контроля."
+            >Ignore control procedures.</span
+          >
+        </label>
+        <div id="feedback9d" class="feedback"></div>
+      </div>
+
+      <!-- Question 9e -->
+      <div class="question">
+        <h3 data-en="9e. 5th stage" data-ru="9e. Пятый этап">9e. 5th stage</h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9e"
+            value="monitor"
+            onchange="checkAnswer(this, 'monitor', 'feedback9e')"
+          />
+          <span
+            data-en="Monitor your control measures to ensure they are effective."
+            data-ru="Мониторьте ваши меры контроля, чтобы убедиться в их эффективности."
+            >Monitor your control measures to ensure they are effective.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q9e"
+            value="other"
+            onchange="checkAnswer(this, 'monitor', 'feedback9e')"
+          />
+          <span
+            data-en="Ignore the effectiveness of control measures."
+            data-ru="Игнорируйте эффективность мер контроля."
+            >Ignore the effectiveness of control measures.</span
+          >
+        </label>
+        <div id="feedback9e" class="feedback"></div>
+      </div>
+
+      <!-- Question 10a -->
+      <div class="question">
+        <h3
+          data-en="10a. In relation to the Hierarchy of Hazard Control, what is your First Responsibility?"
+          data-ru="10a. В отношении иерархии контроля опасностей, какая ваша первая ответственность?"
+        >
+          10a. In relation to the Hierarchy of Hazard Control, what is your
+          First Responsibility?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10a"
+            value="eliminate"
+            onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
+          />
+          <span data-en="Eliminate." data-ru="Исключить.">Eliminate.</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10a"
+            value="other"
+            onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
+          />
+          <span data-en="Ignore." data-ru="Игнорировать.">Ignore.</span>
+        </label>
+        <div id="feedback10a" class="feedback"></div>
+      </div>
+
+      <!-- Question 10b -->
+      <div class="question">
+        <h3
+          data-en="10b. In relation to the Hierarchy of Hazard Control, what is your Last Option?"
+          data-ru="10b. В отношении иерархии контроля опасностей, какой ваш последний вариант?"
+        >
+          10b. In relation to the Hierarchy of Hazard Control, what is your Last
+          Option?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10b"
+            value="ppe"
+            onchange="checkAnswer(this, 'ppe', 'feedback10b')"
+          />
+          <span data-en="Use your PPE." data-ru="Используйте ваши СИЗ."
+            >Use your PPE.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10b"
+            value="other"
+            onchange="checkAnswer(this, 'ppe', 'feedback10b')"
+          />
+          <span data-en="Ignore PPE." data-ru="Игнорируйте СИЗ."
+            >Ignore PPE.</span
+          >
+        </label>
+        <div id="feedback10b" class="feedback"></div>
+      </div>
+
+      <!-- Question 11 -->
+      <div class="question">
+        <h3
+          data-en="11. What important document must be completed by a competent person prior to any high-risk work activity, excluding a SWMS?"
+          data-ru="11. Какой важный документ должен быть заполнен квалифицированным лицом перед любой деятельностью с высоким риском, за исключением SWMS?"
+        >
+          11. What important document must be completed by a competent person
+          prior to any high-risk work activity, excluding a SWMS?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q11"
+            value="risk"
+            onchange="checkAnswer(this, 'risk', 'feedback11')"
+          />
+          <span
+            data-en="Risk Assessment form / JSA / Take 5"
+            data-ru="Форма оценки рисков / JSA / Take 5"
+            >Risk Assessment form / JSA / Take 5</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q11"
+            value="other"
+            onchange="checkAnswer(this, 'risk', 'feedback11')"
+          />
+          <span data-en="No document required." data-ru="Документ не требуется."
+            >No document required.</span
+          >
+        </label>
+        <div id="feedback11" class="feedback"></div>
+      </div>
+
+      <!-- Question 12a -->
+      <div class="question">
+        <h3
+          data-en="12a. If required to work on a pitched roof, what type of system can provide a high level of fall protection for the user?"
+          data-ru="12a. Если требуется работать на скатной крыше, какой тип системы может обеспечить высокий уровень защиты от падения для пользователя?"
+        >
+          12a. If required to work on a pitched roof, what type of system can
+          provide a high level of fall protection for the user?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12a"
+            value="travel"
+            onchange="checkAnswer(this, 'travel', 'feedback12a')"
+          />
+          <span data-en="Travel Restraint." data-ru="Ограничение перемещений."
+            >Travel Restraint.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12a"
+            value="arrest"
+            onchange="checkAnswer(this, 'travel', 'feedback12a')"
+          />
+          <span data-en="Fall Arrest." data-ru="Предотвращение падения."
+            >Fall Arrest.</span
+          >
+        </label>
+        <div id="feedback12a" class="feedback"></div>
+      </div>
+
+      <!-- Question 12b -->
+      <div class="question">
+        <h3
+          data-en="12b. What 3 components would need to be incorporated into this system?"
+          data-ru="12b. Какие 3 компонента нужно включить в эту систему?"
+        >
+          12b. What 3 components would need to be incorporated into this system?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12b"
+            value="rope"
+            onchange="checkAnswer(this, 'rope', 'feedback12b')"
+          />
+          <span
+            data-en="Kernmantle rope, Anchor points, Harness."
+            data-ru="Веревка Kernmantle, Точки крепления, Ремень безопасности."
+            >Kernmantle rope, Anchor points, Harness.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12b"
+            value="other"
+            onchange="checkAnswer(this, 'rope', 'feedback12b')"
+          />
+          <span
+            data-en="Ladder, Rope, Helmet."
+            data-ru="Лестница, Веревка, Шлем."
+            >Ladder, Rope, Helmet.</span
+          >
+        </label>
+        <div id="feedback12b" class="feedback"></div>
+      </div>
+
+      <!-- Question 13 -->
+      <div class="question">
+        <h3
+          data-en="13. What is the purpose of a system that incorporates travel restraint techniques?"
+          data-ru="13. Какова цель системы, которая включает техники ограничения перемещений?"
+        >
+          13. What is the purpose of a system that incorporates travel restraint
+          techniques?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q13"
+            value="keep"
+            onchange="checkAnswer(this, 'keep', 'feedback13')"
+          />
+          <span
+            data-en="Keep you on the roof if a fall occurs."
+            data-ru="Сдерживает вас на крыше, если происходит падение."
+            >Keep you on the roof if a fall occurs.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q13"
+            value="stop"
+            onchange="checkAnswer(this, 'keep', 'feedback13')"
+          />
+          <span
+            data-en="Stop you from working on the roof."
+            data-ru="Запрещает вам работать на крыше."
+            >Stop you from working on the roof.</span
+          >
+        </label>
+        <div id="feedback13" class="feedback"></div>
+      </div>
+
+      <!-- Question 14 -->
+      <div class="question">
+        <h3
+          data-en="14. What is the strength requirement of an anchor point used in a restraint techniques system?"
+          data-ru="14. Каково требование к прочности точки крепления, используемой в системе ограничения перемещений?"
+        >
+          14. What is the strength requirement of an anchor point used in a
+          restraint techniques system?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q14"
+            value="12or15"
+            onchange="checkAnswer(this, '12or15', 'feedback14')"
+          />
+          <span data-en="12kN or 15kN" data-ru="12 кН или 15 кН"
+            >12kN or 15kN</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q14"
+            value="15"
+            onchange="checkAnswer(this, '12or15', 'feedback14')"
+          />
+          <span data-en="15kN only" data-ru="Только 15 кН">15kN only</span>
+        </label>
+        <div id="feedback14" class="feedback"></div>
+      </div>
+
+      <!-- Question 15 -->
+      <div class="question">
+        <h3
+          data-en="15. If using a travel restraint system, what length/distance must be always monitored to ensure that the user cannot fall from the edge of a roof or structure?"
+          data-ru="15. Если используется система ограничения перемещений, какую длину/расстояние всегда нужно мониторить, чтобы гарантировать, что пользователь не упадет с края крыши или структуры?"
+        >
+          15. If using a travel restraint system, what length/distance must be
+          always monitored to ensure that the user cannot fall from the edge of
+          a roof or structure?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q15"
+            value="pendulum"
+            onchange="checkAnswer(this, 'pendulum', 'feedback15')"
+          />
+          <span data-en="The pendulum length." data-ru="Длина маятника."
+            >The pendulum length.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q15"
+            value="rope"
+            onchange="checkAnswer(this, 'pendulum', 'feedback15')"
+          />
+          <span data-en="The rope length." data-ru="Длина веревки."
+            >The rope length.</span
+          >
+        </label>
+        <div id="feedback15" class="feedback"></div>
+      </div>
+
+      <!-- Question 16a -->
+      <div class="question">
+        <h3
+          data-en="16a. Roof 1: 1st Anchor Point"
+          data-ru="16a. Крыша 1: Первая точка крепления"
+        >
+          16a. Roof 1: 1st Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q16a"
+            value="G"
+            onchange="checkAnswer(this, 'G', 'feedback16a')"
+          />
+          <span data-en="G" data-ru="G">G</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q16a"
+            value="other"
+            onchange="checkAnswer(this, 'G', 'feedback16a')"
+          />
+          <span data-en="H" data-ru="H">H</span>
+        </label>
+        <div id="feedback16a" class="feedback"></div>
+      </div>
+
+      <!-- Question 16b -->
+      <div class="question">
+        <h3
+          data-en="16b. Roof 1: 2nd Anchor Point"
+          data-ru="16b. Крыша 1: Вторая точка крепления"
+        >
+          16b. Roof 1: 2nd Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q16b"
+            value="I"
+            onchange="checkAnswer(this, 'I', 'feedback16b')"
+          />
+          <span data-en="I" data-ru="I">I</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q16b"
+            value="other"
+            onchange="checkAnswer(this, 'I', 'feedback16b')"
+          />
+          <span data-en="J" data-ru="J">J</span>
+        </label>
+        <div id="feedback16b" class="feedback"></div>
+      </div>
+
+      <!-- Question 17a -->
+      <div class="question">
+        <h3
+          data-en="17a. Roof 2: 1st Anchor Point"
+          data-ru="17a. Крыша 2: Первая точка крепления"
+        >
+          17a. Roof 2: 1st Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q17a"
+            value="O"
+            onchange="checkAnswer(this, 'O', 'feedback17a')"
+          />
+          <span data-en="O" data-ru="O">O</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q17a"
+            value="other"
+            onchange="checkAnswer(this, 'O', 'feedback17a')"
+          />
+          <span data-en="P" data-ru="P">P</span>
+        </label>
+        <div id="feedback17a" class="feedback"></div>
+      </div>
+
+      <!-- Question 17b -->
+      <div class="question">
+        <h3
+          data-en="17b. Roof 2: 2nd Anchor Point"
+          data-ru="17b. Крыша 2: Вторая точка крепления"
+        >
+          17b. Roof 2: 2nd Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q17b"
+            value="M"
+            onchange="checkAnswer(this, 'M', 'feedback17b')"
+          />
+          <span data-en="M" data-ru="M">M</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q17b"
+            value="other"
+            onchange="checkAnswer(this, 'M', 'feedback17b')"
+          />
+          <span data-en="N" data-ru="N">N</span>
+        </label>
+        <div id="feedback17b" class="feedback"></div>
+      </div>
+
+      <!-- Question 18a -->
+      <div class="question">
+        <h3
+          data-en="18a. Roof 3: 1st Anchor Point"
+          data-ru="18a. Крыша 3: Первая точка крепления"
+        >
+          18a. Roof 3: 1st Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q18a"
+            value="C"
+            onchange="checkAnswer(this, 'C', 'feedback18a')"
+          />
+          <span data-en="C" data-ru="C">C</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q18a"
+            value="other"
+            onchange="checkAnswer(this, 'C', 'feedback18a')"
+          />
+          <span data-en="D" data-ru="D">D</span>
+        </label>
+        <div id="feedback18a" class="feedback"></div>
+      </div>
+
+      <!-- Question 18b -->
+      <div class="question">
+        <h3
+          data-en="18b. Roof 3: 2nd Anchor Point"
+          data-ru="18b. Крыша 3: Вторая точка крепления"
+        >
+          18b. Roof 3: 2nd Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q18b"
+            value="P"
+            onchange="checkAnswer(this, 'P', 'feedback18b')"
+          />
+          <span data-en="P" data-ru="P">P</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q18b"
+            value="other"
+            onchange="checkAnswer(this, 'P', 'feedback18b')"
+          />
+          <span data-en="Q" data-ru="Q">Q</span>
+        </label>
+        <div id="feedback18b" class="feedback"></div>
+      </div>
+
+      <!-- Question 19a -->
+      <div class="question">
+        <h3
+          data-en="19a. Roof 4: 1st Anchor Point"
+          data-ru="19a. Крыша 4: Первая точка крепления"
+        >
+          19a. Roof 4: 1st Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q19a"
+            value="B"
+            onchange="checkAnswer(this, 'B', 'feedback19a')"
+          />
+          <span data-en="B" data-ru="B">B</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q19a"
+            value="other"
+            onchange="checkAnswer(this, 'B', 'feedback19a')"
+          />
+          <span data-en="A" data-ru="A">A</span>
+        </label>
+        <div id="feedback19a" class="feedback"></div>
+      </div>
+
+      <!-- Question 19b -->
+      <div class="question">
+        <h3
+          data-en="19b. Roof 4: 2nd Anchor Point"
+          data-ru="19b. Крыша 4: Вторая точка крепления"
+        >
+          19b. Roof 4: 2nd Anchor Point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q19b"
+            value="P"
+            onchange="checkAnswer(this, 'P', 'feedback19b')"
+          />
+          <span data-en="P" data-ru="P">P</span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q19b"
+            value="other"
+            onchange="checkAnswer(this, 'P', 'feedback19b')"
+          />
+          <span data-en="Q" data-ru="Q">Q</span>
+        </label>
+        <div id="feedback19b" class="feedback"></div>
+      </div>
+
+      <!-- Question 20a -->
+      <div class="question">
+        <h3
+          data-en="20a. Roof 5: Anchor Points"
+          data-ru="20a. Крыша 5: Точки крепления"
+        >
+          20a. Roof 5: Anchor Points
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q20a"
+            value="C,N,KorM,K,N"
+            onchange="checkAnswer(this, 'C,N,KorM,K,N', 'feedback20a')"
+          />
+          <span data-en="C, N, K OR M, K, N" data-ru="C, N, K ИЛИ M, K, N"
+            >C, N, K OR M, K, N</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q20a"
+            value="other"
+            onchange="checkAnswer(this, 'C,N,KorM,K,N', 'feedback20a')"
+          />
+          <span data-en="A, B, C, D, E" data-ru="A, B, C, D, E"
+            >A, B, C, D, E</span
+          >
+        </label>
+        <div id="feedback20a" class="feedback"></div>
+      </div>
+
+      <!-- Question 21 -->
+      <div class="question">
+        <h3
+          data-en="21. Using Roof Image 5, how do you stay safe from the gabled ends of the roof?"
+          data-ru="21. Используя изображение крыши 5, как вы остаетесь в безопасности от фронтальных концов крыши?"
+        >
+          21. Using Roof Image 5, how do you stay safe from the gabled ends of
+          the roof?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q21"
+            value="adjust"
+            onchange="checkAnswer(this, 'adjust', 'feedback21')"
+          />
+          <span
+            data-en="Adjust the rope length so you cannot fall off the roof gable."
+            data-ru="Настройте длину веревки, чтобы вы не могли упасть с фронтального конца крыши."
+            >Adjust the rope length so you cannot fall off the roof gable.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q21"
+            value="other"
+            onchange="checkAnswer(this, 'adjust', 'feedback21')"
+          />
+          <span data-en="Do not use a rope." data-ru="Не используйте веревку."
+            >Do not use a rope.</span
+          >
+        </label>
+        <div id="feedback21" class="feedback"></div>
+      </div>
+
+      <!-- Question 22a -->
+      <div class="question">
+        <h3 data-en="22a. 1st point" data-ru="22a. Первая точка">
+          22a. 1st point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22a"
+            value="ensure"
+            onchange="checkAnswer(this, 'ensure', 'feedback22a')"
+          />
+          <span
+            data-en="Ensure the top is fixed before entering the roof."
+            data-ru="Убедитесь, что верх закреплен перед входом на крышу."
+            >Ensure the top is fixed before entering the roof.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22a"
+            value="other"
+            onchange="checkAnswer(this, 'ensure', 'feedback22a')"
+          />
+          <span data-en="Do not fix the top." data-ru="Не закрепляйте верх."
+            >Do not fix the top.</span
+          >
+        </label>
+        <div id="feedback22a" class="feedback"></div>
+      </div>
+
+      <!-- Question 22b -->
+      <div class="question">
+        <h3 data-en="22b. 2nd point" data-ru="22b. Вторая точка">
+          22b. 2nd point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22b"
+            value="1mt"
+            onchange="checkAnswer(this, '1mt', 'feedback22b')"
+          />
+          <span
+            data-en="The ladder needs to be 1mt past gutter line."
+            data-ru="Лестница должна быть на 1 метр за линией водостока."
+            >The ladder needs to be 1mt past gutter line.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22b"
+            value="other"
+            onchange="checkAnswer(this, '1mt', 'feedback22b')"
+          />
+          <span
+            data-en="The ladder needs to be below the gutter line."
+            data-ru="Лестница должна быть ниже линии водостока."
+            >The ladder needs to be below the gutter line.</span
+          >
+        </label>
+        <div id="feedback22b" class="feedback"></div>
+      </div>
+
+      <!-- Question 22c -->
+      <div class="question">
+        <h3 data-en="22c. 3rd point" data-ru="22c. Третья точка">
+          22c. 3rd point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22c"
+            value="4:1"
+            onchange="checkAnswer(this, '4:1', 'feedback22c')"
+          />
+          <span
+            data-en="Have the ladder at 4:1 angle to the roof."
+            data-ru="Установите лестницу под углом 4:1 к крыше."
+            >Have the ladder at 4:1 angle to the roof.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22c"
+            value="other"
+            onchange="checkAnswer(this, '4:1', 'feedback22c')"
+          />
+          <span
+            data-en="Have the ladder at 1:1 angle to the roof."
+            data-ru="Установите лестницу под углом 1:1 к крыше."
+            >Have the ladder at 1:1 angle to the roof.</span
+          >
+        </label>
+        <div id="feedback22c" class="feedback"></div>
+      </div>
+
+      <!-- Question 22d -->
+      <div class="question">
+        <h3 data-en="22d. 4th point" data-ru="22d. Четвертая точка">
+          22d. 4th point
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22d"
+            value="rungs"
+            onchange="checkAnswer(this, 'rungs', 'feedback22d')"
+          />
+          <span
+            data-en="Ladder must have 3 and ½ rungs overlap."
+            data-ru="Лестница должна иметь перекрытие 3,5 ступенек."
+            >Ladder must have 3 and ½ rungs overlap.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q22d"
+            value="other"
+            onchange="checkAnswer(this, 'rungs', 'feedback22d')"
+          />
+          <span
+            data-en="Ladder must have no rungs overlap."
+            data-ru="Лестница не должна иметь перекрытия ступенек."
+            >Ladder must have no rungs overlap.</span
+          >
+        </label>
+        <div id="feedback22d" class="feedback"></div>
+      </div>
+
+      <!-- Question 23 -->
+      <div class="question">
+        <h3
+          data-en="23. Apart from daily routine inspections, how often does your PPE equipment need to be inspected by a competent person?"
+          data-ru="23. Кроме ежедневных проверок, как часто ваше оборудование СИЗ должно проверяться квалифицированным лицом?"
+        >
+          23. Apart from daily routine inspections, how often does your PPE
+          equipment need to be inspected by a competent person?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q23"
+            value="6months"
+            onchange="checkAnswer(this, '6months', 'feedback23')"
+          />
+          <span data-en="Every 6 months." data-ru="Каждые 6 месяцев."
+            >Every 6 months.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q23"
+            value="other"
+            onchange="checkAnswer(this, '6months', 'feedback23')"
+          />
+          <span data-en="Every year." data-ru="Каждый год.">Every year.</span>
+        </label>
+        <div id="feedback23" class="feedback"></div>
+      </div>
+
+      <!-- Question 24a -->
+      <div class="question">
+        <h3 data-en="24a. 1st component" data-ru="24a. Первый компонент">
+          24a. 1st component
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24a"
+            value="10years"
+            onchange="checkAnswer(this, '10years', 'feedback24a')"
+          />
+          <span
+            data-en="The manufacture date is less than 10 years old."
+            data-ru="Дата производства менее 10 лет назад."
+            >The manufacture date is less than 10 years old.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24a"
+            value="other"
+            onchange="checkAnswer(this, '10years', 'feedback24a')"
+          />
+          <span
+            data-en="The manufacture date is more than 10 years old."
+            data-ru="Дата производства более 10 лет назад."
+            >The manufacture date is more than 10 years old.</span
+          >
+        </label>
+        <div id="feedback24a" class="feedback"></div>
+      </div>
+
+      <!-- Question 24b -->
+      <div class="question">
+        <h3 data-en="24b. 2nd component" data-ru="24b. Второй компонент">
+          24b. 2nd component
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24b"
+            value="webbing"
+            onchange="checkAnswer(this, 'webbing', 'feedback24b')"
+          />
+          <span
+            data-en="Webbing has no rotting or mildew."
+            data-ru="Ткань не имеет гниения или плесени."
+            >Webbing has no rotting or mildew.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24b"
+            value="other"
+            onchange="checkAnswer(this, 'webbing', 'feedback24b')"
+          />
+          <span
+            data-en="Webbing has rotting or mildew."
+            data-ru="Ткань имеет гниение или плесень."
+            >Webbing has rotting or mildew.</span
+          >
+        </label>
+        <div id="feedback24b" class="feedback"></div>
+      </div>
+
+      <!-- Question 24c -->
+      <div class="question">
+        <h3 data-en="24c. 3rd component" data-ru="24c. Третий компонент">
+          24c. 3rd component
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24c"
+            value="drings"
+            onchange="checkAnswer(this, 'drings', 'feedback24c')"
+          />
+          <span
+            data-en="D rings do not have excess movement of the straight portions at its attachment."
+            data-ru="D-кольца не имеют избыточного движения прямых частей в месте крепления."
+            >D rings do not have excess movement of the straight portions at its
+            attachment.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24c"
+            value="other"
+            onchange="checkAnswer(this, 'drings', 'feedback24c')"
+          />
+          <span
+            data-en="D rings have excess movement."
+            data-ru="D-кольца имеют избыточное движение."
+            >D rings have excess movement.</span
+          >
+        </label>
+        <div id="feedback24c" class="feedback"></div>
+      </div>
+
+      <!-- Question 24d -->
+      <div class="question">
+        <h3 data-en="24d. 4th component" data-ru="24d. Четвертый компонент">
+          24d. 4th component
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24d"
+            value="wear"
+            onchange="checkAnswer(this, 'wear', 'feedback24d')"
+          />
+          <span
+            data-en="No wear or damage due to contact with heat or corrosives."
+            data-ru="Нет износа или повреждений из-за контакта с теплом или коррозионными веществами."
+            >No wear or damage due to contact with heat or corrosives.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q24d"
+            value="other"
+            onchange="checkAnswer(this, 'wear', 'feedback24d')"
+          />
+          <span
+            data-en="Wear or damage due to contact with heat or corrosives."
+            data-ru="Износ или повреждения из-за контакта с теплом или коррозионными веществами."
+            >Wear or damage due to contact with heat or corrosives.</span
+          >
+        </label>
+        <div id="feedback24d" class="feedback"></div>
+      </div>
+
+      <!-- Question 25 -->
+      <div class="question">
+        <h3
+          data-en="25. What must be done with equipment that has reached its 'use by' date indicated on the manufacturers label?"
+          data-ru="25. Что нужно сделать с оборудованием, которое достигло срока годности, указанного на этикетке производителя?"
+        >
+          25. What must be done with equipment that has reached its "use by"
+          date indicated on the manufacturers label?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q25"
+            value="destroy"
+            onchange="checkAnswer(this, 'destroy', 'feedback25')"
+          />
+          <span data-en="It must be destroyed." data-ru="Его нужно уничтожить."
+            >It must be destroyed.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q25"
+            value="other"
+            onchange="checkAnswer(this, 'destroy', 'feedback25')"
+          />
+          <span
+            data-en="It can still be used."
+            data-ru="Его все еще можно использовать."
+            >It can still be used.</span
+          >
+        </label>
+        <div id="feedback25" class="feedback"></div>
+      </div>
+
+      <!-- Question 26 -->
+      <div class="question">
+        <h3
+          data-en="26. What must be done with equipment that has been subjected to an arrested fall?"
+          data-ru="26. Что нужно сделать с оборудованием, которое подвергалось задержанному падению?"
+        >
+          26. What must be done with equipment that has been subjected to an
+          arrested fall?
+        </h3>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q26"
+            value="tag"
+            onchange="checkAnswer(this, 'tag', 'feedback26')"
+          />
+          <span
+            data-en="Tagged as 'Not to be used' and returned to manufacturer for testing."
+            data-ru="Помечено как 'Не использовать' и возвращено производителю для тестирования."
+            >Tagged as "Not to be used" and returned to manufacturer for
+            testing.</span
+          >
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q26"
+            value="other"
+            onchange="checkAnswer(this, 'tag', 'feedback26')"
+          />
+          <span
+            data-en="Continue using it."
+            data-ru="Продолжать использовать его."
+            >Continue using it.</span
+          >
+        </label>
+        <div id="feedback26" class="feedback"></div>
+      </div>
+    </div>
+
+    <script>
+      function checkAnswer(input, correctAnswer, feedbackId) {
+        const feedback = document.getElementById(feedbackId);
+        if (input.value === correctAnswer) {
+          feedback.className = "feedback correct";
+          feedback.textContent = "Correct / Правильно";
+        } else {
+          feedback.className = "feedback incorrect";
+          feedback.textContent = "Incorrect / Неверно";
+        }
+        feedback.style.display = "block";
+      }
+
+      function switchLanguage(lang) {
+        const questions = document.querySelectorAll(
+          ".question h3, .answer span"
+        );
+        const flags = document.querySelectorAll(".flag");
+
+        // Remove active class from all flags
+        flags.forEach((flag) => flag.classList.remove("active"));
+
+        // Add active class to the clicked flag
+        document
+          .querySelector(
+            `.flag[alt="${lang === "en" ? "Australia" : "Russia"}"]`
+          )
+          .classList.add("active");
+
+        questions.forEach((element) => {
+          if (
+            element.hasAttribute("data-en") &&
+            element.hasAttribute("data-ru")
+          ) {
+            element.textContent =
+              lang === "en"
+                ? element.getAttribute("data-en")
+                : element.getAttribute("data-ru");
+          }
+        });
+      }
+
+      // Default to English on page load
+      window.onload = () => switchLanguage("en");
+    </script>
+  </body>
+</html>
