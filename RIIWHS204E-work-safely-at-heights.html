@@ -29,7 +29,7 @@
         font-weight: bold;
         font-family: "Helvetica", sans-serif;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         position: fixed;
         top: 0;
         left: 0;
@@ -39,14 +39,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 0 0 4px 4px;
       }
       .language-select {
         position: absolute;
-        right: 20px;
+        right: 15px;
         top: 50%;
         transform: translateY(-50%);
-        padding: 5px;
-        font-size: 14px;
+        padding: 8px 15px;
+        font-size: 16px;
         border: none;
         border-radius: 4px;
         background-color: #d32f2f;
@@ -55,9 +56,25 @@
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        min-width: 120px;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%23FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        padding-right: 30px;
       }
       .language-select:hover {
         background-color: #b71c1c;
+      }
+      .language-select option {
+        font-size: 14px;
+        padding: 5px;
+        background-color: white;
+        color: black;
+      }
+      .language-select option::before {
+        content: attr(data-flag) " ";
+        margin-right: 5px;
       }
       .question {
         background: white;
@@ -108,13 +125,16 @@
         }
         .header h1 {
           white-space: normal;
-          margin-right: 80px;
+          margin-right: 130px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .language-select {
           right: 10px;
-          font-size: 12px;
-          padding: 5px;
-          min-width: 80px;
+          font-size: 14px;
+          padding: 6px 12px;
+          min-width: 100px;
+          padding-right: 25px;
         }
         .language-select option {
           font-size: 12px;
@@ -135,14 +155,14 @@
       <div class="header">
         <h1>RIIWHS204E – Work Safely at Heights</h1>
         <select class="language-select" onchange="switchLanguage(this.value)">
-          <option value="en">🇦🇺 English</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="pt">🇧🇷 Português</option>
-          <option value="fr">🇨🇦 Français</option>
-          <option value="it">🇮🇹 Italiano</option>
-          <option value="de">🇩🇪 Deutsch</option>
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="cn">🇨🇳 中文</option>
+          <option value="en">English 🇦🇺</option>
+          <option value="es">Español 🇪🇸</option>
+          <option value="pt">Português 🇧🇷</option>
+          <option value="fr">Français 🇨🇦</option>
+          <option value="it">Italiano 🇮🇹</option>
+          <option value="de">Deutsch 🇩🇪</option>
+          <option value="ru">Русский 🇷🇺</option>
+          <option value="cn">中文 🇨🇳</option>
         </select>
       </div>
 
@@ -448,6 +468,26 @@
             data-de="Ja"
           >
             Yes
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q4"
+            value="sometimes"
+            onchange="checkAnswer(this, 'no', 'feedback4')"
+          />
+          <span
+            data-en="Sometimes"
+            data-ru="Иногда"
+            data-cn="有时候"
+            data-es="A veces"
+            data-pt="Às vezes"
+            data-fr="Parfois"
+            data-it="A volte"
+            data-de="Manchmal"
+          >
+            Sometimes
           </span>
         </label>
         <label class="answer">
