@@ -99,15 +99,24 @@
       }
       @media (max-width: 600px) {
         body {
-          padding-top: 50px;
+          padding-top: 60px;
         }
         .header {
-          height: 40px;
+          height: 60px;
           padding: 5px 10px;
-          font-size: 16px;
+          font-size: 14px;
+        }
+        .header h1 {
+          white-space: normal;
+          margin-right: 80px;
         }
         .language-select {
           right: 10px;
+          font-size: 12px;
+          padding: 5px;
+          min-width: 80px;
+        }
+        .language-select option {
           font-size: 12px;
           padding: 3px;
         }
@@ -369,60 +378,40 @@
           <input
             type="radio"
             name="q3"
-            value="12"
+            value="6"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
           <span
-            data-en="12kN"
-            data-ru="12 кН"
-            data-cn="12千牛"
-            data-es="12kN"
-            data-pt="12kN"
-            data-fr="12kN"
-            data-it="12kN"
-            data-de="12kN"
+            data-en="6kN"
+            data-ru="6 кН"
+            data-cn="6千牛"
+            data-es="6kN"
+            data-pt="6kN"
+            data-fr="6kN"
+            data-it="6kN"
+            data-de="6kN"
           >
-            12kN
+            6kN
           </span>
         </label>
         <label class="answer">
           <input
             type="radio"
             name="q3"
-            value="18"
+            value="22"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
           <span
-            data-en="18kN"
-            data-ru="18 кН"
-            data-cn="18千牛"
-            data-es="18kN"
-            data-pt="18kN"
-            data-fr="18kN"
-            data-it="18kN"
-            data-de="18kN"
+            data-en="22kN"
+            data-ru="22 кН"
+            data-cn="22千牛"
+            data-es="22kN"
+            data-pt="22kN"
+            data-fr="22kN"
+            data-it="22kN"
+            data-de="22kN"
           >
-            18kN
-          </span>
-        </label>
-        <label class="answer">
-          <input
-            type="radio"
-            name="q3"
-            value="21"
-            onchange="checkAnswer(this, '15', 'feedback3')"
-          />
-          <span
-            data-en="21kN"
-            data-ru="21 кН"
-            data-cn="21千牛"
-            data-es="21kN"
-            data-pt="21kN"
-            data-fr="21kN"
-            data-it="21kN"
-            data-de="21kN"
-          >
-            21kN
+            22kN
           </span>
         </label>
         <div id="feedback3" class="feedback"></div>
