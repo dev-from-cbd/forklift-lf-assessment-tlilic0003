@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RIIWHS204E – Work Safely at Heights</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://cdn-icons-png.flaticon.com/512/566/566029_red.png"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -103,6 +106,12 @@
       input[type="radio"] {
         margin-right: 10px;
       }
+      /* Поддержка RTL для иврита и арабского */
+      [data-he],
+      [data-ar] {
+        direction: rtl;
+        text-align: right;
+      }
       @media (max-width: 600px) {
         body {
           padding-top: 50px;
@@ -146,13 +155,45 @@
             />
             <span class="flag-label">Eng</span>
           </div>
-          <div class="flag-container" onclick="switchLanguage('cn')">
+          <div class="flag-container" onclick="switchLanguage('es')">
             <img
-              src="https://flagcdn.com/w20/cn.png"
-              alt="China"
+              src="https://flagcdn.com/w20/es.png"
+              alt="Spain"
               class="flag"
             />
-            <span class="flag-label">中文</span>
+            <span class="flag-label">Esp</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('pt')">
+            <img
+              src="https://flagcdn.com/w20/br.png"
+              alt="Brazil"
+              class="flag"
+            />
+            <span class="flag-label">Port</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('fr')">
+            <img
+              src="https://flagcdn.com/w20/ca.png"
+              alt="Canada"
+              class="flag"
+            />
+            <span class="flag-label">Fr</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('it')">
+            <img
+              src="https://flagcdn.com/w20/it.png"
+              alt="Italy"
+              class="flag"
+            />
+            <span class="flag-label">It</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('de')">
+            <img
+              src="https://flagcdn.com/w20/de.png"
+              alt="Germany"
+              class="flag"
+            />
+            <span class="flag-label">De</span>
           </div>
           <div class="flag-container" onclick="switchLanguage('ru')">
             <img
@@ -162,6 +203,30 @@
             />
             <span class="flag-label">Рус</span>
           </div>
+          <div class="flag-container" onclick="switchLanguage('he')">
+            <img
+              src="https://flagcdn.com/w20/il.png"
+              alt="Israel"
+              class="flag"
+            />
+            <span class="flag-label">עברית</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('ar')">
+            <img
+              src="https://flagcdn.com/w20/ae.png"
+              alt="United Arab Emirates"
+              class="flag"
+            />
+            <span class="flag-label">عربي</span>
+          </div>
+          <div class="flag-container" onclick="switchLanguage('cn')">
+            <img
+              src="https://flagcdn.com/w20/cn.png"
+              alt="China"
+              class="flag"
+            />
+            <span class="flag-label">中文</span>
+          </div>
         </div>
       </div>
 
@@ -170,6 +235,13 @@
           data-en="1. When were State or Territory Workplace Health and Safety Acts and Regulations first Harmonised?"
           data-ru="1. Когда впервые были стандартизированы законы и правила по охране здоровья и безопасности труда штатов и территорий?"
           data-cn="1. 各州或领地的职业健康与安全法和条例首次统一是什么时候？"
+          data-es="1. ¿Cuándo se armonizaron por primera vez las Leyes y Regulaciones de Salud y Seguridad en el Trabajo de los Estados o Territorios?"
+          data-ar="1. متى تم توحيد قوانين وتشريعات الصحة والسلامة في مكان العمل للولايات أو الأقاليم لأول مرة؟"
+          data-pt="1. Quando as Leis e Regulamentos de Saúde e Segurança no Trabalho dos Estados ou Territórios foram harmonizados pela primeira vez?"
+          data-fr="1. Quand les lois et règlements sur la santé et la sécurité au travail des États ou territoires ont-ils été harmonisés pour la première fois ?"
+          data-it="1. Quando sono state armonizzate per la prima volta le leggi e i regolamenti sulla salute e sicurezza sul lavoro degli Stati o dei Territori?"
+          data-de="1. Wann wurden die Gesetze und Vorschriften zur Arbeitssicherheit und Gesundheit der Staaten oder Territorien erstmals harmonisiert?"
+          data-he="1. מתי חוקים ותקנות בנושא בריאות ובטיחות בעבודה של המדינות או הטריטוריות הורמונו לראשונה?"
         >
           1. When were State or Territory Workplace Health and Safety Acts and
           Regulations first Harmonised?
@@ -185,6 +257,13 @@
             data-en="Harmonised 1st January 2012"
             data-ru="Стандартизировано 1 января 2012 года"
             data-cn="2012年1月1日统一"
+            data-es="Armonizado el 1 de enero de 2012"
+            data-ar="تم توحيده في 1 يناير 2012"
+            data-pt="Harmonizado em 1º de janeiro de 2012"
+            data-fr="Harmonisé le 1er janvier 2012"
+            data-it="Armonizzato il 1° gennaio 2012"
+            data-de="Harmonisiert am 1. Januar 2012"
+            data-he="הורמון ב-1 בינואר 2012"
             >Harmonised 1st January 2012</span
           >
         </label>
@@ -199,6 +278,13 @@
             data-en="Harmonised 1st January 2008"
             data-ru="Стандартизировано 1 января 2008 года"
             data-cn="2008年1月1日统一"
+            data-es="Armonizado el 1 de enero de 2008"
+            data-ar="تم توحيده في 1 يناير 2008"
+            data-pt="Harmonizado em 1º de janeiro de 2008"
+            data-fr="Harmonisé le 1er janvier 2008"
+            data-it="Armonizzato il 1° gennaio 2008"
+            data-de="Harmonisiert am 1. Januar 2008"
+            data-he="הורמון ב-1 בינואר 2008"
             >Harmonised 1st January 2008</span
           >
         </label>
@@ -213,6 +299,13 @@
             data-en="Not yet harmonised"
             data-ru="Еще не стандартизировано"
             data-cn="尚未统一"
+            data-es="Aún no armonizado"
+            data-ar="لم يتم توحيده بعد"
+            data-pt="Ainda não harmonizado"
+            data-fr="Pas encore harmonisé"
+            data-it="Non ancora armonizzato"
+            data-de="Noch nicht harmonisiert"
+            data-he="עדיין לא הורמון"
             >Not yet harmonised</span
           >
         </label>
@@ -227,6 +320,13 @@
             data-en="Harmonised 1st January 2010"
             data-ru="Стандартизировано 1 января 2010 года"
             data-cn="2010年1月1日统一"
+            data-es="Armonizado el 1 de enero de 2010"
+            data-ar="تم توحيده في 1 يناير 2010"
+            data-pt="Harmonizado em 1º de janeiro de 2010"
+            data-fr="Harmonisé le 1er janvier 2010"
+            data-it="Armonizzato il 1° gennaio 2010"
+            data-de="Harmonisiert am 1. Januar 2010"
+            data-he="הורמון ב-1 בינואר 2010"
             >Harmonised 1st January 2010</span
           >
         </label>
@@ -238,6 +338,13 @@
           data-en="2. Which Australian Standard stipulates the minimum standards for Industrial Fall Arrest Systems and Devices?"
           data-ru="2. Какой австралийский стандарт устанавливает минимальные требования для систем и устройств промышленного предотвращения падений?"
           data-cn="2. 哪个澳大利亚标准规定了工业防坠落系统和设备的最低标准？"
+          data-es="2. ¿Qué norma australiana establece las normas mínimas para los sistemas y dispositivos industriales de detención de caídas?"
+          data-ar="2. ما هو المعيار الأسترالي الذي يحدد الحد الأدنى من المعايير لأنظمة وأجهزة منع السقوط الصناعية؟"
+          data-pt="2. Qual norma australiana estipula os padrões mínimos para sistemas e dispositivos industriais de detenção de quedas?"
+          data-fr="2. Quelle norme australienne stipule les normes minimales pour les systèmes et dispositifs industriels de protection contre les chutes ?"
+          data-it="2. Quale norma australiana stabilisce gli standard minimi per i sistemi e i dispositivi industriali di arresto caduta?"
+          data-de="2. Welcher australische Standard legt die Mindestanforderungen für industrielle Absturzsicherungssysteme und -geräte fest?"
+          data-he="2. איזה תקן אוסטרלי קובע את הסטנדרטים המינימליים למערכות ומכשירים תעשייתיים למניעת נפילה?"
         >
           2. Which Australian Standard stipulates the minimum standards for
           Industrial Fall Arrest Systems and Devices?
@@ -253,6 +360,13 @@
             data-en="AS/NZS 1891"
             data-ru="AS/NZS 1891"
             data-cn="AS/NZS 1891"
+            data-es="AS/NZS 1891"
+            data-ar="AS/NZS 1891"
+            data-pt="AS/NZS 1891"
+            data-fr="AS/NZS 1891"
+            data-it="AS/NZS 1891"
+            data-de="AS/NZS 1891"
+            data-he="AS/NZS 1891"
             >AS/NZS 1891</span
           >
         </label>
@@ -267,6 +381,13 @@
             data-en="AS/NZS 1892"
             data-ru="AS/NZS 1892"
             data-cn="AS/NZS 1892"
+            data-es="AS/NZS 1892"
+            data-ar="AS/NZS 1892"
+            data-pt="AS/NZS 1892"
+            data-fr="AS/NZS 1892"
+            data-it="AS/NZS 1892"
+            data-de="AS/NZS 1892"
+            data-he="AS/NZS 1892"
             >AS/NZS 1892</span
           >
         </label>
@@ -281,6 +402,13 @@
             data-en="AS/NZS 1893"
             data-ru="AS/NZS 1893"
             data-cn="AS/NZS 1893"
+            data-es="AS/NZS 1893"
+            data-ar="AS/NZS 1893"
+            data-pt="AS/NZS 1893"
+            data-fr="AS/NZS 1893"
+            data-it="AS/NZS 1893"
+            data-de="AS/NZS 1893"
+            data-he="AS/NZS 1893"
             >AS/NZS 1893</span
           >
         </label>
@@ -295,6 +423,13 @@
             data-en="AS/NZS 1894"
             data-ru="AS/NZS 1894"
             data-cn="AS/NZS 1894"
+            data-es="AS/NZS 1894"
+            data-ar="AS/NZS 1894"
+            data-pt="AS/NZS 1894"
+            data-fr="AS/NZS 1894"
+            data-it="AS/NZS 1894"
+            data-de="AS/NZS 1894"
+            data-he="AS/NZS 1894"
             >AS/NZS 1894</span
           >
         </label>
@@ -306,6 +441,13 @@
           data-en="3. What is the strength requirement for a single person anchorage point used for free-fall arrest purposes?"
           data-ru="3. Каково требование к прочности точки крепления для одного человека, используемой для предотвращения свободного падения?"
           data-cn="3. 用于自由落体防坠目的的单人锚点强度要求是什么？"
+          data-es="3. ¿Cuál es el requisito de resistencia para un punto de anclaje para una sola persona utilizado con fines de detención de caídas libres?"
+          data-ar="3. ما هو متطلب القوة لنقطة تثبيت شخص واحد تُستخدم لأغراض منع السقوط الحر؟"
+          data-pt="3. Qual é o requisito de resistência para um ponto de ancoragem de uma pessoa usado para fins de detenção de quedas livres?"
+          data-fr="3. Quelle est l'exigence de résistance pour un point d'ancrage pour une seule personne utilisé à des fins de protection contre les chutes libres ?"
+          data-it="3. Qual è il requisito di resistenza per un punto di ancoraggio per una sola persona utilizzato ai fini dell'arresto di cadute libere?"
+          data-de="3. Welche Festigkeitsanforderung gilt für einen Einzelpersonen-Ankerpunkt, der für Zwecke der Freifall-Absturzsicherung verwendet wird?"
+          data-he="3. מהו דרישת החוזק לנקודת עיגון לאדם יחיד המשמשת למטרות מניעת נפילה חופשית?"
         >
           3. What is the strength requirement for a single person anchorage
           point used for free-fall arrest purposes?
@@ -317,7 +459,19 @@
             value="15"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
-          <span data-en="15kN" data-ru="15 кН" data-cn="15千牛">15kN</span>
+          <span
+            data-en="15kN"
+            data-ru="15 кН"
+            data-cn="15千牛"
+            data-es="15kN"
+            data-ar="15 كيلو نيوتن"
+            data-pt="15kN"
+            data-fr="15kN"
+            data-it="15kN"
+            data-de="15kN"
+            data-he="15kN"
+            >15kN</span
+          >
         </label>
         <label class="answer">
           <input
@@ -326,7 +480,19 @@
             value="12"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
-          <span data-en="12kN" data-ru="12 кН" data-cn="12千牛">12kN</span>
+          <span
+            data-en="12kN"
+            data-ru="12 кН"
+            data-cn="12千牛"
+            data-es="12kN"
+            data-ar="12 كيلو نيوتن"
+            data-pt="12kN"
+            data-fr="12kN"
+            data-it="12kN"
+            data-de="12kN"
+            data-he="12kN"
+            >12kN</span
+          >
         </label>
         <label class="answer">
           <input
@@ -335,7 +501,19 @@
             value="18"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
-          <span data-en="18kN" data-ru="18 кН" data-cn="18千牛">18kN</span>
+          <span
+            data-en="18kN"
+            data-ru="18 кН"
+            data-cn="18千牛"
+            data-es="18kN"
+            data-ar="18 كيلو نيوتن"
+            data-pt="18kN"
+            data-fr="18kN"
+            data-it="18kN"
+            data-de="18kN"
+            data-he="18kN"
+            >18kN</span
+          >
         </label>
         <label class="answer">
           <input
@@ -344,7 +522,19 @@
             value="21"
             onchange="checkAnswer(this, '15', 'feedback3')"
           />
-          <span data-en="21kN" data-ru="21 кН" data-cn="21千牛">21kN</span>
+          <span
+            data-en="21kN"
+            data-ru="21 кН"
+            data-cn="21千牛"
+            data-es="21kN"
+            data-ar="21 كيلو نيوتن"
+            data-pt="21kN"
+            data-fr="21kN"
+            data-it="21kN"
+            data-de="21kN"
+            data-he="21kN"
+            >21kN</span
+          >
         </label>
         <div id="feedback3" class="feedback"></div>
       </div>
@@ -354,6 +544,13 @@
           data-en="4. Can single action karabiners be used in industrial applications?"
           data-ru="4. Можно ли использовать карабины с одним действием в промышленных приложениях?"
           data-cn="4. 单动作登山扣可以在工业应用中使用吗？"
+          data-es="4. ¿Se pueden usar mosquetones de acción simple en aplicaciones industriales?"
+          data-ar="4. هل يمكن استخدام المشابك ذات الحركة الواحدة في التطبيقات الصناعية؟"
+          data-pt="4. Os mosquetões de ação única podem ser usados em aplicações industriais?"
+          data-fr="4. Les mousquetons à action unique peuvent-ils être utilisés dans des applications industrielles ?"
+          data-it="4. I moschettoni a singola azione possono essere utilizzati in applicazioni industriali?"
+          data-de="4. Können Karabiner mit einfacher Aktion in industriellen Anwendungen verwendet werden?"
+          data-he="4. האם ניתן להשתמש בקרבינות עם פעולה יחידה ביישומים תעשייתיים?"
         >
           4. Can single action karabiners be used in industrial applications?
         </h3>
@@ -364,7 +561,19 @@
             value="yes"
             onchange="checkAnswer(this, 'no', 'feedback4')"
           />
-          <span data-en="Yes" data-ru="Да" data-cn="可以">Yes</span>
+          <span
+            data-en="Yes"
+            data-ru="Да"
+            data-cn="可以"
+            data-es="Sí"
+            data-ar="نعم"
+            data-pt="Sim"
+            data-fr="Oui"
+            data-it="Sì"
+            data-de="Ja"
+            data-he="כן"
+            >Yes</span
+          >
         </label>
         <label class="answer">
           <input
@@ -373,7 +582,19 @@
             value="no"
             onchange="checkAnswer(this, 'no', 'feedback4')"
           />
-          <span data-en="No" data-ru="Нет" data-cn="不可以">No</span>
+          <span
+            data-en="No"
+            data-ru="Нет"
+            data-cn="不可以"
+            data-es="No"
+            data-ar="لا"
+            data-pt="Não"
+            data-fr="Non"
+            data-it="No"
+            data-de="Nein"
+            data-he="לא"
+            >No</span
+          >
         </label>
         <div id="feedback4" class="feedback"></div>
       </div>
@@ -383,6 +604,13 @@
           data-en="5. What is the purpose of a shock absorber?"
           data-ru="5. Какова цель амортизатора?"
           data-cn="5. 减震器的目的是什么？"
+          data-es="5. ¿Cuál es el propósito de un amortiguador?"
+          data-ar="5. ما هو الغرض من ممتص الصدمات؟"
+          data-pt="5. Qual é o propósito de um amortecedor?"
+          data-fr="5. Quel est le but d'un amortisseur ?"
+          data-it="5. Qual è lo scopo di un ammortizzatore?"
+          data-de="5. Was ist der Zweck eines Stoßdämpfers?"
+          data-he="5. מהו מטרתו של בולם זעזועים?"
         >
           5. What is the purpose of a shock absorber?
         </h3>
@@ -397,6 +625,13 @@
             data-en="To reduce the load / force exerted on your body in the event of a fall to no more than 6kN"
             data-ru="Снизить нагрузку / силу, оказываемую на ваше тело при падении, не более 6 кН"
             data-cn="在坠落时将施加在你身体上的负荷/力量减少到不超过6千牛"
+            data-es="Reducir la carga/fuerza ejercida sobre tu cuerpo en caso de una caída a no más de 6kN"
+            data-ar="لتقليل الحمل/القوة المؤثرة على جسمك في حالة السقوط إلى ما لا يزيد عن 6 كيلو نيوتن"
+            data-pt="Reduzir a carga/força exercida sobre seu corpo em caso de queda para não mais que 6kN"
+            data-fr="Réduire la charge/force exercée sur votre corps en cas de chute à un maximum de 6kN"
+            data-it="Ridurre il carico/forza esercitato sul tuo corpo in caso di caduta a non più di 6kN"
+            data-de="Die Belastung/Kraft, die bei einem Sturz auf Ihren Körper ausgeübt wird, auf nicht mehr als 6kN zu reduzieren"
+            data-he="להפחית את העומס/הכוח המופעל על גופך במקרה של נפילה ללא יותר מ-6kN"
             >To reduce the load / force exerted on your body in the event of a
             fall to no more than 6kN</span
           >
@@ -412,6 +647,13 @@
             data-en="To increase the load / force exerted on your body in the event of a fall"
             data-ru="Увеличить нагрузку / силу, оказываемую на ваше тело при падении"
             data-cn="在坠落时增加施加在你身体上的负荷/力量"
+            data-es="Aumentar la carga/fuerza ejercida sobre tu cuerpo en caso de una caída"
+            data-ar="لزيادة الحمل/القوة المؤثرة على جسمك في حالة السقوط"
+            data-pt="Aumentar a carga/força exercida sobre seu corpo em caso de queda"
+            data-fr="Augmenter la charge/force exercée sur votre corps en cas de chute"
+            data-it="Aumentare il carico/forza esercitato sul tuo corpo in caso di caduta"
+            data-de="Die Belastung/Kraft, die bei einem Sturz auf Ihren Körper ausgeübt wird, zu erhöhen"
+            data-he="להגביר את העומס/הכוח המופעל על גופך במקרה של נפילה"
             >To increase the load / force exerted on your body in the event of a
             fall</span
           >
@@ -427,6 +669,13 @@
             data-en="It has no purpose"
             data-ru="У него нет цели"
             data-cn="它没有用途"
+            data-es="No tiene propósito"
+            data-ar="ليس له غرض"
+            data-pt="Não tem propósito"
+            data-fr="Il n'a aucun but"
+            data-it="Non ha alcuno scopo"
+            data-de="Es hat keinen Zweck"
+            data-he="אין לו מטרה"
             >It has no purpose</span
           >
         </label>
@@ -438,6 +687,13 @@
           data-en="6a. 1st harness check"
           data-ru="6a. Первая проверка ремня безопасности"
           data-cn="6a. 第一次安全带检查"
+          data-es="6a. Primera verificación del arnés"
+          data-ar="6a. الفحص الأول للحزام"
+          data-pt="6a. Primeira verificação do cinto"
+          data-fr="6a. Première vérification du harnais"
+          data-it="6a. Prima verifica dell'imbracatura"
+          data-de="6a. Erste Überprüfung des Gurts"
+          data-he="6a. בדיקת רתמה ראשונה"
         >
           6a. 1st harness check
         </h3>
@@ -452,6 +708,13 @@
             data-en="Check that all straps are laying flat against the body and are not twisted."
             data-ru="Проверьте, что все ремни лежат плоско на теле и не перекручены."
             data-cn="检查所有带子是否平贴在身体上且没有扭曲。"
+            data-es="Verifica que todas las correas estén planas contra el cuerpo y no estén torcidas."
+            data-ar="تحقق من أن جميع الأحزمة مستوية على الجسم وغير ملتوية."
+            data-pt="Verifique se todas as correias estão planas contra o corpo e não estão torcidas."
+            data-fr="Vérifiez que toutes les sangles reposent à plat contre le corps et ne sont pas tordues."
+            data-it="Verifica che tutte le cinghie siano piatte contro il corpo e non siano attorcigliate."
+            data-de="Überprüfen Sie, ob alle Gurte flach am Körper anliegen und nicht verdreht sind."
+            data-he="בדוק שכל הרצועות מונחות שטוחות על הגוף ולא מפותלות."
             >Check that all straps are laying flat against the body and are not
             twisted.</span
           >
@@ -467,6 +730,13 @@
             data-en="Ensure all buckles are securely fastened."
             data-ru="Убедитесь, что все пряжки надежно застегнуты."
             data-cn="确保所有扣子都牢固扣紧。"
+            data-es="Asegúrate de que todas las hebillas estén bien abrochadas."
+            data-ar="تأكد من أن جميع الأبازيم مثبتة بإحكام."
+            data-pt="Certifique-se de que todas as fivelas estejam bem fixadas."
+            data-fr="Assurez-vous que toutes les boucles sont bien attachées."
+            data-it="Assicurati che tutte le fibbie siano ben fissate."
+            data-de="Stellen Sie sicher, dass alle Schnallen sicher befestigt sind."
+            data-he="וודא שכל האבזמים מהודקים היטב."
             >Ensure all buckles are securely fastened.</span
           >
         </label>
@@ -478,6 +748,13 @@
           data-en="6b. 2nd harness check"
           data-ru="6b. Вторая проверка ремня безопасности"
           data-cn="6b. 第二次安全带检查"
+          data-es="6b. Segunda verificación del arnés"
+          data-ar="6b. الفحص الثاني للحزام"
+          data-pt="6b. Segunda verificação do cinto"
+          data-fr="6b. Deuxième vérification du harnais"
+          data-it="6b. Seconda verifica dell'imbracatura"
+          data-de="6b. Zweite Überprüfung des Gurts"
+          data-he="6b. בדיקת רתמה שנייה"
         >
           6b. 2nd harness check
         </h3>
@@ -492,6 +769,13 @@
             data-en="Ensure that the dorsal D-ring is high up between the shoulder blades."
             data-ru="Убедитесь, что спинное D-кольцо расположено высоко между лопатками."
             data-cn="确保背部D环位于肩胛骨之间的高处。"
+            data-es="Asegúrate de que el anillo D dorsal esté alto entre las escápulas."
+            data-ar="تأكد من أن حلقة D الظهرية مرتفعة بين لوحي الكتف."
+            data-pt="Certifique-se de que o anel D dorsal esteja alto entre as omoplatas."
+            data-fr="Assurez-vous que l'anneau D dorsal est placé haut entre les omoplates."
+            data-it="Assicurati che l'anello D dorsale sia posizionato in alto tra le scapole."
+            data-de="Stellen Sie sicher, dass der dorsale D-Ring hoch zwischen den Schulterblättern sitzt."
+            data-he="וודא שטבעת D הגבית ממוקמת גבוה בין השכמות."
             >Ensure that the dorsal D-ring is high up between the shoulder
             blades.</span
           >
@@ -507,6 +791,13 @@
             data-en="Ensure that the harness is tight around the waist."
             data-ru="Убедитесь, что ремень плотно прилегает к талии."
             data-cn="确保安全带紧贴腰部。"
+            data-es="Asegúrate de que el arnés esté ajustado alrededor de la cintura."
+            data-ar="تأكد من أن الحزام مشدود حول الخصر."
+            data-pt="Certifique-se de que o cinto esteja bem ajustado na cintura."
+            data-fr="Assurez-vous que le harnais est bien serré autour de la taille."
+            data-it="Assicurati che l'imbracatura sia ben aderente intorno alla vita."
+            data-de="Stellen Sie sicher, dass der Gurt eng um die Taille sitzt."
+            data-he="וודא שהרתמה צמודה סביב המותניים."
             >Ensure that the harness is tight around the waist.</span
           >
         </label>
@@ -518,6 +809,13 @@
           data-en="6c. 3rd harness check"
           data-ru="6c. Третья проверка ремня безопасности"
           data-cn="6c. 第三次安全带检查"
+          data-es="6c. Tercera verificación del arnés"
+          data-ar="6c. الفحص الثالث للحزام"
+          data-pt="6c. Terceira verificação do cinto"
+          data-fr="6c. Troisième vérification du harnais"
+          data-it="6c. Terza verifica dell'imbracatura"
+          data-de="6c. Dritte Überprüfung des Gurts"
+          data-he="6c. בדיקת רתמה שלישית"
         >
           6c. 3rd harness check
         </h3>
@@ -532,6 +830,13 @@
             data-en="Ensure that your fists will not pass through the leg straps but your fingers will have enough clearance."
             data-ru="Убедитесь, что ваши кулаки не проходят через ножные ремни, но пальцы имеют достаточно места."
             data-cn="确保你的拳头无法穿过腿部带子，但手指有足够的空间。"
+            data-es="Asegúrate de que tus puños no pasen por las correas de las piernas, pero tus dedos tengan suficiente espacio."
+            data-ar="تأكد من أن قبضتيك لا تمر عبر أحزمة الساقين ولكن أصابعك لديها مساحة كافية."
+            data-pt="Certifique-se de que seus punhos não passem pelas correias das pernas, mas seus dedos tenham espaço suficiente."
+            data-fr="Assurez-vous que vos poings ne passent pas à travers les sangles des jambes, mais que vos doigts aient suffisamment d'espace."
+            data-it="Assicurati che i tuoi pugni non passino attraverso le cinghie delle gambe, ma che le dita abbiano spazio sufficiente."
+            data-de="Stellen Sie sicher, dass Ihre Fäuste nicht durch die Beingurte passen, aber Ihre Finger genügend Spielraum haben."
+            data-he="וודא שאגרופיך לא יעברו דרך רצועות הרגליים, אבל לאצבעותיך יהיה מספיק מרווח."
             >Ensure that your fists will not pass through the leg straps but
             your fingers will have enough clearance.</span
           >
@@ -547,6 +852,13 @@
             data-en="Ensure that the leg straps are loose."
             data-ru="Убедитесь, что ножные ремни свободны."
             data-cn="确保腿部带子是松弛的。"
+            data-es="Asegúrate de que las correas de las piernas estén sueltas."
+            data-ar="تأكد من أن أحزمة الساقين مرتخية."
+            data-pt="Certifique-se de que as correias das pernas estejam soltas."
+            data-fr="Assurez-vous que les sangles des jambes sont lâches."
+            data-it="Assicurati che le cinghie delle gambe siano allentate."
+            data-de="Stellen Sie sicher, dass die Beingurte locker sind."
+            data-he="וודא שרצועות הרגליים רופפות."
             >Ensure that the leg straps are loose.</span
           >
         </label>
@@ -558,6 +870,13 @@
           data-en="6d. 4th harness check"
           data-ru="6d. Четвертая проверка ремня безопасности"
           data-cn="6d. 第四次安全带检查"
+          data-es="6d. Cuarta verificación del arnés"
+          data-ar="6d. الفحص الرابع للحزام"
+          data-pt="6d. Quarta verificação do cinto"
+          data-fr="6d. Quatrième vérification du harnais"
+          data-it="6d. Quarta verifica dell'imbracatura"
+          data-de="6d. Vierte Überprüfung des Gurts"
+          data-he="6d. בדיקת רתמה רביעית"
         >
           6d. 4th harness check
         </h3>
@@ -572,6 +891,13 @@
             data-en="Ensure there is no undue pressure transmitted to the area of the body under the armpits or between the legs."
             data-ru="Убедитесь, что нет избыточного давления, передаваемого на область тела под мышками или между ногами."
             data-cn="确保没有过多的压力传递到腋下或腿部之间的身体区域。"
+            data-es="Asegúrate de que no haya presión excesiva transmitida a la zona del cuerpo bajo las axilas o entre las piernas."
+            data-ar="تأكد من عدم وجود ضغط زائد ينتقل إلى منطقة الجسم تحت الإبطين أو بين الساقين."
+            data-pt="Certifique-se de que não haja pressão excessiva transmitida à área do corpo sob as axilas ou entre as pernas."
+            data-fr="Assurez-vous qu'aucune pression excessive ne soit transmise à la zone du corps sous les aisselles ou entre les jambes."
+            data-it="Assicurati che non venga trasmessa pressione eccessiva alla zona del corpo sotto le ascelle o tra le gambe."
+            data-de="Stellen Sie sicher, dass kein übermäßiger Druck auf den Bereich des Körpers unter den Achseln oder zwischen den Beinen übertragen wird."
+            data-he="וודא שאין לחץ מיותר המועבר לאזור הגוף מתחת לבתי השחי או בין הרגליים."
             >Ensure there is no undue pressure transmitted to the area of the
             body under the armpits or between the legs.</span
           >
@@ -587,6 +913,13 @@
             data-en="Ensure that the harness is loose around the chest."
             data-ru="Убедитесь, что ремень свободен вокруг груди."
             data-cn="确保安全带在胸部周围是松弛的。"
+            data-es="Asegúrate de que el arnés esté suelto alrededor del pecho."
+            data-ar="تأكد من أن الحزام مرتخي حول الصدر."
+            data-pt="Certifique-se de que o cinto esteja solto ao redor do peito."
+            data-fr="Assurez-vous que le harnais soit lâche autour de la poitrine."
+            data-it="Assicurati che l'imbracatura sia allentata intorno al petto."
+            data-de="Stellen Sie sicher, dass der Gurt um die Brust locker ist."
+            data-he="וודא שהרתמה רופפת סביב החזה."
             >Ensure that the harness is loose around the chest.</span
           >
         </label>
@@ -598,6 +931,13 @@
           data-en="7. What is 'rested pendulum' in your travel restraint system?"
           data-ru="7. Что такое 'задержанный маятник' в вашей системе ограничения перемещений?"
           data-cn="7. 你的移动限制系统中“静止摆动”是什么？"
+          data-es="7. ¿Qué es el 'péndulo en reposo' en tu sistema de restricción de movimiento?"
+          data-ar="7. ما هو 'البندول المستقر' في نظام تقييد الحركة الخاص بك؟"
+          data-pt="7. O que é 'pêndulo em repouso' no seu sistema de restrição de movimento?"
+          data-fr="7. Qu'est-ce que le 'pendule au repos' dans votre système de retenue de déplacement ?"
+          data-it="7. Cos'è il 'pendolo a riposo' nel tuo sistema di contenzione del movimento?"
+          data-de="7. Was ist ein 'ruhendes Pendel' in Ihrem Bewegungseinschränkungssystem?"
+          data-he="7. מהו 'מטוטלת במנוחה' במערכת הגבלת התנועה שלך?"
         >
           7. What is "rested pendulum" in your travel restraint system?
         </h3>
@@ -612,6 +952,13 @@
             data-en="The point you end up if you have a fall but stay on the roof."
             data-ru="Точка, в которой вы окажетесь, если упадете, но останетесь на крыше."
             data-cn="如果你坠落但仍留在屋顶上的最终位置。"
+            data-es="El punto en el que terminas si tienes una caída pero permaneces en el tejado."
+            data-ar="النقطة التي تنتهي عندها إذا سقطت لكنك بقيت على السطح."
+            data-pt="O ponto em que você termina se cair, mas permanecer no telhado."
+            data-fr="Le point où vous vous retrouvez si vous chutez mais restez sur le toit."
+            data-it="Il punto in cui finisci se cadi ma resti sul tetto."
+            data-de="Der Punkt, an dem Sie landen, wenn Sie fallen, aber auf dem Dach bleiben."
+            data-he="הנקודה שבה תסיים אם תיפול אבל תישאר על הגג."
             >The point you end up if you have a fall but stay on the roof.</span
           >
         </label>
@@ -626,6 +973,13 @@
             data-en="The point you will end up if you fall off the roof."
             data-ru="Точка, в которой вы окажетесь, если упадете с крыши."
             data-cn="如果你从屋顶坠落最终到达的位置。"
+            data-es="El punto en el que terminarás si te caes del tejado."
+            data-ar="النقطة التي ستنتهي عندها إذا سقطت من السطح."
+            data-pt="O ponto em que você terminará se cair do telhado."
+            data-fr="Le point où vous vous retrouvez si vous tombez du toit."
+            data-it="Il punto in cui finisci se cadi dal tetto."
+            data-de="Der Punkt, an dem Sie landen, wenn Sie vom Dach fallen."
+            data-he="הנקודה שבה תסיים אם תיפול מהגג."
             >The point you will end up if you fall off the roof.</span
           >
         </label>
@@ -637,6 +991,13 @@
           data-en="8a. 1st obligation"
           data-ru="8a. Первое обязательство"
           data-cn="8a. 第一项义务"
+          data-es="8a. Primera obligación"
+          data-ar="8a. الالتزام الأول"
+          data-pt="8a. Primeira obrigação"
+          data-fr="8a. Première obligation"
+          data-it="8a. Primo obbligo"
+          data-de="8a. Erste Verpflichtung"
+          data-he="8a. חובה ראשונה"
         >
           8a. 1st obligation
         </h3>
@@ -651,6 +1012,13 @@
             data-en="To comply with instructions."
             data-ru="Соблюдать инструкции."
             data-cn="遵守指示。"
+            data-es="Cumplir con las instrucciones."
+            data-ar="الامتثال للتعليمات."
+            data-pt="Cumprir as instruções."
+            data-fr="Respecter les instructions."
+            data-it="Rispettare le istruzioni."
+            data-de="Den Anweisungen entsprechen."
+            data-he="לציית להוראות."
             >To comply with instructions.</span
           >
         </label>
@@ -665,6 +1033,13 @@
             data-en="To ignore instructions."
             data-ru="Игнорировать инструкции."
             data-cn="忽略指示。"
+            data-es="Ignorar las instrucciones."
+            data-ar="تجاهل التعليمات."
+            data-pt="Ignorar as instruções."
+            data-fr="Ignorer les instructions."
+            data-it="Ignorare le istruzioni."
+            data-de="Die Anweisungen ignorieren."
+            data-he="להתעלם מההוראות."
             >To ignore instructions.</span
           >
         </label>
@@ -676,6 +1051,13 @@
           data-en="8b. 2nd obligation"
           data-ru="8b. Второе обязательство"
           data-cn="8b. 第二项义务"
+          data-es="8b. Segunda obligación"
+          data-ar="8b. الالتزام الثاني"
+          data-pt="8b. Segunda obrigação"
+          data-fr="8b. Deuxième obligation"
+          data-it="8b. Secondo obbligo"
+          data-de="8b. Zweite Verpflichtung"
+          data-he="8b. חובה שנייה"
         >
           8b. 2nd obligation
         </h3>
@@ -690,6 +1072,13 @@
             data-en="Not willfully injure yourself."
             data-ru="Не наносить себе умышленный вред."
             data-cn="不故意伤害自己。"
+            data-es="No lesionarte intencionadamente."
+            data-ar="عدم إيذاء نفسك عمدًا."
+            data-pt="Não se machucar intencionalmente."
+            data-fr="Ne pas vous blesser intentionnellement."
+            data-it="Non ferirti intenzionalmente."
+            data-de="Sich nicht absichtlich verletzen."
+            data-he="לא לפגוע בעצמך במכוון."
             >Not willfully injure yourself.</span
           >
         </label>
@@ -704,6 +1093,13 @@
             data-en="Willfully injure yourself."
             data-ru="Умышленно наносить себе вред."
             data-cn="故意伤害自己。"
+            data-es="Lesionarte intencionadamente."
+            data-ar="إيذاء نفسك عمدًا."
+            data-pt="Machucar-se intencionalmente."
+            data-fr="Vous blesser intentionnellement."
+            data-it="Ferirti intenzionalmente."
+            data-de="Sich absichtlich verletzen."
+            data-he="לפגוע בעצמך במכוון."
             >Willfully injure yourself.</span
           >
         </label>
@@ -715,6 +1111,13 @@
           data-en="8c. 3rd obligation"
           data-ru="8c. Третье обязательство"
           data-cn="8c. 第三项义务"
+          data-es="8c. Tercera obligación"
+          data-ar="8c. الالتزام الثالث"
+          data-pt="8c. Terceira obrigação"
+          data-fr="8c. Troisième obligation"
+          data-it="8c. Terzo obbligo"
+          data-de="8c. Dritte Verpflichtung"
+          data-he="8c. חובה שלישית"
         >
           8c. 3rd obligation
         </h3>
@@ -729,6 +1132,13 @@
             data-en="Use your PPE that is supplied by your employer."
             data-ru="Используйте СИЗ, предоставленные вашим работодателем."
             data-cn="使用雇主提供的个人防护装备（PPE）。"
+            data-es="Usar el EPP suministrado por tu empleador."
+            data-ar="استخدام معدات الحماية الشخصية التي يوفرها صاحب العمل."
+            data-pt="Use seu EPI fornecido pelo empregador."
+            data-fr="Utilisez votre EPI fourni par votre employeur."
+            data-it="Usa il tuo DPI fornito dal tuo datore di lavoro."
+            data-de="Verwenden Sie Ihre PSA, die von Ihrem Arbeitgeber bereitgestellt wird."
+            data-he="השתמש בציוד המגן האישי (PPE) שסופק על ידי המעסיק שלך."
             >Use your PPE that is supplied by your employer.</span
           >
         </label>
@@ -743,6 +1153,13 @@
             data-en="Do not use any PPE."
             data-ru="Не используйте СИЗ."
             data-cn="不使用任何个人防护装备。"
+            data-es="No uses ningún EPP."
+            data-ar="لا تستخدم أي معدات حماية شخصية."
+            data-pt="Não use nenhum EPI."
+            data-fr="N'utilisez aucun EPI."
+            data-it="Non usare alcun DPI."
+            data-de="Verwenden Sie keine PSA."
+            data-he="אל תשתמש בשום ציוד מגן אישי."
             >Do not use any PPE.</span
           >
         </label>
@@ -754,6 +1171,13 @@
           data-en="9a. 1st stage"
           data-ru="9a. Первый этап"
           data-cn="9a. 第一阶段"
+          data-es="9a. Primera etapa"
+          data-ar="9a. المرحلة الأولى"
+          data-pt="9a. Primeira etapa"
+          data-fr="9a. Première étape"
+          data-it="9a. Prima fase"
+          data-de="9a. Erste Stufe"
+          data-he="9a. שלב ראשון"
         >
           9a. 1st stage
         </h3>
@@ -768,6 +1192,13 @@
             data-en="Identify the hazards."
             data-ru="Определите опасности."
             data-cn="识别危险。"
+            data-es="Identificar los peligros."
+            data-ar="تحديد المخاطر."
+            data-pt="Identificar os perigos."
+            data-fr="Identifier les dangers."
+            data-it="Identificare i pericoli."
+            data-de="Die Gefahren identifizieren."
+            data-he="זיהוי הסכנות."
             >Identify the hazards.</span
           >
         </label>
@@ -782,6 +1213,13 @@
             data-en="Ignore the hazards."
             data-ru="Игнорируйте опасности."
             data-cn="忽略危险。"
+            data-es="Ignorar los peligros."
+            data-ar="تجاهل المخاطر."
+            data-pt="Ignorar os perigos."
+            data-fr="Ignorer les dangers."
+            data-it="Ignorare i pericoli."
+            data-de="Die Gefahren ignorieren."
+            data-he="התעלמות מהסכנות."
             >Ignore the hazards.</span
           >
         </label>
@@ -793,6 +1231,13 @@
           data-en="9b. 2nd stage"
           data-ru="9b. Второй этап"
           data-cn="9b. 第二阶段"
+          data-es="9b. Segunda etapa"
+          data-ar="9b. المرحلة الثانية"
+          data-pt="9b. Segunda etapa"
+          data-fr="9b. Deuxième étape"
+          data-it="9b. Seconda fase"
+          data-de="9b. Zweite Stufe"
+          data-he="9b. שלב שני"
         >
           9b. 2nd stage
         </h3>
@@ -807,6 +1252,13 @@
             data-en="Assess the risk, likelihood, and severity of potential injuries."
             data-ru="Оцените риск, вероятность и тяжесть возможных травм."
             data-cn="评估潜在伤害的风险、可能性和严重性。"
+            data-es="Evaluar el riesgo, la probabilidad y la gravedad de las posibles lesiones."
+            data-ar="تقييم المخاطر واحتمالية وشدة الإصابات المحتملة."
+            data-pt="Avaliar o risco, a probabilidade e a gravidade de possíveis lesões."
+            data-fr="Évaluer le risque, la probabilité et la gravité des blessures potentielles."
+            data-it="Valutare il rischio, la probabilità e la gravità delle potenziali lesioni."
+            data-de="Das Risiko, die Wahrscheinlichkeit und die Schwere potenzieller Verletzungen bewerten."
+            data-he="הערכת הסיכון, הסבירות וחומרת הפציעות הפוטנציאליות."
             >Assess the risk, likelihood, and severity of potential
             injuries.</span
           >
@@ -822,6 +1274,13 @@
             data-en="Ignore the risks."
             data-ru="Игнорируйте риски."
             data-cn="忽略风险。"
+            data-es="Ignorar los riesgos."
+            data-ar="تجاهل المخاطر."
+            data-pt="Ignorar os riscos."
+            data-fr="Ignorer les risques."
+            data-it="Ignorare i rischi."
+            data-de="Die Risiken ignorieren."
+            data-he="התעלמות מהסיכונים."
             >Ignore the risks.</span
           >
         </label>
@@ -833,6 +1292,13 @@
           data-en="9c. 3rd stage"
           data-ru="9c. Третий этап"
           data-cn="9c. 第三阶段"
+          data-es="9c. Tercera etapa"
+          data-ar="9c. المرحلة الثالثة"
+          data-pt="9c. Terceira etapa"
+          data-fr="9c. Troisième étape"
+          data-it="9c. Terza fase"
+          data-de="9c. Dritte Stufe"
+          data-he="9c. שלב שלישי"
         >
           9c. 3rd stage
         </h3>
@@ -847,6 +1313,13 @@
             data-en="Control the risks."
             data-ru="Контролируйте риски."
             data-cn="控制风险。"
+            data-es="Controlar los riesgos."
+            data-ar="السيطرة على المخاطر."
+            data-pt="Controlar os riscos."
+            data-fr="Contrôler les risques."
+            data-it="Controllare i rischi."
+            data-de="Die Risiken kontrollieren."
+            data-he="שליטה בסיכונים."
             >Control the risks.</span
           >
         </label>
@@ -861,6 +1334,13 @@
             data-en="Ignore the risks."
             data-ru="Игнорируйте риски."
             data-cn="忽略风险。"
+            data-es="Ignorar los riesgos."
+            data-ar="تجاهل المخاطر."
+            data-pt="Ignorar os riscos."
+            data-fr="Ignorer les risques."
+            data-it="Ignorare i rischi."
+            data-de="Die Risiken ignorieren."
+            data-he="התעלמות מהסיכונים."
             >Ignore the risks.</span
           >
         </label>
@@ -872,6 +1352,13 @@
           data-en="9d. 4th stage"
           data-ru="9d. Четвертый этап"
           data-cn="9d. 第四阶段"
+          data-es="9d. Cuarta etapa"
+          data-ar="9d. المرحلة الرابعة"
+          data-pt="9d. Quarta etapa"
+          data-fr="9d. Quatrième étape"
+          data-it="9d. Quarta fase"
+          data-de="9d. Vierte Stufe"
+          data-he="9d. שלב רביעי"
         >
           9d. 4th stage
         </h3>
@@ -886,6 +1373,13 @@
             data-en="Implement control procedures."
             data-ru="Внедрите процедуры контроля."
             data-cn="实施控制程序。"
+            data-es="Implementar procedimientos de control."
+            data-ar="تنفيذ إجراءات السيطرة."
+            data-pt="Implementar procedimentos de controle."
+            data-fr="Mettre en œuvre des procédures de contrôle."
+            data-it="Implementare procedure di controllo."
+            data-de="Kontrollverfahren einführen."
+            data-he="יישום נהלי שליטה."
             >Implement control procedures.</span
           >
         </label>
@@ -900,6 +1394,13 @@
             data-en="Ignore control procedures."
             data-ru="Игнорируйте процедуры контроля."
             data-cn="忽略控制程序。"
+            data-es="Ignorar los procedimientos de control."
+            data-ar="تجاهل إجراءات السيطرة."
+            data-pt="Ignorar os procedimentos de controle."
+            data-fr="Ignorer les procédures de contrôle."
+            data-it="Ignorare le procedure di controllo."
+            data-de="Kontrollverfahren ignorieren."
+            data-he="התעלמות מנהלי השליטה."
             >Ignore control procedures.</span
           >
         </label>
@@ -911,6 +1412,13 @@
           data-en="9e. 5th stage"
           data-ru="9e. Пятый этап"
           data-cn="9e. 第五阶段"
+          data-es="9e. Quinta etapa"
+          data-ar="9e. المرحلة الخامسة"
+          data-pt="9e. Quinta etapa"
+          data-fr="9e. Cinquième étape"
+          data-it="9e. Quinta fase"
+          data-de="9e. Fünfte Stufe"
+          data-he="9e. שלב חמישי"
         >
           9e. 5th stage
         </h3>
@@ -923,8 +1431,15 @@
           />
           <span
             data-en="Monitor your control measures to ensure they are effective."
-            data-ru="Мониторйте ваши меры контроля, чтобы убедиться в их эффективности."
+            data-ru="Мониторьте ваши меры контроля, чтобы убедиться в их эффективности."
             data-cn="监控你的控制措施以确保其有效性。"
+            data-es="Monitorear tus medidas de control para asegurar que sean efectivas."
+            data-ar="مراقبة تدابير السيطرة الخاصة بك للتأكد من فعاليتها."
+            data-pt="Monitore suas medidas de controle para garantir que sejam eficazes."
+            data-fr="Surveillez vos mesures de contrôle pour vous assurer qu'elles sont efficaces."
+            data-it="Monitora le tue misure di controllo per assicurarti che siano efficaci."
+            data-de="Überwachen Sie Ihre Kontrollmaßnahmen, um sicherzustellen, dass sie wirksam sind."
+            data-he="נטר את אמצעי השליטה שלך כדי לוודא שהם יעילים."
             >Monitor your control measures to ensure they are effective.</span
           >
         </label>
@@ -939,6 +1454,13 @@
             data-en="Ignore the effectiveness of control measures."
             data-ru="Игнорируйте эффективность мер контроля."
             data-cn="忽略控制措施的有效性。"
+            data-es="Ignorar la efectividad de las medidas de control."
+            data-ar="تجاهل فعالية تدابير السيطرة."
+            data-pt="Ignorar a eficácia das medidas de controle."
+            data-fr="Ignorer l'efficacité des mesures de contrôle."
+            data-it="Ignorare l'efficacia delle misure di controllo."
+            data-de="Die Wirksamkeit der Kontrollmaßnahmen ignorieren."
+            data-he="התעלמות מיעילות אמצעי השליטה."
             >Ignore the effectiveness of control measures.</span
           >
         </label>
@@ -950,6 +1472,13 @@
           data-en="10a. In relation to the Hierarchy of Hazard Control, what is your First Responsibility?"
           data-ru="10a. В отношении иерархии контроля опасностей, какая ваша первая ответственность?"
           data-cn="10a. 关于危险控制层次结构，你的首要责任是什么？"
+          data-es="10a. En relación con la Jerarquía de Control de Peligros, ¿cuál es tu primera responsabilidad?"
+          data-ar="10a. فيما يتعلق بتسلسل السيطرة على المخاطر، ما هي مسؤوليتك الأولى؟"
+          data-pt="10a. Em relação à Hierarquia de Controle de Riscos, qual é sua primeira responsabilidade?"
+          data-fr="10a. En relation avec la hiérarchie du contrôle des dangers, quelle est votre première responsabilité ?"
+          data-it="10a. In relazione alla gerarchia di controllo dei pericoli, qual è la tua prima responsabilità?"
+          data-de="10a. In Bezug auf die Hierarchie der Gefahrenkontrolle, was ist Ihre erste Verantwortung?"
+          data-he="10a. ביחס להיררכיית השליטה בסיכונים, מהי האחריות הראשונה שלך?"
         >
           10a. In relation to the Hierarchy of Hazard Control, what is your
           First Responsibility?
@@ -961,7 +1490,17 @@
             value="eliminate"
             onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
           />
-          <span data-en="Eliminate." data-ru="Исключить." data-cn="消除。"
+          <span
+            data-en="Eliminate."
+            data-ru="Исключить."
+            data-cn="消除。"
+            data-es="Eliminar."
+            data-ar="القضاء."
+            data-pt="Eliminar."
+            data-fr="Éliminer."
+            data-it="Eliminare."
+            data-de="Beseitigen."
+            data-he="לחסל."
             >Eliminate.</span
           >
         </label>
@@ -972,7 +1511,17 @@
             value="other"
             onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
           />
-          <span data-en="Ignore." data-ru="Игнорировать." data-cn="忽略。"
+          <span
+            data-en="Ignore."
+            data-ru="Игнорировать."
+            data-cn="忽略。"
+            data-es="Ignorar."
+            data-ar="تجاهل."
+            data-pt="Ignorar."
+            data-fr="Ignorer."
+            data-it="Ignorare."
+            data-de="Ignorieren."
+            data-he="להתעלם."
             >Ignore.</span
           >
         </label>
@@ -984,6 +1533,13 @@
           data-en="10b. In relation to the Hierarchy of Hazard Control, what is your Last Option?"
           data-ru="10b. В отношении иерархии контроля опасностей, какой ваш последний вариант?"
           data-cn="10b. 关于危险控制层次结构，你的最后选择是什么？"
+          data-es="10b. En relación con la Jerarquía de Control de Peligros, ¿cuál es tu última opción?"
+          data-ar="10b. فيما يتعلق بتسلسل السيطرة على المخاطر، ما هو خيارك الأخير؟"
+          data-pt="10b. Em relação à Hierarquia de Controle de Riscos, qual é sua última opção?"
+          data-fr="10b. En relation avec la hiérarchie du contrôle des dangers, quelle est votre dernière option ?"
+          data-it="10b. In relazione alla gerarchia di controllo dei pericoli, qual è la tua ultima opzione?"
+          data-de="10b. In Bezug auf die Hierarchie der Gefahrenkontrolle, was ist Ihre letzte Option?"
+          data-he="10b. ביחס להיררכיית השליטה בסיכונים, מהי האפשרות האחרונה שלך?"
         >
           10b. In relation to the Hierarchy of Hazard Control, what is your Last
           Option?
@@ -999,6 +1555,13 @@
             data-en="Use your PPE."
             data-ru="Используйте ваши СИЗ."
             data-cn="使用你的个人防护装备。"
+            data-es="Usar tu EPP."
+            data-ar="استخدام معدات الحماية الشخصية الخاصة بك."
+            data-pt="Use seu EPI."
+            data-fr="Utilisez votre EPI."
+            data-it="Usa il tuo DPI."
+            data-de="Verwenden Sie Ihre PSA."
+            data-he="השתמש בציוד המגן האישי שלך."
             >Use your PPE.</span
           >
         </label>
@@ -1013,6 +1576,13 @@
             data-en="Ignore PPE."
             data-ru="Игнорируйте СИЗ."
             data-cn="忽略个人防护装备。"
+            data-es="Ignorar el EPP."
+            data-ar="تجاهل معدات الحماية الشخصية."
+            data-pt="Ignorar o EPI."
+            data-fr="Ignorer l'EPI."
+            data-it="Ignorare il DPI."
+            data-de="Ignorieren Sie die PSA."
+            data-he="התעלם מציוד המגן האישי."
             >Ignore PPE.</span
           >
         </label>
@@ -1024,6 +1594,13 @@
           data-en="11. What important document must be completed by a competent person prior to any high-risk work activity, excluding a SWMS?"
           data-ru="11. Какой важный документ должен быть заполнен квалифицированным лицом перед любой деятельностью с высоким риском, за исключением SWMS?"
           data-cn="11. 在进行任何高风险工作活动之前（不包括SWMS），由有能力的人必须完成的重要文件是什么？"
+          data-es="11. ¿Qué documento importante debe completar una persona competente antes de cualquier actividad laboral de alto riesgo, excluyendo un SWMS?"
+          data-ar="11. ما هو الوثيقة الهامة التي يجب على شخص مختص استكمالها قبل أي نشاط عمل عالي المخاطر، باستثناء SWMS؟"
+          data-pt="11. Qual documento importante deve ser preenchido por uma pessoa competente antes de qualquer atividade de trabalho de alto risco, excluindo um SWMS?"
+          data-fr="11. Quel document important doit être rempli par une personne compétente avant toute activité de travail à haut risque, à l'exclusion d'un SWMS ?"
+          data-it="11. Quale documento importante deve essere completato da una persona competente prima di qualsiasi attività lavorativa ad alto rischio, escluso un SWMS?"
+          data-de="11. Welches wichtige Dokument muss von einer kompetenten Person vor jeder risikoreichen Arbeitsaktivität ausgefüllt werden, außer einem SWMS?"
+          data-he="11. איזה מסמך חשוב חייב להיות מולא על ידי אדם מוסמך לפני כל פעילות עבודה בסיכון גבוה, למעט SWMS?"
         >
           11. What important document must be completed by a competent person
           prior to any high-risk work activity, excluding a SWMS?
@@ -1039,6 +1616,13 @@
             data-en="Risk Assessment form / JSA / Take 5"
             data-ru="Форма оценки рисков / JSA / Take 5"
             data-cn="风险评估表 / JSA / Take 5"
+            data-es="Formulario de evaluación de riesgos / JSA / Take 5"
+            data-ar="نموذج تقييم المخاطر / JSA / Take 5"
+            data-pt="Formulário de Avaliação de Riscos / JSA / Take 5"
+            data-fr="Formulaire d'évaluation des risques / JSA / Take 5"
+            data-it="Modulo di valutazione dei rischi / JSA / Take 5"
+            data-de="Risikobewertungsformular / JSA / Take 5"
+            data-he="טופס הערכת סיכונים / JSA / Take 5"
             >Risk Assessment form / JSA / Take 5</span
           >
         </label>
@@ -1053,6 +1637,13 @@
             data-en="No document required."
             data-ru="Документ не требуется."
             data-cn="无需任何文件。"
+            data-es="No se requiere ningún documento."
+            data-ar="لا يتطلب أي وثيقة."
+            data-pt="Nenhum documento necessário."
+            data-fr="Aucun document requis."
+            data-it="Nessun documento richiesto."
+            data-de="Kein Dokument erforderlich."
+            data-he="אין צורך במסמך."
             >No document required.</span
           >
         </label>
@@ -1064,6 +1655,13 @@
           data-en="12a. If required to work on a pitched roof, what type of system can provide a high level of fall protection for the user?"
           data-ru="12a. Если требуется работать на скатной крыше, какой тип системы может обеспечить высокий уровень защиты от падения для пользователя?"
           data-cn="12a. 如果需要在斜屋顶上工作，哪种系统可以为用户提供高水平的防坠落保护？"
+          data-es="12a. Si se requiere trabajar en un tejado inclinado, ¿qué tipo de sistema puede proporcionar un alto nivel de protección contra caídas para el usuario?"
+          data-ar="12a. إذا كان مطلوبًا العمل على سطح مائل، ما نوع النظام الذي يمكن أن يوفر مستوى عالٍ من الحماية من السقوط للمستخدم؟"
+          data-pt="12a. Se for necessário trabalhar em um telhado inclinado, que tipo de sistema pode fornecer um alto nível de proteção contra quedas para o usuário?"
+          data-fr="12a. S'il est requis de travailler sur un toit en pente, quel type de système peut offrir un haut niveau de protection contre les chutes pour l'utilisateur ?"
+          data-it="12a. Se è richiesto di lavorare su un tetto inclinato, quale tipo di sistema può fornire un alto livello di protezione contro le cadute per l'utente?"
+          data-de="12a. Falls auf einem geneigten Dach gearbeitet werden muss, welches System kann dem Benutzer einen hohen Schutz vor Abstürzen bieten?"
+          data-he="12a. אם נדרש לעבוד על גג משופע, איזה סוג של מערכת יכול לספק רמה גבוהה של הגנה מפני נפילה למשתמש?"
         >
           12a. If required to work on a pitched roof, what type of system can
           provide a high level of fall protection for the user?
@@ -1079,6 +1677,13 @@
             data-en="Travel Restraint."
             data-ru="Ограничение перемещений."
             data-cn="移动限制。"
+            data-es="Restricción de movimiento."
+            data-ar="تقييد الحركة."
+            data-pt="Restrição de movimento."
+            data-fr="Retenue de déplacement."
+            data-it="Ritenuta di movimento."
+            data-de="Bewegungseinschränkung."
+            data-he="הגבלת תנועה."
             >Travel Restraint.</span
           >
         </label>
@@ -1093,6 +1698,13 @@
             data-en="Fall Arrest."
             data-ru="Предотвращение падения."
             data-cn="防坠落。"
+            data-es="Detención de caídas."
+            data-ar="منع السقوط."
+            data-pt="Detenção de quedas."
+            data-fr="Arrêt de chute."
+            data-it="Arresto caduta."
+            data-de="Absturzsicherung."
+            data-he="מניעת נפילה."
             >Fall Arrest.</span
           >
         </label>
@@ -1104,6 +1716,13 @@
           data-en="12b. What 3 components would need to be incorporated into this system?"
           data-ru="12b. Какие 3 компонента нужно включить в эту систему?"
           data-cn="12b. 该系统需要包含哪三个组件？"
+          data-es="12b. ¿Qué 3 componentes necesitarían incorporarse en este sistema?"
+          data-ar="12b. ما هي المكونات الثلاثة التي يجب إدراجها في هذا النظام؟"
+          data-pt="12b. Quais 3 componentes precisariam ser incorporados neste sistema?"
+          data-fr="12b. Quels 3 composants devraient être intégrés dans ce système ?"
+          data-it="12b. Quali 3 componenti dovrebbero essere incorporati in questo sistema?"
+          data-de="12b. Welche 3 Komponenten müssten in dieses System integriert werden?"
+          data-he="12b. אילו 3 רכיבים צריך לשלב במערכת זו?"
         >
           12b. What 3 components would need to be incorporated into this system?
         </h3>
@@ -1118,6 +1737,13 @@
             data-en="Kernmantle rope, Anchor points, Harness."
             data-ru="Веревка Kernmantle, Точки крепления, Ремень безопасности."
             data-cn="Kernmantle绳、锚点、安全带。"
+            data-es="Cuerda Kernmantle, puntos de anclaje, arnés."
+            data-ar="حبل Kernmantle، نقاط التثبيت، الحزام."
+            data-pt="Corda Kernmantle, pontos de ancoragem, cinto."
+            data-fr="Corde Kernmantle, points d'ancrage, harnais."
+            data-it="Corda Kernmantle, punti di ancoraggio, imbracatura."
+            data-de="Kernmantle-Seil, Verankerungspunkte, Gurt."
+            data-he="חבל Kernmantle, נקודות עיגון, רתמה."
             >Kernmantle rope, Anchor points, Harness.</span
           >
         </label>
@@ -1132,6 +1758,13 @@
             data-en="Ladder, Rope, Helmet."
             data-ru="Лестница, Веревка, Шлем."
             data-cn="梯子、绳子、头盔。"
+            data-es="Escalera, cuerda, casco."
+            data-ar="سلم، حبل، خوذة."
+            data-pt="Escada, corda, capacete."
+            data-fr="Échelle, corde, casque."
+            data-it="Scala, corda, casco."
+            data-de="Leiter, Seil, Helm."
+            data-he="סולם, חבל, קסדה."
             >Ladder, Rope, Helmet.</span
           >
         </label>
@@ -1143,6 +1776,13 @@
           data-en="13. What is the purpose of a system that incorporates travel restraint techniques?"
           data-ru="13. Какова цель системы, которая включает техники ограничения перемещений?"
           data-cn="13. 包含移动限制技术的系统的目的是什么？"
+          data-es="13. ¿Cuál es el propósito de un sistema que incorpora técnicas de restricción de movimiento?"
+          data-ar="13. ما هو الغرض من نظام يشمل تقنيات تقييد الحركة؟"
+          data-pt="13. Qual é o propósito de um sistema que incorpora técnicas de restrição de movimento?"
+          data-fr="13. Quel est le but d'un système qui intègre des techniques de retenue de déplacement ?"
+          data-it="13. Qual è lo scopo di un sistema che incorpora tecniche di ritenuta del movimento?"
+          data-de="13. Was ist der Zweck eines Systems, das Techniken zur Bewegungseinschränkung integriert?"
+          data-he="13. מהי מטרת מערכת המשלבת טכניקות של הגבלת תנועה?"
         >
           13. What is the purpose of a system that incorporates travel restraint
           techniques?
@@ -1158,6 +1798,13 @@
             data-en="Keep you on the roof if a fall occurs."
             data-ru="Сдерживает вас на крыше, если происходит падение."
             data-cn="在发生坠落时将你保持在屋顶上。"
+            data-es="Mantenerte en el tejado si ocurre una caída."
+            data-ar="إبقائك على السطح إذا حدث سقوط."
+            data-pt="Mantê-lo no telhado se ocorrer uma queda."
+            data-fr="Vous maintenir sur le toit en cas de chute."
+            data-it="Tenerti sul tetto in caso di caduta."
+            data-de="Sie auf dem Dach halten, falls ein Sturz passiert."
+            data-he="לשמור אותך על הגג אם מתרחשת נפילה."
             >Keep you on the roof if a fall occurs.</span
           >
         </label>
@@ -1172,6 +1819,13 @@
             data-en="Stop you from working on the roof."
             data-ru="Запрещает вам работать на крыше."
             data-cn="阻止你在屋顶上工作。"
+            data-es="Impedirte trabajar en el tejado."
+            data-ar="منعك من العمل على السطح."
+            data-pt="Impedir você de trabalhar no telhado."
+            data-fr="Vous empêcher de travailler sur le toit."
+            data-it="Impedirti di lavorare sul tetto."
+            data-de="Sie daran hindern, auf dem Dach zu arbeiten."
+            data-he="למנוע ממך לעבוד על הגג."
             >Stop you from working on the roof.</span
           >
         </label>
@@ -1183,6 +1837,13 @@
           data-en="14. What is the strength requirement of an anchor point used in a restraint techniques system?"
           data-ru="14. Каково требование к прочности точки крепления, используемой в системе ограничения перемещений?"
           data-cn="14. 用于移动限制系统的锚点强度要求是什么？"
+          data-es="14. ¿Cuál es el requisito de resistencia de un punto de anclaje utilizado en un sistema de técnicas de restricción?"
+          data-ar="14. ما هو متطلب القوة لنقطة التثبيت المستخدمة في نظام تقنيات التقييد؟"
+          data-pt="14. Qual é o requisito de resistência de um ponto de ancoragem usado em um sistema de técnicas de restrição?"
+          data-fr="14. Quelle est l'exigence de résistance d'un point d'ancrage utilisé dans un système de techniques de retenue ?"
+          data-it="14. Qual è il requisito di resistenza di un punto di ancoraggio utilizzato in un sistema di tecniche di ritenuta?"
+          data-de="14. Welche Festigkeitsanforderung gilt für einen Ankerpunkt, der in einem System mit Einschränkungstechniken verwendet wird?"
+          data-he="14. מהו דרישת החוזק של נקודת עיגון המשמשת במערכת טכניקות הגבלה?"
         >
           14. What is the strength requirement of an anchor point used in a
           restraint techniques system?
@@ -1198,6 +1859,13 @@
             data-en="12kN or 15kN"
             data-ru="12 кН или 15 кН"
             data-cn="12千牛或15千牛"
+            data-es="12kN o 15kN"
+            data-ar="12 كيلو نيوتن أو 15 كيلو نيوتن"
+            data-pt="12kN ou 15kN"
+            data-fr="12kN ou 15kN"
+            data-it="12kN o 15kN"
+            data-de="12kN oder 15kN"
+            data-he="12kN או 15kN"
             >12kN or 15kN</span
           >
         </label>
@@ -1208,7 +1876,17 @@
             value="15"
             onchange="checkAnswer(this, '12or15', 'feedback14')"
           />
-          <span data-en="15kN only" data-ru="Только 15 кН" data-cn="仅15千牛"
+          <span
+            data-en="15kN only"
+            data-ru="Только 15 кН"
+            data-cn="仅15千牛"
+            data-es="Solo 15kN"
+            data-ar="15 كيلو نيوتن فقط"
+            data-pt="Apenas 15kN"
+            data-fr="15kN uniquement"
+            data-it="Solo 15kN"
+            data-de="Nur 15kN"
+            data-he="רק 15kN"
             >15kN only</span
           >
         </label>
@@ -1220,6 +1898,13 @@
           data-en="15. If using a travel restraint system, what length/distance must be always monitored to ensure that the user cannot fall from the edge of a roof or structure?"
           data-ru="15. Если используется система ограничения перемещений, какую длину/расстояние всегда нужно мониторить, чтобы гарантировать, что пользователь не упадет с края крыши или структуры?"
           data-cn="15. 如果使用移动限制系统，必须始终监控什么长度/距离，以确保用户不会从屋顶或结构的边缘坠落？"
+          data-es="15. Si usas un sistema de restricción de movimiento, ¿qué longitud/distancia debe monitorearse siempre para asegurar que el usuario no caiga desde el borde de un tejado o estructura?"
+          data-ar="15. إذا كنت تستخدم نظام تقييد الحركة، ما الطول/المسافة التي يجب مراقبتها دائمًا لضمان عدم سقوط المستخدم من حافة السطح أو الهيكل؟"
+          data-pt="15. Se usar um sistema de restrição de movimento, qual comprimento/distância deve ser sempre monitorado para garantir que o usuário não caia da borda de um telhado ou estrutura?"
+          data-fr="15. Si vous utilisez un système de retenue de déplacement, quelle longueur/distance doit être constamment surveillée pour garantir que l'utilisateur ne tombe pas du bord d'un toit ou d'une structure ?"
+          data-it="15. Se utilizzi un sistema di ritenuta del movimento, quale lunghezza/distanza deve essere sempre monitorata per garantire che l'utente non cada dal bordo di un tetto o di una struttura?"
+          data-de="15. Welche Länge/Distanz muss bei Verwendung eines Bewegungseinschränkungssystems stets überwacht werden, um sicherzustellen, dass der Benutzer nicht vom Rand eines Dachs oder einer Struktur fällt?"
+          data-he="15. אם משתמשים במערכת הגבלת תנועה, איזה אורך/מרחק יש לנטר תמיד כדי להבטיח שהמשתמש לא ייפול מקצה הגג או המבנה?"
         >
           15. If using a travel restraint system, what length/distance must be
           always monitored to ensure that the user cannot fall from the edge of
@@ -1236,6 +1921,13 @@
             data-en="The pendulum length."
             data-ru="Длина маятника."
             data-cn="摆动长度。"
+            data-es="La longitud del péndulo."
+            data-ar="طول البندول."
+            data-pt="O comprimento do pêndulo."
+            data-fr="La longueur du pendule."
+            data-it="La lunghezza del pendolo."
+            data-de="Die Pendellänge."
+            data-he="אורך המטוטלת."
             >The pendulum length.</span
           >
         </label>
@@ -1250,6 +1942,13 @@
             data-en="The rope length."
             data-ru="Длина веревки."
             data-cn="绳子长度。"
+            data-es="La longitud de la cuerda."
+            data-ar="طول الحبل."
+            data-pt="O comprimento da corda."
+            data-fr="La longueur de la corde."
+            data-it="La lunghezza della corda."
+            data-de="Die Seillänge."
+            data-he="אורך החבל."
             >The rope length.</span
           >
         </label>
@@ -1261,6 +1960,13 @@
           data-en="16a. Roof 1: 1st Anchor Point"
           data-ru="16a. Крыша 1: Первая точка крепления"
           data-cn="16a. 屋顶1：第一个锚点"
+          data-es="16a. Tejado 1: Primer punto de anclaje"
+          data-ar="16a. السطح 1: نقطة التثبيت الأولى"
+          data-pt="16a. Telhado 1: Primeiro ponto de ancoragem"
+          data-fr="16a. Toit 1 : Premier point d'ancrage"
+          data-it="16a. Tetto 1: Primo punto di ancoraggio"
+          data-de="16a. Dach 1: Erster Verankerungspunkt"
+          data-he="16a. גג 1: נקודת עיגון ראשונה"
         >
           16a. Roof 1: 1st Anchor Point
         </h3>
@@ -1271,7 +1977,19 @@
             value="G"
             onchange="checkAnswer(this, 'G', 'feedback16a')"
           />
-          <span data-en="G" data-ru="G" data-cn="G">G</span>
+          <span
+            data-en="G"
+            data-ru="G"
+            data-cn="G"
+            data-es="G"
+            data-ar="G"
+            data-pt="G"
+            data-fr="G"
+            data-it="G"
+            data-de="G"
+            data-he="G"
+            >G</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1280,7 +1998,19 @@
             value="other"
             onchange="checkAnswer(this, 'G', 'feedback16a')"
           />
-          <span data-en="H" data-ru="H" data-cn="H">H</span>
+          <span
+            data-en="H"
+            data-ru="H"
+            data-cn="H"
+            data-es="H"
+            data-ar="H"
+            data-pt="H"
+            data-fr="H"
+            data-it="H"
+            data-de="H"
+            data-he="H"
+            >H</span
+          >
         </label>
         <div id="feedback16a" class="feedback"></div>
       </div>
@@ -1290,6 +2020,13 @@
           data-en="16b. Roof 1: 2nd Anchor Point"
           data-ru="16b. Крыша 1: Вторая точка крепления"
           data-cn="16b. 屋顶1：第二个锚点"
+          data-es="16b. Tejado 1: Segundo punto de anclaje"
+          data-ar="16b. السطح 1: نقطة التثبيت الثانية"
+          data-pt="16b. Telhado 1: Segundo ponto de ancoragem"
+          data-fr="16b. Toit 1 : Deuxième point d'ancrage"
+          data-it="16b. Tetto 1: Secondo punto di ancoraggio"
+          data-de="16b. Dach 1: Zweiter Verankerungspunkt"
+          data-he="16b. גג 1: נקודת עיגון שנייה"
         >
           16b. Roof 1: 2nd Anchor Point
         </h3>
@@ -1300,7 +2037,19 @@
             value="I"
             onchange="checkAnswer(this, 'I', 'feedback16b')"
           />
-          <span data-en="I" data-ru="I" data-cn="I">I</span>
+          <span
+            data-en="I"
+            data-ru="I"
+            data-cn="I"
+            data-es="I"
+            data-ar="I"
+            data-pt="I"
+            data-fr="I"
+            data-it="I"
+            data-de="I"
+            data-he="I"
+            >I</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1309,7 +2058,19 @@
             value="other"
             onchange="checkAnswer(this, 'I', 'feedback16b')"
           />
-          <span data-en="J" data-ru="J" data-cn="J">J</span>
+          <span
+            data-en="J"
+            data-ru="J"
+            data-cn="J"
+            data-es="J"
+            data-ar="J"
+            data-pt="J"
+            data-fr="J"
+            data-it="J"
+            data-de="J"
+            data-he="J"
+            >J</span
+          >
         </label>
         <div id="feedback16b" class="feedback"></div>
       </div>
@@ -1319,6 +2080,13 @@
           data-en="17a. Roof 2: 1st Anchor Point"
           data-ru="17a. Крыша 2: Первая точка крепления"
           data-cn="17a. 屋顶2：第一个锚点"
+          data-es="17a. Tejado 2: Primer punto de anclaje"
+          data-ar="17a. السطح 2: نقطة التثبيت الأولى"
+          data-pt="17a. Telhado 2: Primeiro ponto de ancoragem"
+          data-fr="17a. Toit 2 : Premier point d'ancrage"
+          data-it="17a. Tetto 2: Primo punto di ancoraggio"
+          data-de="17a. Dach 2: Erster Verankerungspunkt"
+          data-he="17a. גג 2: נקודת עיגון ראשונה"
         >
           17a. Roof 2: 1st Anchor Point
         </h3>
@@ -1329,7 +2097,19 @@
             value="O"
             onchange="checkAnswer(this, 'O', 'feedback17a')"
           />
-          <span data-en="O" data-ru="O" data-cn="O">O</span>
+          <span
+            data-en="O"
+            data-ru="O"
+            data-cn="O"
+            data-es="O"
+            data-ar="O"
+            data-pt="O"
+            data-fr="O"
+            data-it="O"
+            data-de="O"
+            data-he="O"
+            >O</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1338,7 +2118,19 @@
             value="other"
             onchange="checkAnswer(this, 'O', 'feedback17a')"
           />
-          <span data-en="P" data-ru="P" data-cn="P">P</span>
+          <span
+            data-en="P"
+            data-ru="P"
+            data-cn="P"
+            data-es="P"
+            data-ar="P"
+            data-pt="P"
+            data-fr="P"
+            data-it="P"
+            data-de="P"
+            data-he="P"
+            >P</span
+          >
         </label>
         <div id="feedback17a" class="feedback"></div>
       </div>
@@ -1348,6 +2140,13 @@
           data-en="17b. Roof 2: 2nd Anchor Point"
           data-ru="17b. Крыша 2: Вторая точка крепления"
           data-cn="17b. 屋顶2：第二个锚点"
+          data-es="17b. Tejado 2: Segundo punto de anclaje"
+          data-ar="17b. السطح 2: نقطة التثبيت الثانية"
+          data-pt="17b. Telhado 2: Segundo ponto de ancoragem"
+          data-fr="17b. Toit 2 : Deuxième point d'ancrage"
+          data-it="17b. Tetto 2: Secondo punto di ancoraggio"
+          data-de="17b. Dach 2: Zweiter Verankerungspunkt"
+          data-he="17b. גג 2: נקודת עיגון שנייה"
         >
           17b. Roof 2: 2nd Anchor Point
         </h3>
@@ -1358,7 +2157,19 @@
             value="M"
             onchange="checkAnswer(this, 'M', 'feedback17b')"
           />
-          <span data-en="M" data-ru="M" data-cn="M">M</span>
+          <span
+            data-en="M"
+            data-ru="M"
+            data-cn="M"
+            data-es="M"
+            data-ar="M"
+            data-pt="M"
+            data-fr="M"
+            data-it="M"
+            data-de="M"
+            data-he="M"
+            >M</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1367,7 +2178,19 @@
             value="other"
             onchange="checkAnswer(this, 'M', 'feedback17b')"
           />
-          <span data-en="N" data-ru="N" data-cn="N">N</span>
+          <span
+            data-en="N"
+            data-ru="N"
+            data-cn="N"
+            data-es="N"
+            data-ar="N"
+            data-pt="N"
+            data-fr="N"
+            data-it="N"
+            data-de="N"
+            data-he="N"
+            >N</span
+          >
         </label>
         <div id="feedback17b" class="feedback"></div>
       </div>
@@ -1377,6 +2200,13 @@
           data-en="18a. Roof 3: 1st Anchor Point"
           data-ru="18a. Крыша 3: Первая точка крепления"
           data-cn="18a. 屋顶3：第一个锚点"
+          data-es="18a. Tejado 3: Primer punto de anclaje"
+          data-ar="18a. السطح 3: نقطة التثبيت الأولى"
+          data-pt="18a. Telhado 3: Primeiro ponto de ancoragem"
+          data-fr="18a. Toit 3 : Premier point d'ancrage"
+          data-it="18a. Tetto 3: Primo punto di ancoraggio"
+          data-de="18a. Dach 3: Erster Verankerungspunkt"
+          data-he="18a. גג 3: נקודת עיגון ראשונה"
         >
           18a. Roof 3: 1st Anchor Point
         </h3>
@@ -1387,7 +2217,19 @@
             value="C"
             onchange="checkAnswer(this, 'C', 'feedback18a')"
           />
-          <span data-en="C" data-ru="C" data-cn="C">C</span>
+          <span
+            data-en="C"
+            data-ru="C"
+            data-cn="C"
+            data-es="C"
+            data-ar="C"
+            data-pt="C"
+            data-fr="C"
+            data-it="C"
+            data-de="C"
+            data-he="C"
+            >C</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1396,7 +2238,19 @@
             value="other"
             onchange="checkAnswer(this, 'C', 'feedback18a')"
           />
-          <span data-en="D" data-ru="D" data-cn="D">D</span>
+          <span
+            data-en="D"
+            data-ru="D"
+            data-cn="D"
+            data-es="D"
+            data-ar="D"
+            data-pt="D"
+            data-fr="D"
+            data-it="D"
+            data-de="D"
+            data-he="D"
+            >D</span
+          >
         </label>
         <div id="feedback18a" class="feedback"></div>
       </div>
@@ -1406,6 +2260,13 @@
           data-en="18b. Roof 3: 2nd Anchor Point"
           data-ru="18b. Крыша 3: Вторая точка крепления"
           data-cn="18b. 屋顶3：第二个锚点"
+          data-es="18b. Tejado 3: Segundo punto de anclaje"
+          data-ar="18b. السطح 3: نقطة التثبيت الثانية"
+          data-pt="18b. Telhado 3: Segundo ponto de ancoragem"
+          data-fr="18b. Toit 3 : Deuxième point d'ancrage"
+          data-it="18b. Tetto 3: Secondo punto di ancoraggio"
+          data-de="18b. Dach 3: Zweiter Verankerungspunkt"
+          data-he="18b. גג 3: נקודת עיגון שנייה"
         >
           18b. Roof 3: 2nd Anchor Point
         </h3>
@@ -1416,7 +2277,19 @@
             value="P"
             onchange="checkAnswer(this, 'P', 'feedback18b')"
           />
-          <span data-en="P" data-ru="P" data-cn="P">P</span>
+          <span
+            data-en="P"
+            data-ru="P"
+            data-cn="P"
+            data-es="P"
+            data-ar="P"
+            data-pt="P"
+            data-fr="P"
+            data-it="P"
+            data-de="P"
+            data-he="P"
+            >P</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1425,7 +2298,19 @@
             value="other"
             onchange="checkAnswer(this, 'P', 'feedback18b')"
           />
-          <span data-en="Q" data-ru="Q" data-cn="Q">Q</span>
+          <span
+            data-en="Q"
+            data-ru="Q"
+            data-cn="Q"
+            data-es="Q"
+            data-ar="Q"
+            data-pt="Q"
+            data-fr="Q"
+            data-it="Q"
+            data-de="Q"
+            data-he="Q"
+            >Q</span
+          >
         </label>
         <div id="feedback18b" class="feedback"></div>
       </div>
@@ -1435,6 +2320,13 @@
           data-en="19a. Roof 4: 1st Anchor Point"
           data-ru="19a. Крыша 4: Первая точка крепления"
           data-cn="19a. 屋顶4：第一个锚点"
+          data-es="19a. Tejado 4: Primer punto de anclaje"
+          data-ar="19a. السطح 4: نقطة التثبيت الأولى"
+          data-pt="19a. Telhado 4: Primeiro ponto de ancoragem"
+          data-fr="19a. Toit 4 : Premier point d'ancrage"
+          data-it="19a. Tetto 4: Primo punto di ancoraggio"
+          data-de="19a. Dach 4: Erster Verankerungspunkt"
+          data-he="19a. גג 4: נקודת עיגון ראשונה"
         >
           19a. Roof 4: 1st Anchor Point
         </h3>
@@ -1445,7 +2337,19 @@
             value="B"
             onchange="checkAnswer(this, 'B', 'feedback19a')"
           />
-          <span data-en="B" data-ru="B" data-cn="B">B</span>
+          <span
+            data-en="B"
+            data-ru="B"
+            data-cn="B"
+            data-es="B"
+            data-ar="B"
+            data-pt="B"
+            data-fr="B"
+            data-it="B"
+            data-de="B"
+            data-he="B"
+            >B</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1454,7 +2358,19 @@
             value="other"
             onchange="checkAnswer(this, 'B', 'feedback19a')"
           />
-          <span data-en="A" data-ru="A" data-cn="A">A</span>
+          <span
+            data-en="A"
+            data-ru="A"
+            data-cn="A"
+            data-es="A"
+            data-ar="A"
+            data-pt="A"
+            data-fr="A"
+            data-it="A"
+            data-de="A"
+            data-he="A"
+            >A</span
+          >
         </label>
         <div id="feedback19a" class="feedback"></div>
       </div>
@@ -1464,6 +2380,13 @@
           data-en="19b. Roof 4: 2nd Anchor Point"
           data-ru="19b. Крыша 4: Вторая точка крепления"
           data-cn="19b. 屋顶4：第二个锚点"
+          data-es="19b. Tejado 4: Segundo punto de anclaje"
+          data-ar="19b. السطح 4: نقطة التثبيت الثانية"
+          data-pt="19b. Telhado 4: Segundo ponto de ancoragem"
+          data-fr="19b. Toit 4 : Deuxième point d'ancrage"
+          data-it="19b. Tetto 4: Secondo punto di ancoraggio"
+          data-de="19b. Dach 4: Zweiter Verankerungspunkt"
+          data-he="19b. גג 4: נקודת עיגון שנייה"
         >
           19b. Roof 4: 2nd Anchor Point
         </h3>
@@ -1474,7 +2397,19 @@
             value="P"
             onchange="checkAnswer(this, 'P', 'feedback19b')"
           />
-          <span data-en="P" data-ru="P" data-cn="P">P</span>
+          <span
+            data-en="P"
+            data-ru="P"
+            data-cn="P"
+            data-es="P"
+            data-ar="P"
+            data-pt="P"
+            data-fr="P"
+            data-it="P"
+            data-de="P"
+            data-he="P"
+            >P</span
+          >
         </label>
         <label class="answer">
           <input
@@ -1483,7 +2418,19 @@
             value="other"
             onchange="checkAnswer(this, 'P', 'feedback19b')"
           />
-          <span data-en="Q" data-ru="Q" data-cn="Q">Q</span>
+          <span
+            data-en="Q"
+            data-ru="Q"
+            data-cn="Q"
+            data-es="Q"
+            data-ar="Q"
+            data-pt="Q"
+            data-fr="Q"
+            data-it="Q"
+            data-de="Q"
+            data-he="Q"
+            >Q</span
+          >
         </label>
         <div id="feedback19b" class="feedback"></div>
       </div>
@@ -1493,6 +2440,13 @@
           data-en="20a. Roof 5: Anchor Points"
           data-ru="20a. Крыша 5: Точки крепления"
           data-cn="20a. 屋顶5：锚点"
+          data-es="20a. Tejado 5: Puntos de anclaje"
+          data-ar="20a. السطح 5: نقاط التثبيت"
+          data-pt="20a. Telhado 5: Pontos de ancoragem"
+          data-fr="20a. Toit 5 : Points d'ancrage"
+          data-it="20a. Tetto 5: Punti di ancoraggio"
+          data-de="20a. Dach 5: Verankerungspunkte"
+          data-he="20a. גג 5: נקודות עיגון"
         >
           20a. Roof 5: Anchor Points
         </h3>
@@ -1507,6 +2461,13 @@
             data-en="C, N, K OR M, K, N"
             data-ru="C, N, K ИЛИ M, K, N"
             data-cn="C、N、K 或 M、K、N"
+            data-es="C, N, K O M, K, N"
+            data-ar="C، N، K أو M، K، N"
+            data-pt="C, N, K OU M, K, N"
+            data-fr="C, N, K OU M, K, N"
+            data-it="C, N, K O M, K, N"
+            data-de="C, N, K ODER M, K, N"
+            data-he="C, N, K או M, K, N"
             >C, N, K OR M, K, N</span
           >
         </label>
@@ -1521,6 +2482,13 @@
             data-en="A, B, C, D, E"
             data-ru="A, B, C, D, E"
             data-cn="A、B、C、D、E"
+            data-es="A, B, C, D, E"
+            data-ar="A، B، C، D، E"
+            data-pt="A, B, C, D, E"
+            data-fr="A, B, C, D, E"
+            data-it="A, B, C, D, E"
+            data-de="A, B, C, D, E"
+            data-he="A, B, C, D, E"
             >A, B, C, D, E</span
           >
         </label>
@@ -1532,6 +2500,13 @@
           data-en="21. Using Roof Image 5, how do you stay safe from the gabled ends of the roof?"
           data-ru="21. Используя изображение крыши 5, как вы остаетесь в безопасности от фронтальных концов крыши?"
           data-cn="21. 使用屋顶5图像，你如何在屋顶的山墙端保持安全？"
+          data-es="21. Usando la imagen del tejado 5, ¿cómo te mantienes seguro en los extremos a dos aguas del tejado?"
+          data-ar="21. باستخدام صورة السطح 5، كيف تحافظ على سلامتك من الأطراف المثلثة للسطح؟"
+          data-pt="21. Usando a imagem do telhado 5, como você fica seguro nas extremidades de duas águas do telhado?"
+          data-fr="21. En utilisant l'image du toit 5, comment restez-vous en sécurité aux extrémités à pignons du toit ?"
+          data-it="21. Usando l'immagine del tetto 5, come rimani al sicuro dalle estremità a due spioventi del tetto?"
+          data-de="21. Wie bleiben Sie mit Bild 5 des Dachs an den Giebelenden des Dachs sicher?"
+          data-he="21. באמצעות תמונת גג 5, כיצד אתה נשאר בטוח בקצוות הגמלונים של הגג?"
         >
           21. Using Roof Image 5, how do you stay safe from the gabled ends of
           the roof?
@@ -1547,6 +2522,13 @@
             data-en="Adjust the rope length so you cannot fall off the roof gable."
             data-ru="Настройте длину веревки, чтобы вы не могли упасть с фронтального конца крыши."
             data-cn="调整绳子长度，使你不会从屋顶山墙坠落。"
+            data-es="Ajusta la longitud de la cuerda para que no puedas caer del gablete del tejado."
+            data-ar="اضبط طول الحبل حتى لا تتمكن من السقوط من طرف السطح المثلث."
+            data-pt="Ajuste o comprimento da corda para que você não caia da extremidade de duas águas do telhado."
+            data-fr="Ajustez la longueur de la corde pour ne pas pouvoir tomber du pignon du toit."
+            data-it="Regola la lunghezza della corda in modo da non poter cadere dal timpano del tetto."
+            data-de="Passen Sie die Seillänge an, damit Sie nicht vom Dachgiebel fallen können."
+            data-he="כוונן את אורך החבל כך שלא תוכל ליפול מקצה הגמלון של הגג."
             >Adjust the rope length so you cannot fall off the roof gable.</span
           >
         </label>
@@ -1561,6 +2543,13 @@
             data-en="Do not use a rope."
             data-ru="Не используйте веревку."
             data-cn="不使用绳子。"
+            data-es="No uses una cuerda."
+            data-ar="لا تستخدم حبلًا."
+            data-pt="Não use uma corda."
+            data-fr="N'utilisez pas de corde."
+            data-it="Non usare una corda."
+            data-de="Verwenden Sie kein Seil."
+            data-he="אל תשתמש בחבל."
             >Do not use a rope.</span
           >
         </label>
@@ -1572,6 +2561,13 @@
           data-en="22a. 1st point"
           data-ru="22a. Первая точка"
           data-cn="22a. 第一点"
+          data-es="22a. Primer punto"
+          data-ar="22a. النقطة الأولى"
+          data-pt="22a. Primeiro ponto"
+          data-fr="22a. Premier point"
+          data-it="22a. Primo punto"
+          data-de="22a. Erster Punkt"
+          data-he="22a. נקודה ראשונה"
         >
           22a. 1st point
         </h3>
@@ -1586,6 +2582,13 @@
             data-en="Ensure the top is fixed before entering the roof."
             data-ru="Убедитесь, что верх закреплен перед входом на крышу."
             data-cn="在进入屋顶前确保顶部已固定。"
+            data-es="Asegúrate de que la parte superior esté fija antes de entrar al tejado."
+            data-ar="تأكد من تثبيت الجزء العلوي قبل دخول السطح."
+            data-pt="Certifique-se de que a parte superior esteja fixa antes de entrar no telhado."
+            data-fr="Assurez-vous que le sommet est fixé avant d'entrer sur le toit."
+            data-it="Assicurati che la parte superiore sia fissata prima di entrare sul tetto."
+            data-de="Stellen Sie sicher, dass die Oberseite befestigt ist, bevor Sie das Dach betreten."
+            data-he="וודא שהחלק העליון קבוע לפני הכניסה לגג."
             >Ensure the top is fixed before entering the roof.</span
           >
         </label>
@@ -1600,6 +2603,13 @@
             data-en="Do not fix the top."
             data-ru="Не закрепляйте верх."
             data-cn="不固定顶部。"
+            data-es="No fijes la parte superior."
+            data-ar="لا تثبت الجزء العلوي."
+            data-pt="Não fixe a parte superior."
+            data-fr="Ne fixez pas le sommet."
+            data-it="Non fissare la parte superiore."
+            data-de="Befestigen Sie die Oberseite nicht."
+            data-he="אל תקבע את החלק העליון."
             >Do not fix the top.</span
           >
         </label>
@@ -1611,6 +2621,13 @@
           data-en="22b. 2nd point"
           data-ru="22b. Вторая точка"
           data-cn="22b. 第二点"
+          data-es="22b. Segundo punto"
+          data-ar="22b. النقطة الثانية"
+          data-pt="22b. Segundo ponto"
+          data-fr="22b. Deuxième point"
+          data-it="22b. Secondo punto"
+          data-de="22b. Zweiter Punkt"
+          data-he="22b. נקודה שנייה"
         >
           22b. 2nd point
         </h3>
@@ -1625,6 +2642,13 @@
             data-en="The ladder needs to be 1mt past gutter line."
             data-ru="Лестница должна быть на 1 метр за линией водостока."
             data-cn="梯子需要超出排水沟线1米。"
+            data-es="La escalera debe estar 1 metro más allá de la línea del canalón."
+            data-ar="يجب أن يكون السلم على بعد متر واحد من خط الميزاب."
+            data-pt="A escada precisa estar 1 metro além da linha da calha."
+            data-fr="L'échelle doit dépasser la ligne de gouttière de 1 mètre."
+            data-it="La scala deve superare la linea della grondaia di 1 metro."
+            data-de="Die Leiter muss 1 Meter über die Dachrinnenlinie hinausgehen."
+            data-he="הסולם צריך להיות 1 מטר מעבר לקו המרזב."
             >The ladder needs to be 1mt past gutter line.</span
           >
         </label>
@@ -1639,6 +2663,13 @@
             data-en="The ladder needs to be below the gutter line."
             data-ru="Лестница должна быть ниже линии водостока."
             data-cn="梯子需要低于排水沟线。"
+            data-es="La escalera debe estar por debajo de la línea del canalón."
+            data-ar="يجب أن يكون السلم أسفل خط الميزاب."
+            data-pt="A escada precisa estar abaixo da linha da calha."
+            data-fr="L'échelle doit être en dessous de la ligne de gouttière."
+            data-it="La scala deve essere sotto la linea della grondaia."
+            data-de="Die Leiter muss unterhalb der Dachrinnenlinie sein."
+            data-he="הסולם צריך להיות מתחת לקו המרזב."
             >The ladder needs to be below the gutter line.</span
           >
         </label>
@@ -1650,6 +2681,13 @@
           data-en="22c. 3rd point"
           data-ru="22c. Третья точка"
           data-cn="22c. 第三点"
+          data-es="22c. Tercer punto"
+          data-ar="22c. النقطة الثالثة"
+          data-pt="22c. Terceiro ponto"
+          data-fr="22c. Troisième point"
+          data-it="22c. Terzo punto"
+          data-de="22c. Dritter Punkt"
+          data-he="22c. נקודה שלישית"
         >
           22c. 3rd point
         </h3>
@@ -1664,6 +2702,13 @@
             data-en="Have the ladder at 4:1 angle to the roof."
             data-ru="Установите лестницу под углом 4:1 к крыше."
             data-cn="将梯子与屋顶成4:1角度放置。"
+            data-es="Coloca la escalera en un ángulo de 4:1 respecto al tejado."
+            data-ar="اجعل السلم بزاوية 4:1 بالنسبة للسطح."
+            data-pt="Coloque a escada em um ângulo de 4:1 em relação ao telhado."
+            data-fr="Placez l'échelle à un angle de 4:1 par rapport au toit."
+            data-it="Posiziona la scala con un angolo di 4:1 rispetto al tetto."
+            data-de="Stellen Sie die Leiter in einem Winkel von 4:1 zum Dach auf."
+            data-he="מקם את הסולם בזווית של 4:1 ביחס לגג."
             >Have the ladder at 4:1 angle to the roof.</span
           >
         </label>
@@ -1678,6 +2723,13 @@
             data-en="Have the ladder at 1:1 angle to the roof."
             data-ru="Установите лестницу под углом 1:1 к крыше."
             data-cn="将梯子与屋顶成1:1角度放置。"
+            data-es="Coloca la escalera en un ángulo de 1:1 respecto al tejado."
+            data-ar="اجعل السلم بزاوية 1:1 بالنسبة للسطح."
+            data-pt="Coloque a escada em um ângulo de 1:1 em relação ao telhado."
+            data-fr="Placez l'échelle à un angle de 1:1 par rapport au toit."
+            data-it="Posiziona la scala con un angolo di 1:1 rispetto al tetto."
+            data-de="Stellen Sie die Leiter in einem Winkel von 1:1 zum Dach auf."
+            data-he="מקם את הסולם בזווית של 1:1 ביחס לגג."
             >Have the ladder at 1:1 angle to the roof.</span
           >
         </label>
@@ -1689,6 +2741,13 @@
           data-en="22d. 4th point"
           data-ru="22d. Четвертая точка"
           data-cn="22d. 第四点"
+          data-es="22d. Cuarto punto"
+          data-ar="22d. النقطة الرابعة"
+          data-pt="22d. Quarto ponto"
+          data-fr="22d. Quatrième point"
+          data-it="22d. Quarto punto"
+          data-de="22d. Vierter Punkt"
+          data-he="22d. נקודה רביעית"
         >
           22d. 4th point
         </h3>
@@ -1703,6 +2762,13 @@
             data-en="Ladder must have 3 and ½ rungs overlap."
             data-ru="Лестница должна иметь перекрытие 3,5 ступенек."
             data-cn="梯子必须有3.5个梯级重叠。"
+            data-es="La escalera debe tener un solapamiento de 3 y ½ peldaños."
+            data-ar="يجب أن يحتوي السلم على تداخل 3.5 درجات."
+            data-pt="A escada deve ter uma sobreposição de 3,5 degraus."
+            data-fr="L'échelle doit avoir un chevauchement de 3,5 échelons."
+            data-it="La scala deve avere una sovrapposizione di 3,5 pioli."
+            data-de="Die Leiter muss einen Überlapp von 3,5 Sprossen haben."
+            data-he="הסולם חייב להיות עם חפיפה של 3.5 שלבים."
             >Ladder must have 3 and ½ rungs overlap.</span
           >
         </label>
@@ -1717,6 +2783,13 @@
             data-en="Ladder must have no rungs overlap."
             data-ru="Лестница не должна иметь перекрытия ступенек."
             data-cn="梯子不得有梯级重叠。"
+            data-es="La escalera no debe tener solapamiento de peldaños."
+            data-ar="يجب ألا يحتوي السلم على تداخل درجات."
+            data-pt="A escada não deve ter sobreposição de degraus."
+            data-fr="L'échelle ne doit pas avoir de chevauchement d'échelons."
+            data-it="La scala non deve avere sovrapposizione di pioli."
+            data-de="Die Leiter darf keine Sprossenüberlappung haben."
+            data-he="הסולם לא חייב להיות עם חפיפת שלבים."
             >Ladder must have no rungs overlap.</span
           >
         </label>
@@ -1728,6 +2801,13 @@
           data-en="23. Apart from daily routine inspections, how often does your PPE equipment need to be inspected by a competent person?"
           data-ru="23. Кроме ежедневных проверок, как часто ваше оборудование СИЗ должно проверяться квалифицированным лицом?"
           data-cn="23. 除了日常检查外，你的个人防护装备需要多久由有能力的人检查一次？"
+          data-es="23. Aparte de las inspecciones diarias de rutina, ¿con qué frecuencia debe un competente inspeccionar tu equipo de EPP?"
+          data-ar="23. بصرف النظر عن التفتيش الروتيني اليومي، كم مرة يجب على شخص مختص فحص معدات الحماية الشخصية الخاصة بك؟"
+          data-pt="23. Além das inspeções diárias de rotina, com que frequência seu equipamento de EPI precisa ser inspecionado por uma pessoa competente?"
+          data-fr="23. En dehors des inspections quotidiennes de routine, à quelle fréquence votre équipement de protection individuelle doit-il être inspecté par une personne compétente ?"
+          data-it="23. Oltre alle ispezioni giornaliere di routine, con quale frequenza il tuo equipaggiamento DPI deve essere ispezionato da una persona competente?"
+          data-de="23. Abgesehen von täglichen Routineinspektionen, wie oft muss Ihre PSA-Ausrüstung von einer kompetenten Person überprüft werden?"
+          data-he="23. מלבד בדיקות שגרתיות יומיות, באיזו תדירות ציוד המגן האישי שלך צריך להיבדק על ידי אדם מוסמך?"
         >
           23. Apart from daily routine inspections, how often does your PPE
           equipment need to be inspected by a competent person?
@@ -1743,6 +2823,13 @@
             data-en="Every 6 months."
             data-ru="Каждые 6 месяцев."
             data-cn="每6个月。"
+            data-es="Cada 6 meses."
+            data-ar="كل 6 أشهر."
+            data-pt="A cada 6 meses."
+            data-fr="Tous les 6 mois."
+            data-it="Ogni 6 mesi."
+            data-de="Alle 6 Monate."
+            data-he="כל 6 חודשים."
             >Every 6 months.</span
           >
         </label>
@@ -1753,7 +2840,17 @@
             value="other"
             onchange="checkAnswer(this, '6months', 'feedback23')"
           />
-          <span data-en="Every year." data-ru="Каждый год." data-cn="每年。"
+          <span
+            data-en="Every year."
+            data-ru="Каждый год."
+            data-cn="每年。"
+            data-es="Cada año."
+            data-ar="كل عام."
+            data-pt="A cada ano."
+            data-fr="Chaque année."
+            data-it="Ogni anno."
+            data-de="Jedes Jahr."
+            data-he="כל שנה."
             >Every year.</span
           >
         </label>
@@ -1765,6 +2862,13 @@
           data-en="24a. 1st component"
           data-ru="24a. Первый компонент"
           data-cn="24a. 第一个组件"
+          data-es="24a. Primer componente"
+          data-ar="24a. المكون الأول"
+          data-pt="24a. Primeiro componente"
+          data-fr="24a. Premier composant"
+          data-it="24a. Primo componente"
+          data-de="24a. Erste Komponente"
+          data-he="24a. רכיב ראשון"
         >
           24a. 1st component
         </h3>
@@ -1779,6 +2883,13 @@
             data-en="The manufacture date is less than 10 years old."
             data-ru="Дата производства менее 10 лет назад."
             data-cn="制造日期少于10年。"
+            data-es="La fecha de fabricación es inferior a 10 años."
+            data-ar="تاريخ الصنع أقل من 10 سنوات."
+            data-pt="A data de fabricação é inferior a 10 anos."
+            data-fr="La date de fabrication est inférieure à 10 ans."
+            data-it="La data di fabbricazione è inferiore a 10 anni."
+            data-de="Das Herstellungsdatum ist weniger als 10 Jahre alt."
+            data-he="תאריך היצור הוא פחות מ-10 שנים."
             >The manufacture date is less than 10 years old.</span
           >
         </label>
@@ -1793,6 +2904,13 @@
             data-en="The manufacture date is more than 10 years old."
             data-ru="Дата производства более 10 лет назад."
             data-cn="制造日期超过10年。"
+            data-es="La fecha de fabricación es superior a 10 años."
+            data-ar="تاريخ الصنع أكثر من 10 سنوات."
+            data-pt="A data de fabricação é superior a 10 anos."
+            data-fr="La date de fabrication est supérieure à 10 ans."
+            data-it="La data di fabbricazione è superiore a 10 anni."
+            data-de="Das Herstellungsdatum ist mehr als 10 Jahre alt."
+            data-he="תאריך היצור הוא יותר מ-10 שנים."
             >The manufacture date is more than 10 years old.</span
           >
         </label>
@@ -1804,6 +2922,13 @@
           data-en="24b. 2nd component"
           data-ru="24b. Второй компонент"
           data-cn="24b. 第二个组件"
+          data-es="24b. Segundo componente"
+          data-ar="24b. المكون الثاني"
+          data-pt="24b. Segundo componente"
+          data-fr="24b. Deuxième composant"
+          data-it="24b. Secondo componente"
+          data-de="24b. Zweite Komponente"
+          data-he="24b. רכיב שני"
         >
           24b. 2nd component
         </h3>
@@ -1818,6 +2943,13 @@
             data-en="Webbing has no rotting or mildew."
             data-ru="Ткань не имеет гниения или плесени."
             data-cn="织带没有腐烂或霉变。"
+            data-es="La cinta no tiene podredumbre ni moho."
+            data-ar="الشريط لا يحتوي على تعفن أو عفن."
+            data-pt="A correia não tem apodrecimento ou mofo."
+            data-fr="La sangle n'a ni pourriture ni moisissure."
+            data-it="La fettuccia non presenta marciume o muffa."
+            data-de="Das Gurtband hat weder Fäulnis noch Schimmel."
+            data-he="הרצועה אינה מכילה ריקבון או עובש."
             >Webbing has no rotting or mildew.</span
           >
         </label>
@@ -1832,6 +2964,13 @@
             data-en="Webbing has rotting or mildew."
             data-ru="Ткань имеет гниение или плесень."
             data-cn="织带有腐烂或霉变。"
+            data-es="La cinta tiene podredumbre o moho."
+            data-ar="الشريط يحتوي على تعفن أو عفن."
+            data-pt="A correia tem apodrecimento ou mofo."
+            data-fr="La sangle a de la pourriture ou de la moisissure."
+            data-it="La fettuccia presenta marciume o muffa."
+            data-de="Das Gurtband hat Fäulnis oder Schimmel."
+            data-he="הרצועה מכילה ריקבון או עובש."
             >Webbing has rotting or mildew.</span
           >
         </label>
@@ -1843,6 +2982,13 @@
           data-en="24c. 3rd component"
           data-ru="24c. Третий компонент"
           data-cn="24c. 第三个组件"
+          data-es="24c. Tercer componente"
+          data-ar="24c. المكون الثالث"
+          data-pt="24c. Terceiro componente"
+          data-fr="24c. Troisième composant"
+          data-it="24c. Terzo componente"
+          data-de="24c. Dritte Komponente"
+          data-he="24c. רכיב שלישי"
         >
           24c. 3rd component
         </h3>
@@ -1857,6 +3003,13 @@
             data-en="D rings do not have excess movement of the straight portions at its attachment."
             data-ru="D-кольца не имеют избыточного движения прямых частей в месте крепления."
             data-cn="D环在其附着处直线部分没有过多移动。"
+            data-es="Los anillos D no tienen movimiento excesivo en las partes rectas de su sujeción."
+            data-ar="الحلقات D لا تحتوي على حركة زائدة في الأجزاء المستقيمة عند تثبيتها."
+            data-pt="Os anéis D não têm movimento excessivo das partes retas em sua fixação."
+            data-fr="Les anneaux D n'ont pas de mouvement excessif des parties droites à leur fixation."
+            data-it="Gli anelli D non presentano un movimento eccessivo delle parti dritte nel punto di fissaggio."
+            data-de="Die D-Ringe haben keine übermäßige Bewegung der geraden Teile an ihrer Befestigung."
+            data-he="טבעות D אינן בעלות תנועה מופרזת של החלקים הישרים בנקודת החיבור שלהם."
             >D rings do not have excess movement of the straight portions at its
             attachment.</span
           >
@@ -1872,6 +3025,13 @@
             data-en="D rings have excess movement."
             data-ru="D-кольца имеют избыточное движение."
             data-cn="D环有过多移动。"
+            data-es="Los anillos D tienen movimiento excesivo."
+            data-ar="الحلقات D تحتوي على حركة زائدة."
+            data-pt="Os anéis D têm movimento excessivo."
+            data-fr="Les anneaux D ont un mouvement excessif."
+            data-it="Gli anelli D presentano un movimento eccessivo."
+            data-de="Die D-Ringe haben übermäßige Bewegung."
+            data-he="טבעות D בעלות תנועה מופרזת."
             >D rings have excess movement.</span
           >
         </label>
@@ -1883,6 +3043,13 @@
           data-en="24d. 4th component"
           data-ru="24d. Четвертый компонент"
           data-cn="24d. 第四个组件"
+          data-es="24d. Cuarto componente"
+          data-ar="24d. المكون الرابع"
+          data-pt="24d. Quarto componente"
+          data-fr="24d. Quatrième composant"
+          data-it="24d. Quarto componente"
+          data-de="24d. Vierte Komponente"
+          data-he="24d. רכיב רביעי"
         >
           24d. 4th component
         </h3>
@@ -1897,6 +3064,13 @@
             data-en="No wear or damage due to contact with heat or corrosives."
             data-ru="Нет износа или повреждений из-за контакта с теплом или коррозионными веществами."
             data-cn="没有因接触热量或腐蚀物而导致的磨损或损坏。"
+            data-es="Sin desgaste ni daños debido al contacto con calor o corrosivos."
+            data-ar="لا يوجد تآكل أو ضرر بسبب التماس مع الحرارة أو المواد المسببة للتآكل."
+            data-pt="Sem desgaste ou danos devido ao contato com calor ou corrosivos."
+            data-fr="Aucune usure ou dommage dû au contact avec la chaleur ou des corrosifs."
+            data-it="Nessuna usura o danno dovuto al contatto con calore o corrosivi."
+            data-de="Kein Verschleiß oder Schaden durch Kontakt mit Hitze oder Korrosionsmitteln."
+            data-he="אין בלאי או נזק עקב מגע עם חום או חומרים מאכלים."
             >No wear or damage due to contact with heat or corrosives.</span
           >
         </label>
@@ -1911,6 +3085,13 @@
             data-en="Wear or damage due to contact with heat or corrosives."
             data-ru="Износ или повреждения из-за контакта с теплом или коррозионными веществами."
             data-cn="因接触热量或腐蚀物而导致的磨损或损坏。"
+            data-es="Desgaste o daños debido al contacto con calor o corrosivos."
+            data-ar="تآكل أو ضرر بسبب التماس مع الحرارة أو المواد المسببة للتآكل."
+            data-pt="Desgaste ou danos devido ao contato com calor ou corrosivos."
+            data-fr="Usure ou dommage dû au contact avec la chaleur ou des corrosifs."
+            data-it="Usura o danno dovuto al contatto con calore o corrosivi."
+            data-de="Verschleiß oder Schaden durch Kontakt mit Hitze oder Korrosionsmitteln."
+            data-he="בלאי או נזק עקב מגע עם חום או חומרים מאכלים."
             >Wear or damage due to contact with heat or corrosives.</span
           >
         </label>
@@ -1922,8 +3103,15 @@
           data-en="25. What must be done with equipment that has reached its 'use by' date indicated on the manufacturers label?"
           data-ru="25. Что нужно сделать с оборудованием, которое достигло срока годности, указанного на этикетке производителя?"
           data-cn="25. 对于达到制造商标签上标示“使用期限”的设备，必须做什么？"
+          data-es="25. ¿Qué se debe hacer con el equipo que ha alcanzado su fecha de 'uso hasta' indicada en la etiqueta del fabricante?"
+          data-ar="25. ماذا يجب فعله بالمعدات التي وصلت إلى تاريخ 'الاستخدام حتى' المشار إليه على ملصق الشركة المصنعة؟"
+          data-pt="25. O que deve ser feito com o equipamento que atingiu sua data de 'uso até' indicada no rótulo do fabricante?"
+          data-fr="25. Que doit-on faire avec l'équipement qui a atteint sa date de 'fin d'utilisation' indiquée sur l'étiquette du fabricant ?"
+          data-it="25. Cosa bisogna fare con l'equipaggiamento che ha raggiunto la data di 'utilizzo fino a' indicata sull'etichetta del produttore?"
+          data-de="25. Was muss mit Ausrüstung getan werden, die das auf dem Herstelleretikett angegebene 'Verwendbar bis'-Datum erreicht hat?"
+          data-he="25. מה יש לעשות עם ציוד שהגיע לתאריך 'שימוש עד' המצוין על תווית היצרן?"
         >
-          25. What must be done with equipment that has reached its "use by"
+          25. What must be done with equipment that has reached its 'use by'
           date indicated on the manufacturers label?
         </h3>
         <label class="answer">
@@ -1937,6 +3125,13 @@
             data-en="It must be destroyed."
             data-ru="Его нужно уничтожить."
             data-cn="必须销毁。"
+            data-es="Debe ser destruido."
+            data-ar="يجب تدميرها."
+            data-pt="Deve ser destruído."
+            data-fr="Il doit être détruit."
+            data-it="Deve essere distrutto."
+            data-de="Es muss zerstört werden."
+            data-he="יש להשמיד אותו."
             >It must be destroyed.</span
           >
         </label>
@@ -1951,6 +3146,13 @@
             data-en="It can still be used."
             data-ru="Его все еще можно использовать."
             data-cn="仍可使用。"
+            data-es="Todavía se puede usar."
+            data-ar="لا يزال بإمكان استخدامها."
+            data-pt="Ainda pode ser usado."
+            data-fr="Il peut encore être utilisé."
+            data-it="Può ancora essere usato."
+            data-de="Es kann noch verwendet werden."
+            data-he="עדיין ניתן להשתמש בו."
             >It can still be used.</span
           >
         </label>
@@ -1962,6 +3164,13 @@
           data-en="26. What must be done with equipment that has been subjected to an arrested fall?"
           data-ru="26. Что нужно сделать с оборудованием, которое подвергалось задержанному падению?"
           data-cn="26. 对于经历过受控坠落的设备，必须做什么？"
+          data-es="26. ¿Qué se debe hacer con el equipo que ha sido sometido a una caída detenida?"
+          data-ar="26. ماذا يجب فعله بالمعدات التي تعرضت لسقوط متوقف؟"
+          data-pt="26. O que deve ser feito com o equipamento que foi submetido a uma queda detida?"
+          data-fr="26. Que doit-on faire avec l'équipement qui a été soumis à une chute arrêtée ?"
+          data-it="26. Cosa bisogna fare con l'equipaggiamento che è stato sottoposto a una caduta arrestata?"
+          data-de="26. Was muss mit Ausrüstung geschehen, die einem abgebrochenen Sturz ausgesetzt war?"
+          data-he="26. מה יש לעשות עם ציוד שנחשף לנפילה שנעצרה?"
         >
           26. What must be done with equipment that has been subjected to an
           arrested fall?
@@ -1977,7 +3186,14 @@
             data-en="Tagged as 'Not to be used' and returned to manufacturer for testing."
             data-ru="Помечено как 'Не использовать' и возвращено производителю для тестирования."
             data-cn="标记为“禁止使用”并退回制造商进行测试。"
-            >Tagged as "Not to be used" and returned to manufacturer for
+            data-es="Etiquetado como 'No usar' y devuelto al fabricante para pruebas."
+            data-ar="تم وضع علامة 'غير صالح للاستخدام' وإعادتها إلى الشركة المصنعة للاختبار."
+            data-pt="Etiquetado como 'Não usar' e devolvido ao fabricante para testes."
+            data-fr="Étiqueté comme 'À ne pas utiliser' et renvoyé au fabricant pour des tests."
+            data-it="Etichettato come 'Da non utilizzare' e restituito al produttore per i test."
+            data-de="Als 'Nicht verwenden' gekennzeichnet und zur Überprüfung an den Hersteller zurückgesendet."
+            data-he="מתויג כ'לא לשימוש' ומוחזר ליצרן לבדיקה."
+            >Tagged as 'Not to be used' and returned to manufacturer for
             testing.</span
           >
         </label>
@@ -1992,6 +3208,13 @@
             data-en="Continue using it."
             data-ru="Продолжать использовать его."
             data-cn="继续使用。"
+            data-es="Seguir usándolo."
+            data-ar="استمر في استخدامها."
+            data-pt="Continuar usando."
+            data-fr="Continuer à l'utiliser."
+            data-it="Continua a usarlo."
+            data-de="Weiterverwenden."
+            data-he="המשך להשתמש בו."
             >Continue using it.</span
           >
         </label>
@@ -2004,10 +3227,12 @@
         const feedback = document.getElementById(feedbackId);
         if (input.value === correctAnswer) {
           feedback.className = "feedback correct";
-          feedback.textContent = "Correct / Правильно / 正确";
+          feedback.textContent =
+            "Correct / Правильно / 正确 / Correcto / صحيح / Correto / Correct / Corretto / Richtig / נכון";
         } else {
           feedback.className = "feedback incorrect";
-          feedback.textContent = "Incorrect / Неверно / 不正确";
+          feedback.textContent =
+            "Incorrect / Неверно / 不正确 / Incorrecto / غير صحيح / Incorreto / Incorrect / Errato / Falsch / לא נכון";
         }
         feedback.style.display = "block";
       }
@@ -2022,7 +3247,25 @@
         document
           .querySelector(
             `.flag[alt="${
-              lang === "en" ? "Australia" : lang === "cn" ? "China" : "Russia"
+              lang === "en"
+                ? "Australia"
+                : lang === "es"
+                ? "Spain"
+                : lang === "pt"
+                ? "Brazil"
+                : lang === "fr"
+                ? "Canada"
+                : lang === "it"
+                ? "Italy"
+                : lang === "de"
+                ? "Germany"
+                : lang === "ru"
+                ? "Russia"
+                : lang === "he"
+                ? "Israel"
+                : lang === "ar"
+                ? "United Arab Emirates"
+                : "China"
             }"]`
           )
           .classList.add("active");
@@ -2034,6 +3277,20 @@
             element.textContent = element.getAttribute("data-ru");
           } else if (lang === "cn" && element.hasAttribute("data-cn")) {
             element.textContent = element.getAttribute("data-cn");
+          } else if (lang === "es" && element.hasAttribute("data-es")) {
+            element.textContent = element.getAttribute("data-es");
+          } else if (lang === "ar" && element.hasAttribute("data-ar")) {
+            element.textContent = element.getAttribute("data-ar");
+          } else if (lang === "pt" && element.hasAttribute("data-pt")) {
+            element.textContent = element.getAttribute("data-pt");
+          } else if (lang === "fr" && element.hasAttribute("data-fr")) {
+            element.textContent = element.getAttribute("data-fr");
+          } else if (lang === "it" && element.hasAttribute("data-it")) {
+            element.textContent = element.getAttribute("data-it");
+          } else if (lang === "de" && element.hasAttribute("data-de")) {
+            element.textContent = element.getAttribute("data-de");
+          } else if (lang === "he" && element.hasAttribute("data-he")) {
+            element.textContent = element.getAttribute("data-he");
           }
         });
       }
