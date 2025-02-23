@@ -10,6 +10,23 @@
       href="https://icons.iconarchive.com/icons/iconsmind/outline/512/Roof-icon.png"
     />
     <style>
+      .image-container {
+        text-align: center;
+        padding: 10px;
+      }
+
+      .image-container p {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .image-container img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
       body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -1619,20 +1636,40 @@
           <input
             type="radio"
             name="q10a"
-            value="other"
+            value="isolate"
             onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
           />
           <span
-            data-en="Ignore."
-            data-ru="Игнорировать."
-            data-cn="忽略。"
-            data-es="Ignorar."
-            data-pt="Ignorar."
-            data-fr="Ignorer."
-            data-it="Ignorare."
-            data-de="Ignorieren."
+            data-en="Isolate the area."
+            data-ru="Изолировать область."
+            data-cn="隔离区域。"
+            data-es="Aislar el área."
+            data-pt="Isolar a área."
+            data-fr="Isoler la zone."
+            data-it="Isolare l'area."
+            data-de="Den Bereich isolieren."
           >
-            Ignore.
+            Isolate the area.
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10a"
+            value="engineering"
+            onchange="checkAnswer(this, 'eliminate', 'feedback10a')"
+          />
+          <span
+            data-en="Engineering control."
+            data-ru="Инженерный контроль."
+            data-cn="工程控制。"
+            data-es="Control de ingeniería."
+            data-pt="Controle de engenharia."
+            data-fr="Contrôle technique."
+            data-it="Controllo ingegneristico."
+            data-de="Technische Kontrolle."
+          >
+            Engineering control.
           </span>
         </label>
         <div id="feedback10a" class="feedback"></div>
@@ -1676,20 +1713,40 @@
           <input
             type="radio"
             name="q10b"
-            value="other"
+            value="substitute"
             onchange="checkAnswer(this, 'ppe', 'feedback10b')"
           />
           <span
-            data-en="Ignore PPE."
-            data-ru="Игнорируйте СИЗ."
-            data-cn="忽略个人防护装备。"
-            data-es="Ignorar el EPP."
-            data-pt="Ignorar o EPI."
-            data-fr="Ignorer l'EPI."
-            data-it="Ignorare il DPI."
-            data-de="Ignorieren Sie die PSA."
+            data-en="Substitute the method."
+            data-ru="Заменить метод."
+            data-cn="替换方法。"
+            data-es="Sustituir el método."
+            data-pt="Substituir o método."
+            data-fr="Substituer la méthode."
+            data-it="Sostituire il metodo."
+            data-de="Die Methode ersetzen."
           >
-            Ignore PPE.
+            Substitute the method.
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q10b"
+            value="admin"
+            onchange="checkAnswer(this, 'ppe', 'feedback10b')"
+          />
+          <span
+            data-en="Administrative controls."
+            data-ru="Административные меры контроля."
+            data-cn="行政控制。"
+            data-es="Controles administrativos."
+            data-pt="Controles administrativos."
+            data-fr="Contrôles administratifs."
+            data-it="Controlli amministrativi."
+            data-de="Administrative Kontrollen."
+          >
+            Administrative controls.
           </span>
         </label>
         <div id="feedback10b" class="feedback"></div>
@@ -1733,20 +1790,40 @@
           <input
             type="radio"
             name="q11"
-            value="other"
+            value="job"
             onchange="checkAnswer(this, 'risk', 'feedback11')"
           />
           <span
-            data-en="No document required."
-            data-ru="Документ не требуется."
-            data-cn="无需任何文件。"
-            data-es="No se requiere ningún documento."
-            data-pt="Nenhum documento necessário."
-            data-fr="Aucun document requis."
-            data-it="Nessun documento richiesto."
-            data-de="Kein Dokument erforderlich."
+            data-en="Job evaluation"
+            data-ru="Оценка работы"
+            data-cn="工作评估"
+            data-es="Evaluación del trabajo"
+            data-pt="Avaliação do trabalho"
+            data-fr="Évaluation du travail"
+            data-it="Valutazione del lavoro"
+            data-de="Arbeitsbewertung"
           >
-            No document required.
+            Job evaluation
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q11"
+            value="toolbox"
+            onchange="checkAnswer(this, 'risk', 'feedback11')"
+          />
+          <span
+            data-en="Toolbox talk"
+            data-ru="Инструктаж по инструментам"
+            data-cn="工具箱会议"
+            data-es="Charla de caja de herramientas"
+            data-pt="Conversa de caixa de ferramentas"
+            data-fr="Discussion sur la boîte à outils"
+            data-it="Riunione sulla cassetta degli attrezzi"
+            data-de="Werkzeugkastenbesprechung"
+          >
+            Toolbox talk
           </span>
         </label>
         <div id="feedback11" class="feedback"></div>
@@ -1806,6 +1883,26 @@
             Fall Arrest.
           </span>
         </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12a"
+            value="limited"
+            onchange="checkAnswer(this, 'travel', 'feedback12a')"
+          />
+          <span
+            data-en="Limited fall arrest."
+            data-ru="Ограниченное предотвращение падения."
+            data-cn="有限防坠落。"
+            data-es="Detención de caídas limitada."
+            data-pt="Detenção de quedas limitada."
+            data-fr="Arrêt de chute limité."
+            data-it="Arresto caduta limitato."
+            data-de="Begrenzte Absturzsicherung."
+          >
+            Limited fall arrest.
+          </span>
+        </label>
         <div id="feedback12a" class="feedback"></div>
       </div>
 
@@ -1831,7 +1928,7 @@
           />
           <span
             data-en="Kernmantle rope, Anchor points, Harness."
-            data-ru="Веревка Kernmantle, Точки крепления, Ремень безопасности."
+            data-ru="Веревка с сердечником и оплеткой, Точки крепления, Ремень безопасности."
             data-cn="Kernmantle绳、锚点、安全带。"
             data-es="Cuerda Kernmantle, puntos de anclaje, arnés."
             data-pt="Corda Kernmantle, pontos de ancoragem, cinto."
@@ -1846,20 +1943,40 @@
           <input
             type="radio"
             name="q12b"
-            value="other"
+            value="processes"
             onchange="checkAnswer(this, 'rope', 'feedback12b')"
           />
           <span
-            data-en="Ladder, Rope, Helmet."
-            data-ru="Лестница, Веревка, Шлем."
-            data-cn="梯子、绳子、头盔。"
-            data-es="Escalera, cuerda, casco."
-            data-pt="Escada, corda, capacete."
-            data-fr="Échelle, corde, casque."
-            data-it="Scala, corda, casco."
-            data-de="Leiter, Seil, Helm."
+            data-en="Travel system processes."
+            data-ru="Процессы системы перемещения."
+            data-cn="移动系统流程。"
+            data-es="Procesos del sistema de desplazamiento."
+            data-pt="Processos do sistema de deslocamento."
+            data-fr="Processus du système de déplacement."
+            data-it="Processi del sistema di spostamento."
+            data-de="Verfahrensweisen des Bewegungssystems."
           >
-            Ladder, Rope, Helmet.
+            Travel system processes.
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q12b"
+            value="pendulum"
+            onchange="checkAnswer(this, 'rope', 'feedback12b')"
+          />
+          <span
+            data-en="Pendulum lengths."
+            data-ru="Длины маятника."
+            data-cn="摆长。"
+            data-es="Longitudes de péndulo."
+            data-pt="Comprimentos de pêndulo."
+            data-fr="Longueurs de pendule."
+            data-it="Lunghezze del pendolo."
+            data-de="Pendellängen."
+          >
+            Pendulum lengths.
           </span>
         </label>
         <div id="feedback12b" class="feedback"></div>
@@ -1903,20 +2020,40 @@
           <input
             type="radio"
             name="q13"
-            value="stop"
+            value="ground"
             onchange="checkAnswer(this, 'keep', 'feedback13')"
           />
           <span
-            data-en="Stop you from working on the roof."
-            data-ru="Запрещает вам работать на крыше."
-            data-cn="阻止你在屋顶上工作。"
-            data-es="Impedirte trabajar en el tejado."
-            data-pt="Impedir você de trabalhar no telhado."
-            data-fr="Vous empêcher de travailler sur le toit."
-            data-it="Impedirti di lavorare sul tetto."
-            data-de="Sie daran hindern, auf dem Dach zu arbeiten."
+            data-en="Stop you from hitting the ground."
+            data-ru="Предотвратить ваше столкновение с землей."
+            data-cn="阻止你撞到地面。"
+            data-es="Evitar que golpees el suelo."
+            data-pt="Impedir que você atinja o chão."
+            data-fr="Vous empêcher de heurter le sol."
+            data-it="Impedirti di colpire il terreno."
+            data-de="Verhindern, dass Sie den Boden treffen."
           >
-            Stop you from working on the roof.
+            Stop you from hitting the ground.
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q13"
+            value="equipment"
+            onchange="checkAnswer(this, 'keep', 'feedback13')"
+          />
+          <span
+            data-en="Helps keep the equipment on the roof."
+            data-ru="Помогает удерживать оборудование на крыше."
+            data-cn="帮助将设备保持在屋顶上。"
+            data-es="Ayuda a mantener el equipo en el tejado."
+            data-pt="Ajuda a manter o equipamento no telhado."
+            data-fr="Aide à maintenir l'équipement sur le toit."
+            data-it="Aiuta a tenere l'attrezzatura sul tetto."
+            data-de="Hilft, die Ausrüstung auf dem Dach zu halten."
+          >
+            Helps keep the equipment on the roof.
           </span>
         </label>
         <div id="feedback13" class="feedback"></div>
@@ -1964,16 +2101,36 @@
             onchange="checkAnswer(this, '12or15', 'feedback14')"
           />
           <span
-            data-en="15kN only"
-            data-ru="Только 15 кН"
-            data-cn="仅15千牛"
-            data-es="Solo 15kN"
-            data-pt="Apenas 15kN"
-            data-fr="15kN uniquement"
-            data-it="Solo 15kN"
-            data-de="Nur 15kN"
+            data-en="15kN"
+            data-ru="15 кН"
+            data-cn="15千牛"
+            data-es="15kN"
+            data-pt="15kN"
+            data-fr="15kN"
+            data-it="15kN"
+            data-de="15kN"
           >
-            15kN only
+            15kN
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q14"
+            value="22"
+            onchange="checkAnswer(this, '12or15', 'feedback14')"
+          />
+          <span
+            data-en="22kN"
+            data-ru="22 кН"
+            data-cn="22千牛"
+            data-es="22kN"
+            data-pt="22kN"
+            data-fr="22kN"
+            data-it="22kN"
+            data-de="22kN"
+          >
+            22kN
           </span>
         </label>
         <div id="feedback14" class="feedback"></div>
@@ -2018,23 +2175,70 @@
           <input
             type="radio"
             name="q15"
-            value="rope"
+            value="roofsheet"
             onchange="checkAnswer(this, 'pendulum', 'feedback15')"
           />
           <span
-            data-en="The rope length."
-            data-ru="Длина веревки."
-            data-cn="绳子长度。"
-            data-es="La longitud de la cuerda."
-            data-pt="O comprimento da corda."
-            data-fr="La longueur de la corde."
-            data-it="La lunghezza della corda."
-            data-de="Die Seillänge."
+            data-en="The roof sheet length."
+            data-ru="Длина кровельного листа."
+            data-cn="屋顶板长度。"
+            data-es="La longitud de la lámina del tejado."
+            data-pt="O comprimento da chapa do telhado."
+            data-fr="La longueur de la feuille de toit."
+            data-it="La lunghezza del foglio del tetto."
+            data-de="Die Länge des Dachblechs."
           >
-            The rope length.
+            The roof sheet length.
+          </span>
+        </label>
+        <label class="answer">
+          <input
+            type="radio"
+            name="q15"
+            value="ground"
+            onchange="checkAnswer(this, 'pendulum', 'feedback15')"
+          />
+          <span
+            data-en="The distance from the ground."
+            data-ru="Расстояние от земли."
+            data-cn="离地面的距离。"
+            data-es="La distancia desde el suelo."
+            data-pt="A distância do chão."
+            data-fr="La distance par rapport au sol."
+            data-it="La distanza dal suolo."
+            data-de="Der Abstand vom Boden."
+          >
+            The distance from the ground.
           </span>
         </label>
         <div id="feedback15" class="feedback"></div>
+      </div>
+
+      <!-- Adding instructional text and Roof Image 1 before questions related to Roof 1 -->
+      <div class="question image-container">
+        <p
+          data-en="Using the image below (Roof 1), indicate the order of your anchor devices to access the solar panel using 2 anchor points."
+          data-ru="Используя изображение ниже (Крыша 1), укажите порядок ваших устройств крепления для доступа к солнечной панели с использованием 2 точек крепления."
+          data-cn="使用下面的图像（屋顶1），指示使用2个锚点访问太阳能板时锚定设备的顺序。"
+          data-es="Usando la imagen de abajo (Tejado 1), indique el orden de sus dispositivos de anclaje para acceder al panel solar usando 2 puntos de anclaje."
+          data-pt="Usando a imagem abaixo (Telhado 1), indique a ordem dos seus dispositivos de ancoragem para acessar o painel solar usando 2 pontos de ancoragem."
+          data-fr="En utilisant l'image ci-dessous (Toit 1), indiquez l'ordre de vos dispositifs d'ancrage pour accéder au panneau solaire en utilisant 2 points d'ancrage."
+          data-it="Usando l'immagine sottostante (Tetto 1), indica l'ordine dei tuoi dispositivi di ancoraggio per accedere al pannello solare usando 2 punti di ancoraggio."
+          data-de="Unter Verwendung des untenstehenden Bildes (Dach 1) geben Sie die Reihenfolge Ihrer Verankerungsvorrichtungen an, um das Solarmodul mit 2 Ankerpunkten zu erreichen."
+        >
+          Using the image below (Roof 1), indicate the order of your anchor
+          devices to access the solar panel using 2 anchor points.
+        </p>
+        <img
+          src="src/roof_image1.png"
+          alt="Roof 1"
+          style="
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+          "
+        />
       </div>
 
       <div class="question">
@@ -2078,16 +2282,16 @@
             onchange="checkAnswer(this, 'G', 'feedback16a')"
           />
           <span
-            data-en="H"
-            data-ru="H"
-            data-cn="H"
-            data-es="H"
-            data-pt="H"
-            data-fr="H"
-            data-it="H"
-            data-de="H"
+            data-en="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-ru="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-cn="A、B、C、D、E、F、H、I、J、K、L、M、N、O、P、Q、R、N/A"
+            data-es="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-pt="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-fr="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-it="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
+            data-de="A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A"
           >
-            H
+            A, B, C, D, E, F, H, I, J, K, L, M, N, O, P, Q, R, N/A
           </span>
         </label>
         <div id="feedback16a" class="feedback"></div>
@@ -2134,19 +2338,46 @@
             onchange="checkAnswer(this, 'I', 'feedback16b')"
           />
           <span
-            data-en="J"
-            data-ru="J"
-            data-cn="J"
-            data-es="J"
-            data-pt="J"
-            data-fr="J"
-            data-it="J"
-            data-de="J"
+            data-en="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-ru="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-cn="A、B、C、D、E、G、H、J、K、L、M、N、O、P、Q、R、N/A"
+            data-es="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-pt="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-fr="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-it="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
+            data-de="A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A"
           >
-            J
+            A, B, C, D, E, G, H, J, K, L, M, N, O, P, Q, R, N/A
           </span>
         </label>
         <div id="feedback16b" class="feedback"></div>
+      </div>
+
+      <!-- Adding instructional text and Roof Image 2 before questions related to Roof 2 -->
+      <div class="question image-container">
+        <p
+          data-en="Using the image below (Roof 2), indicate the order of your anchor devices to safely clean the roof and gutters using 2 anchor points."
+          data-ru="Используя изображение ниже (Крыша 2), укажите порядок ваших устройств крепления для безопасной очистки крыши и водостоков с использованием 2 точек крепления."
+          data-cn="使用下面的图像（屋顶2），指示使用2个锚点安全清洁屋顶和排水沟时锚定设备的顺序。"
+          data-es="Usando la imagen de abajo (Tejado 2), indique el orden de sus dispositivos de anclaje para limpiar de manera segura el tejado y los canalones usando 2 puntos de anclaje."
+          data-pt="Usando a imagem abaixo (Telhado 2), indique a ordem dos seus dispositivos de ancoragem para limpar o telhado e as calhas de forma segura usando 2 pontos de ancoragem."
+          data-fr="En utilisant l'image ci-dessous (Toit 2), indiquez l'ordre de vos dispositifs d'ancrage pour nettoyer de manière sécurisée le toit et les gouttières en utilisant 2 points d'ancrage."
+          data-it="Usando l'immagine sottostante (Tetto 2), indica l'ordine dei tuoi dispositivi di ancoraggio per pulire in sicurezza il tetto e le grondaie usando 2 punti di ancoraggio."
+          data-de="Unter Verwendung des untenstehenden Bildes (Dach 2) geben Sie die Reihenfolge Ihrer Verankerungsvorrichtungen an, um das Dach und die Dachrinnen sicher zu reinigen, mit 2 Ankerpunkten."
+        >
+          Using the image below (Roof 2), indicate the order of your anchor
+          devices to safely clean the roof and gutters using 2 anchor points.
+        </p>
+        <img
+          src="src/roof_image2.png"
+          alt="Roof 2"
+          style="
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+          "
+        />
       </div>
 
       <div class="question">
@@ -2190,16 +2421,16 @@
             onchange="checkAnswer(this, 'O', 'feedback17a')"
           />
           <span
-            data-en="P"
-            data-ru="P"
-            data-cn="P"
-            data-es="P"
-            data-pt="P"
-            data-fr="P"
-            data-it="P"
-            data-de="P"
+            data-en="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-ru="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-cn="A、B、C、D、E、F、G、H、I、J、K、L、N、P、Q、R、N/A"
+            data-es="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-pt="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-fr="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-it="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
+            data-de="A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A"
           >
-            P
+            A, B, C, D, E, F, G, H, I, J, K, L, N, P, Q, R, N/A
           </span>
         </label>
         <div id="feedback17a" class="feedback"></div>
@@ -2246,16 +2477,16 @@
             onchange="checkAnswer(this, 'M', 'feedback17b')"
           />
           <span
-            data-en="N"
-            data-ru="N"
-            data-cn="N"
-            data-es="N"
-            data-pt="N"
-            data-fr="N"
-            data-it="N"
-            data-de="N"
+            data-en="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-ru="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-cn="A、B、C、D、E、F、G、H、I、J、K、L、N、O、P、Q、R、N/A"
+            data-es="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-pt="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-fr="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-it="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
+            data-de="A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A"
           >
-            N
+            A, B, C, D, E, F, G, H, I, J, K, L, N, O, P, Q, R, N/A
           </span>
         </label>
         <div id="feedback17b" class="feedback"></div>
