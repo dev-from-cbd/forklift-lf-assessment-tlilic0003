@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { Loader2, LogIn, Eye, EyeOff } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { Loader2, LogIn, Eye, EyeOff } from "lucide-react";
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState(""); // Store email input
+  const [password, setPassword] = useState(""); // Store password input
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
@@ -15,12 +15,12 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setError('');
+      setError("");
       setLoading(true);
-      await signIn(email, password);
-      navigate('/');
+      await signIn(email, password); // Authenticate user
+      navigate("/");
     } catch (err) {
-      setError('Failed to sign in. Please check your credentials.');
+      setError("Failed to sign in. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -29,12 +29,8 @@ const LoginForm: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow p-4">
       <form onSubmit={handleSubmit} className="space-y-3">
-        {error && (
-          <div className="text-sm text-red-600">
-            {error}
-          </div>
-        )}
-        
+        {error && <div className="text-sm text-red-600">{error}</div>}
+
         <div>
           <input
             type="email"
@@ -45,7 +41,7 @@ const LoginForm: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        
+
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
@@ -58,7 +54,7 @@ const LoginForm: React.FC = () => {
           <button
             type="button"
             className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
           >
             {showPassword ? (
               <EyeOff className="w-4 h-4" />
@@ -69,7 +65,10 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="flex items-center justify-between text-xs">
-          <Link to="/reset-password" className="text-blue-600 hover:text-blue-500">
+          <Link
+            to="/reset-password"
+            className="text-blue-600 hover:text-blue-500"
+          >
             Forgot password?
           </Link>
           <Link to="/register" className="text-blue-600 hover:text-blue-500">
