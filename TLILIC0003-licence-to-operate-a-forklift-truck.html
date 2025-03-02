@@ -3,7 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forklift Safety Test</title>
+    <title>TLILIC0003 - Licence to Operate a Forklift Truck</title>
+
+    <!-- Favicon for browser tab -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://upload.wikimedia.org/wikipedia/commons/8/8b/Forklift_icon.png"
+    />
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -21,6 +29,8 @@
         display: block;
         margin-top: 5px;
       }
+
+      /* Language switcher styles */
       .language-switch {
         position: absolute;
         top: 10px;
@@ -32,6 +42,8 @@
         cursor: pointer;
         margin-left: 10px;
       }
+
+      /* Button to show/hide answers */
       .show-answer {
         background-color: #007bff;
         color: white;
@@ -41,13 +53,17 @@
         margin-top: 5px;
       }
     </style>
+
     <script>
+      // Function to switch between languages
       function changeLanguage(lang) {
         document
           .querySelectorAll(".content")
           .forEach((div) => (div.style.display = "none"));
         document.getElementById(lang).style.display = "block";
       }
+
+      // Function to toggle answer visibility
       function toggleAnswer(button) {
         let answer = button.nextElementSibling;
         if (answer.style.display === "none") {
@@ -61,6 +77,7 @@
     </script>
   </head>
   <body>
+    <!-- Language switcher with flag icons -->
     <div class="language-switch">
       <img
         src="https://upload.wikimedia.org/wikipedia/en/b/b9/Flag_of_Australia.svg"
@@ -82,8 +99,10 @@
       Bahasa
     </div>
 
+    <!-- English version of the test -->
     <div id="english" class="content">
-      <h1>Forklift Safety Test</h1>
+      <h1>TLILIC0003 - Licence to Operate a Forklift Truck</h1>
+
       <div class="question">
         <p>
           1. What are three (3) documented sources you could refer to for
@@ -98,42 +117,91 @@
         </p>
         <textarea></textarea><textarea></textarea><textarea></textarea>
       </div>
-    </div>
 
-    <div id="russian" class="content" style="display: none">
-      <h1>Тест по безопасности на погрузчике</h1>
       <div class="question">
         <p>
-          1. Какие три (3) документа можно использовать для получения информации
-          о безопасности на рабочем месте?
+          2. What are three (3) duties an employer should take to ensure the
+          health and safety of a worker?
         </p>
         <button class="show-answer" onclick="toggleAnswer(this)">
-          Показать ответ
+          Show Answer
         </button>
         <p class="answer" style="display: none">
-          1. Закон о безопасности и гигиене труда (WHS Act) и регламенты<br />2.
-          Австралийские стандарты (Australian Standards)<br />3. Кодексы
-          практики (Codes of Practice)
+          1. Provide a safe work environment<br />2. Provide training and
+          supervision<br />3. Ensure safe equipment and procedures
         </p>
         <textarea></textarea><textarea></textarea><textarea></textarea>
       </div>
-    </div>
 
-    <div id="indonesian" class="content" style="display: none">
-      <h1>Tes Keselamatan Forklift</h1>
       <div class="question">
         <p>
-          1. Sebutkan tiga (3) sumber terdokumentasi yang dapat Anda rujuk untuk
-          informasi keselamatan kerja?
+          3. After successfully obtaining your High Risk Work Licence, list two
+          (2) things your employer must provide prior to you operating an
+          unfamiliar forklift.
         </p>
         <button class="show-answer" onclick="toggleAnswer(this)">
-          Tampilkan Jawaban
+          Show Answer
         </button>
         <p class="answer" style="display: none">
-          1. Undang-Undang dan Peraturan WHS<br />2. Standar Australia<br />3.
-          Kode Praktik
+          1. Training on the specific forklift<br />2. Information about
+          workplace hazards
+        </p>
+        <textarea></textarea><textarea></textarea>
+      </div>
+
+      <div class="question">
+        <p>4. What does the Duty of Care as a worker involve?</p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Show Answer
+        </button>
+        <p class="answer" style="display: none">
+          Following safety rules, using PPE, reporting hazards
+        </p>
+        <textarea></textarea>
+      </div>
+
+      <div class="question">
+        <p>
+          5. What are two (2) things the work health and safety regulator could
+          do if it is found that you were not working safely as a High Risk Work
+          Licence holder?
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Show Answer
+        </button>
+        <p class="answer" style="display: none">
+          1. Issue a warning or suspend the licence<br />2. Impose a fine or
+          revoke the licence
+        </p>
+        <textarea></textarea><textarea></textarea>
+      </div>
+
+      <div class="question">
+        <p>
+          6. List three (3) people you should talk to about workplace hazards
+          before starting work.
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Show Answer
+        </button>
+        <p class="answer" style="display: none">
+          1. Supervisor<br />2. Colleagues in the same area<br />3. Safety
+          officer
         </p>
         <textarea></textarea><textarea></textarea><textarea></textarea>
+      </div>
+
+      <div class="question">
+        <p>
+          7. Why is it important to consult with others about workplace hazards?
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Show Answer
+        </button>
+        <p class="answer" style="display: none">
+          To identify and eliminate risks, ensuring workplace safety
+        </p>
+        <textarea></textarea>
       </div>
     </div>
   </body>
