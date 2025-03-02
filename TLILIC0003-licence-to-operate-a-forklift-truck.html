@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forklift Safety Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h2 {
+        color: #333;
+      }
+      .question {
+        margin-bottom: 20px;
+      }
+      textarea {
+        width: 100%;
+        height: 50px;
+        display: block;
+        margin-top: 5px;
+      }
+      .language-switch {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .language-switch img {
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      .show-answer {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        margin-top: 5px;
+      }
+    </style>
+    <script>
+      function changeLanguage(lang) {
+        document
+          .querySelectorAll(".content")
+          .forEach((div) => (div.style.display = "none"));
+        document.getElementById(lang).style.display = "block";
+      }
+      function toggleAnswer(button) {
+        let answer = button.nextElementSibling;
+        if (answer.style.display === "none") {
+          answer.style.display = "block";
+          button.textContent = "Hide Answer";
+        } else {
+          answer.style.display = "none";
+          button.textContent = "Show Answer";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="language-switch">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/b/b9/Flag_of_Australia.svg"
+        alt="English"
+        onclick="changeLanguage('english')"
+      />
+      Eng
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"
+        alt="Русский"
+        onclick="changeLanguage('russian')"
+      />
+      Рус
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
+        alt="Bahasa"
+        onclick="changeLanguage('indonesian')"
+      />
+      Bahasa
+    </div>
+
+    <div id="english" class="content">
+      <h1>Forklift Safety Test</h1>
+      <div class="question">
+        <p>
+          1. What are three (3) documented sources you could refer to for
+          workplace safety information?
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Show Answer
+        </button>
+        <p class="answer" style="display: none">
+          1. WHS Act and Regulations<br />2. Australian Standards<br />3. Codes
+          of Practice
+        </p>
+        <textarea></textarea><textarea></textarea><textarea></textarea>
+      </div>
+    </div>
+
+    <div id="russian" class="content" style="display: none">
+      <h1>Тест по безопасности на погрузчике</h1>
+      <div class="question">
+        <p>
+          1. Какие три (3) документа можно использовать для получения информации
+          о безопасности на рабочем месте?
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Показать ответ
+        </button>
+        <p class="answer" style="display: none">
+          1. Закон о безопасности и гигиене труда (WHS Act) и регламенты<br />2.
+          Австралийские стандарты (Australian Standards)<br />3. Кодексы
+          практики (Codes of Practice)
+        </p>
+        <textarea></textarea><textarea></textarea><textarea></textarea>
+      </div>
+    </div>
+
+    <div id="indonesian" class="content" style="display: none">
+      <h1>Tes Keselamatan Forklift</h1>
+      <div class="question">
+        <p>
+          1. Sebutkan tiga (3) sumber terdokumentasi yang dapat Anda rujuk untuk
+          informasi keselamatan kerja?
+        </p>
+        <button class="show-answer" onclick="toggleAnswer(this)">
+          Tampilkan Jawaban
+        </button>
+        <p class="answer" style="display: none">
+          1. Undang-Undang dan Peraturan WHS<br />2. Standar Australia<br />3.
+          Kode Praktik
+        </p>
+        <textarea></textarea><textarea></textarea><textarea></textarea>
+      </div>
+    </div>
+  </body>
+</html>
