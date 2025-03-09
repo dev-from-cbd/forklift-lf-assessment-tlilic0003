@@ -1,39 +1,27 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  Check,
-  X,
-  HelpCircle,
-  Eye,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { questions } from "../data/questions";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import { questions } from '../data/questions';
+import { useNavigate } from 'react-router-dom';
 
 interface QuestionPageProps {
   questionNumber?: number;
 }
 
 const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
-  const { id } = useParams(); // Extract question ID from URL params
+  const { id } = useParams();
   const navigate = useNavigate();
-  const currentQuestionId = questionNumber || Number(id) || 1; // Determine current question ID
-  const question = questions[currentQuestionId - 1]; // Fetch question data based on ID
-
-  const [answers, setAnswers] = useState<string[]>(
-    Array(question?.inputFields || 1).fill("")
-  ); // Initialize answers array
-  const [showAnswer, setShowAnswer] = useState(false); // Toggle answer visibility
-  const [isChecked, setIsChecked] = useState(false); // Track if answer is checked
+  const currentQuestionId = questionNumber || Number(id) || 1;
+  const question = questions[currentQuestionId - 1];
+  
+  const [answers, setAnswers] = useState<string[]>(Array(question?.inputFields || 1).fill(''));
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   if (!question) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <p className="text-red-600">
-          Question not found. Please select a question between 1 and{" "}
-          {questions.length}.
-        </p>
+        <p className="text-red-600">Question not found. Please select a question between 1 and {questions.length}.</p>
       </div>
     );
   }
@@ -47,50 +35,49 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
   };
 
   const checkAnswer = () => {
-    setIsChecked(true); // Mark answer as checked
+    setIsChecked(true);
   };
 
   const toggleShowAnswer = () => {
-    setShowAnswer(!showAnswer); // Toggle display of correct answer
+    setShowAnswer(!showAnswer);
   };
 
-  const isAnswerCorrect = (answer: string, correctAnswer: string) => {
-    return answer.toLowerCase().trim() === correctAnswer.toLowerCase().trim();
+  const isAnswerCorrect = (answer: string, index: number) => {
+    const trimmedAnswer = answer.toLowerCase().trim();
+    
+    // For question 1, check against acceptable answers
+    if (question.id === 1 && question.acceptableAnswers) {
+      return question.acceptableAnswers.some(
+        acceptable => acceptable.toLowerCase().trim() === trimmedAnswer
+      );
+    }
+    
+    // For other questions, check against the specific answer part
+    const correctAnswers = question.answer.split(';').map(a => a.trim());
+    return trimmedAnswer === correctAnswers[index]?.toLowerCase().trim();
   };
 
   const getAnswerStatus = (index: number) => {
-    if (!isChecked) return "neutral";
-
-    if (question.inputFields) {
-      const correctAnswers = question.answer.split(";").map((a) => a.trim());
-      return isAnswerCorrect(answers[index], correctAnswers[index])
-        ? "correct"
-        : "incorrect";
-    }
-
-    return isAnswerCorrect(answers[index], question.answer)
-      ? "correct"
-      : "incorrect";
+    if (!isChecked) return 'neutral';
+    return isAnswerCorrect(answers[index], index) ? 'correct' : 'incorrect';
   };
 
-  const handleNavigation = (direction: "prev" | "next") => {
-    const newQuestionId =
-      direction === "prev" ? currentQuestionId - 1 : currentQuestionId + 1;
+  const handleNavigation = (direction: 'prev' | 'next') => {
+    const newQuestionId = direction === 'prev' ? currentQuestionId - 1 : currentQuestionId + 1;
     if (newQuestionId >= 1 && newQuestionId <= questions.length) {
       navigate(`/question/${newQuestionId}`);
-      setAnswers(
-        Array(questions[newQuestionId - 1]?.inputFields || 1).fill("")
-      ); // Reset answers for new question
+      setAnswers(Array(questions[newQuestionId - 1]?.inputFields || 1).fill(''));
       setShowAnswer(false);
       setIsChecked(false);
     }
   };
 
+  // Calculate visible page numbers
   const getVisiblePages = () => {
     const delta = 2;
     const range = [];
     const totalPages = questions.length;
-
+    
     for (
       let i = Math.max(2, currentQuestionId - delta);
       i <= Math.min(totalPages - 1, currentQuestionId + delta);
@@ -100,10 +87,10 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
     }
 
     if (currentQuestionId - delta > 2) {
-      range.unshift("...");
+      range.unshift('...');
     }
     if (currentQuestionId + delta < totalPages - 1) {
-      range.push("...");
+      range.push('...');
     }
 
     range.unshift(1);
@@ -121,7 +108,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           Question {question.id} of {questions.length}
         </h3>
         <p className="text-lg mb-6">{question.question}</p>
-
+        
         {question.inputFields ? (
           <div className="space-y-3">
             {[...Array(question.inputFields)].map((_, index) => (
@@ -132,10 +119,10 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
                     type="text"
                     className={`w-full border rounded-md p-2 pr-10 ${
                       isChecked
-                        ? getAnswerStatus(index) === "correct"
-                          ? "border-green-500 bg-green-50"
-                          : "border-red-500 bg-red-50"
-                        : "border-gray-300"
+                        ? getAnswerStatus(index) === 'correct'
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-red-500 bg-red-50'
+                        : 'border-gray-300'
                     }`}
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
@@ -143,7 +130,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
                   />
                   {isChecked && (
                     <div className="absolute right-2 top-2">
-                      {getAnswerStatus(index) === "correct" ? (
+                      {getAnswerStatus(index) === 'correct' ? (
                         <Check className="w-6 h-6 text-green-500" />
                       ) : (
                         <X className="w-6 h-6 text-red-500" />
@@ -159,10 +146,10 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             <textarea
               className={`w-full border rounded-md p-2 ${
                 isChecked
-                  ? getAnswerStatus(0) === "correct"
-                    ? "border-green-500 bg-green-50"
-                    : "border-red-500 bg-red-50"
-                  : "border-gray-300"
+                  ? getAnswerStatus(0) === 'correct'
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-red-500 bg-red-50'
+                  : 'border-gray-300'
               }`}
               rows={3}
               value={answers[0]}
@@ -171,7 +158,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             />
             {isChecked && (
               <div className="absolute right-2 top-2">
-                {getAnswerStatus(0) === "correct" ? (
+                {getAnswerStatus(0) === 'correct' ? (
                   <Check className="w-6 h-6 text-green-500" />
                 ) : (
                   <X className="w-6 h-6 text-red-500" />
@@ -195,37 +182,48 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           onClick={toggleShowAnswer}
         >
           <Eye className="w-5 h-5 mr-2" />
-          {showAnswer ? "Hide Answer" : "Show Answer"}
+          {showAnswer ? 'Hide Answer' : 'Show Answer'}
         </button>
       </div>
-
+      
       {showAnswer && (
         <div className="mt-6 p-4 bg-blue-50 rounded-md">
           <p className="text-gray-800">
             <span className="font-medium">Correct Answer: </span>
             {question.answer}
           </p>
+          {question.id === 1 && question.acceptableAnswers && (
+            <div className="mt-2">
+              <p className="font-medium text-gray-800">Other acceptable answers:</p>
+              <ul className="list-disc list-inside mt-1 text-gray-700">
+                {question.acceptableAnswers.map((answer, index) => (
+                  <li key={index}>{answer}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
+      {/* Elegant Pagination */}
       <div className="mt-8 flex items-center justify-center space-x-2">
         <button
-          onClick={() => handleNavigation("prev")}
+          onClick={() => handleNavigation('prev')}
           disabled={currentQuestionId === 1}
           className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ChevronLeft size={20} />
         </button>
-
+        
         {getVisiblePages().map((page, index) => (
           <React.Fragment key={index}>
-            {typeof page === "number" ? (
+            {typeof page === 'number' ? (
               <button
                 onClick={() => navigate(`/question/${page}`)}
                 className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                   page === currentQuestionId
-                    ? "bg-blue-600 text-white"
-                    : "hover:bg-gray-100"
+                    ? 'bg-blue-600 text-white'
+                    : 'hover:bg-gray-100'
                 }`}
               >
                 {page}
@@ -237,7 +235,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
         ))}
 
         <button
-          onClick={() => handleNavigation("next")}
+          onClick={() => handleNavigation('next')}
           disabled={currentQuestionId === questions.length}
           className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
         >

@@ -1,17 +1,24 @@
-// Define an interface for a Question object, specifying its structure
 export interface Question {
-  id: number; // Unique identifier for the question
-  question: string; // The actual question text
-  answer: string; // The correct answer to the question
-  inputFields?: number; // Optional number of input fields required for the answer
+  id: number;
+  question: string;
+  answer: string;
+  inputFields?: number;
+  acceptableAnswers?: string[];
 }
 
-// Create an array of questions following the Question interface structure
 export const questions: Question[] = [
   {
     id: 1,
     question: "What are three (3) documented sources you could refer to for workplace safety information?",
-    answer: "WHS policies and procedures; Forklift operator manual; Safe working procedures",
+    answer: "WHS Act and Regulations; Australian Standards; Management Plans",
+    acceptableAnswers: [
+      "WHS Act and Regulations",
+      "Australian Standards",
+      "Management Plans",
+      "Codes of Practice",
+      "Manufacturer's Instructions",
+      "Safe working or job procedures"
+    ],
     inputFields: 3
   },
   {
