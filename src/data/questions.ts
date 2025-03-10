@@ -24,7 +24,14 @@ export const questions: Question[] = [
   {
     id: 2,
     question: "What are three (3) duties an employer should take to ensure the health and safety of a worker?",
-    answer: "Provide and maintain a work environment without risks to health and safety; Provide safe plant and structures; Provide adequate facilities and ensure safe systems of work",
+    answer: "Provide and maintain a safe work place; Provide and maintain safe plant, equipment and structures; Provide and maintain safe systems of work",
+    acceptableAnswers: [
+      "Provide and maintain a safe work place",
+      "Provide and maintain safe plant, equipment and structures",
+      "Provide and maintain safe systems of work",
+      "Provide adequate facilities",
+      "Provide information, training, instruction and supervision for the work to be undertaken"
+    ],
     inputFields: 3
   },
   {
