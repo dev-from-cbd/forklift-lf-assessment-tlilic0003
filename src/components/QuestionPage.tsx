@@ -45,14 +45,12 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
   const isAnswerCorrect = (answer: string, index: number) => {
     const trimmedAnswer = answer.toLowerCase().trim();
     
-    // For question 1, check against acceptable answers
-    if (question.id === 1 && question.acceptableAnswers) {
+    if (question.acceptableAnswers) {
       return question.acceptableAnswers.some(
         acceptable => acceptable.toLowerCase().trim() === trimmedAnswer
       );
     }
     
-    // For other questions, check against the specific answer part
     const correctAnswers = question.answer.split(';').map(a => a.trim());
     return trimmedAnswer === correctAnswers[index]?.toLowerCase().trim();
   };
@@ -72,7 +70,6 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
     }
   };
 
-  // Calculate visible page numbers
   const getVisiblePages = () => {
     const delta = 2;
     const range = [];
@@ -188,19 +185,20 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
       
       {showAnswer && (
         <div className="mt-6 p-4 bg-blue-50 rounded-md">
-          <p className="text-gray-800">
-            <span className="font-medium">Correct Answer: </span>
-            {question.answer}
-          </p>
-          {question.id === 1 && question.acceptableAnswers && (
-            <div className="mt-2">
-              <p className="font-medium text-gray-800">Other acceptable answers:</p>
-              <ul className="list-disc list-inside mt-1 text-gray-700">
+          {question.acceptableAnswers ? (
+            <div>
+              <p className="font-medium text-gray-800">Correct answers:</p>
+              <ul className="list-disc list-inside mt-2 text-gray-700">
                 {question.acceptableAnswers.map((answer, index) => (
                   <li key={index}>{answer}</li>
                 ))}
               </ul>
             </div>
+          ) : (
+            <p className="text-gray-800">
+              <span className="font-medium">Correct Answer: </span>
+              {question.answer}
+            </p>
           )}
         </div>
       )}

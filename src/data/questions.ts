@@ -37,7 +37,13 @@ export const questions: Question[] = [
   {
     id: 3,
     question: "After successfully obtaining your High Risk Work Licence, list two (2) things your employer must provide prior to you operating an unfamiliar forklift.",
-    answer: "Familiarization training specific to the forklift; Site-specific induction and training",
+    answer: "Information on the plant; Training on the plant",
+    acceptableAnswers: [
+      "Information on the plant",
+      "Training on the plant",
+      "Instruction on the plant",
+      "Supervision while operating the plant"
+    ],
     inputFields: 2
   },
   {
