@@ -74,10 +74,16 @@ export const questions: Question[] = [
   },
   {
     id: 6,
-    question: "What are three (3) hazards that must be checked for when conducting a workplace inspection?",
+    question: "List three (3) people you should talk to about workplace hazards before starting work.",
     answer: "Overhead obstructions; Floor/ground conditions; Other workers or pedestrians in the area",
     inputFields: 3
   },
+  //  {
+  //    id: 6,
+  //    question: "What are three (3) hazards that must be checked for when conducting a workplace inspection?",
+  //    answer: "Overhead obstructions; Floor/ground conditions; Other workers or pedestrians in the area",
+  //    inputFields: 3
+  //  },
   {
     id: 7,
     question: "What are three (3) pre-operational checks that must be conducted on a forklift?",
