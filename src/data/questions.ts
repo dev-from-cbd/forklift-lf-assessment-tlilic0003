@@ -48,15 +48,29 @@ export const questions: Question[] = [
   },
   {
     id: 4,
-    question: "What are three (3) things you must do before operating a forklift?",
-    answer: "Conduct pre-operational checks; Check for hazards in the work area; Ensure you are wearing appropriate PPE",
-    inputFields: 3
+    question: "What does the Duty of Care as a worker involve?",
+    answer: "Take reasonable care for their own health and safety; Take reasonable care for the health and safety of others; Follow reasonable instructions given by your PCBU",
+    acceptableAnswers: [
+      "Take reasonable care for their own health and safety",
+      "Take reasonable care for the health and safety of others who may be affected by their acts or omissions",
+      "Follow reasonable instructions given by your PCBU (Person Conducting a Business or Undertaking, i.e. employer) to comply with WHS requirements",
+      "Not intentionally or recklessly interfere with or misuse anything provided at the workplace for WHS",
+      "Follow any requirements set by the WHS Act or Regulations"
+    ],
+    inputFields: 1
   },
   {
     id: 5,
-    question: "List three (3) items of Personal Protective Equipment (PPE) that may be required when operating a forklift.",
-    answer: "Safety boots; High visibility vest; Hard hat",
-    inputFields: 3
+    question: "What are two (2) things the work health and safety regulator could do if it is found that you were not working safely as a High Risk Work Licence holder?",
+    answer: "Suspension of your HRW licence; Cancelation of your HRW licence",
+    acceptableAnswers: [
+      "Suspension of your HRW licence",
+      "Cancelation of your HRW licence",
+      "The regulator can refuse to renew your HRW licence",
+      "The regulator direct a HRW licence holder to obtain a reassessment to determine competency",
+      "The regulator can prosecute the HRW licence holder"
+    ],
+    inputFields: 2
   },
   {
     id: 6,
