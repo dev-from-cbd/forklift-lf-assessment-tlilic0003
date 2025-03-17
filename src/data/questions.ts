@@ -84,6 +84,12 @@ export const questions: Question[] = [
   //    answer: "Overhead obstructions; Floor/ground conditions; Other workers or pedestrians in the area",
   //    inputFields: 3
   //  },
+  //{
+  //   id: 7,
+  //   question: "What are three (3) pre-operational checks that must be conducted on a forklift?",
+  //   answer: "Fluid levels (oil, fuel, coolant); Tyre condition and pressure; All controls and safety devices",
+  //   inputFields: 3
+  //},
   {
     id: 7,
     question: "What are three (3) pre-operational checks that must be conducted on a forklift?",
