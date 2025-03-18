@@ -75,25 +75,25 @@ export const questions: Question[] = [
   {
     id: 6,
     question: "List three (3) people you should talk to about workplace hazards before starting work.",
-    answer: "Overhead obstructions; Floor/ground conditions; Other workers or pedestrians in the area",
+    answer: "Safety Officers; Managers; Engineers",
+    acceptableAnswers: [
+      "Safety Officers",
+      "Managers",
+      "Engineers",
+      "Work team",
+      "Supervisors"
+    ],
     inputFields: 3
   },
-  //  {
-  //    id: 6,
-  //    question: "What are three (3) hazards that must be checked for when conducting a workplace inspection?",
-  //    answer: "Overhead obstructions; Floor/ground conditions; Other workers or pedestrians in the area",
-  //    inputFields: 3
-  //  },
-  //{
-  //   id: 7,
-  //   question: "What are three (3) pre-operational checks that must be conducted on a forklift?",
-  //   answer: "Fluid levels (oil, fuel, coolant); Tyre condition and pressure; All controls and safety devices",
-  //   inputFields: 3
-  //},
   {
     id: 7,
-    question: "What are three (3) pre-operational checks that must be conducted on a forklift?",
-    answer: "Fluid levels (oil, fuel, coolant); Tyre condition and pressure; All controls and safety devices",
+    question: "Why is it important to consult with others about workplace hazards?",
+    answer: "Consultation helps to identify and manage workplace hazards effectively; It ensures adherence to workplace policies and site-specific safety procedures; It provides information about task plans, required equipment, and specifics of the task",
+    acceptableAnswers: [
+      "Consultation helps to identify and manage workplace hazards effectively",
+      "It ensures adherence to workplace policies and site-specific safety procedures",
+      "It provides information about task plans, required equipment, and specifics of the task"
+    ],
     inputFields: 3
   },
   {
