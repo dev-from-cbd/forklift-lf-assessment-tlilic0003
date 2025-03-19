@@ -94,25 +94,54 @@ export const questions: Question[] = [
       "It ensures adherence to workplace policies and site-specific safety procedures",
       "It provides information about task plans, required equipment, and specifics of the task"
     ],
-    inputFields: 3
+    inputFields: 1
   },
   {
     id: 8,
-    question: "List three (3) safety devices fitted to a forklift.",
-    answer: "Seat belt; Operator restraint system; Horn/warning device",
-    inputFields: 3
+    question: "When planning for safe Forklift operations, identify six (6) things you need to consider.",
+    answer: "Characteristics of load; Communication; Access and egress; Location of task; Specifics of task; Permits required",
+    acceptableAnswers: [
+      "Characteristics of load including unusual shapes and weights",
+      "Communication (safe and adequate)",
+      "Access and egress",
+      "Location of task",
+      "Specifics of task",
+      "Permits required for the task",
+      "Equipment required for the task",
+      "Availability of equipment",
+      "Capacity of the forklift",
+      "Route of travel",
+      "Attachments are compliant & on the data plate",
+      "Task plans",
+      "Plant required for the task",
+      "Specialised equipment required for the task",
+      "Weights, load bearing capabilities",
+      "Other information that may assist the operator to plan the job"
+    ],
+    inputFields: 6
   },
   {
     id: 9,
-    question: "What are three (3) operational checks that must be conducted on a forklift?",
-    answer: "Brakes; Steering; Mast operation and hydraulic controls",
-    inputFields: 3
+    question: "What is the definition of:\na Risk\na Hazard",
+    answer: "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage; A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard",
+    acceptableAnswers: [
+      "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage",
+      "A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard"
+    ],
+    inputFields: 2
   },
   {
     id: 10,
-    question: "What are three (3) defects that would prevent you from operating a forklift?",
-    answer: "Faulty brakes; Damaged tyres; Inoperable safety devices",
-    inputFields: 3
+    question: "Complete the order of the Hierarchy of Controls below:\n1. Elimination\n2. S\n3. I\n4. Engineering Controls\n5. A\n6. P",
+    answer: "Substitution; Isolation; Engineering Controls; Administrative Controls; PPE",
+    acceptableAnswers: [
+      "Substitution",
+      "Isolation",
+      "Engineering Controls",
+      "Administrative Controls",
+      "PPE"
+    ],
+    inputFields: 6
   },
   {
     id: 11,
