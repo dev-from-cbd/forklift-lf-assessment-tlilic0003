@@ -4,6 +4,8 @@ export interface Question {
   answer: string;
   inputFields?: number;
   acceptableAnswers?: string[];
+  prefilledAnswers?: { [key: number]: string };
+  displayFormat?: 'hierarchy';
 }
 
 export const questions: Question[] = [
@@ -132,22 +134,38 @@ export const questions: Question[] = [
   },
   {
     id: 10,
-    question: "Complete the order of the Hierarchy of Controls below:\n1. Elimination\n2. S\n3. I\n4. Engineering Controls\n5. A\n6. P",
-    answer: "Substitution; Isolation; Engineering Controls; Administrative Controls; PPE",
+    question: "Complete the order of the Hierarchy of Controls below:",
+    answer: "Elimination; Substitution; Isolation; Engineering Controls; Administrative Controls; PPE",
     acceptableAnswers: [
       "Substitution",
       "Isolation",
-      "Engineering Controls",
       "Administrative Controls",
       "PPE"
     ],
-    inputFields: 6
+    inputFields: 4,
+    prefilledAnswers: {
+      1: "Elimination",
+      4: "Engineering Controls"
+    },
+    displayFormat: 'hierarchy'
   },
   {
     id: 11,
-    question: "What should you do if you identify a fault with the forklift?",
-    answer: "Tag out the forklift, report the fault to your supervisor, and do not operate until repaired",
-    inputFields: 1
+    question: "List ten (10) hazards that relate to forklift operations that could be identified prior to operating.",
+    answer: "Pedestrians in the forklift zone; Obstructions (e.g., pallets, debris); Uneven or unstable ground; Adverse weather (wind, rain); Blind spots/doorways; Overhead power lines; Slippery/wet surfaces; Poor lighting; Incorrect load placement (e.g., overloading); Improper use of attachments",
+    acceptableAnswers: [
+      "Pedestrians in the forklift zone",
+      "Obstructions (e.g., pallets, debris)",
+      "Uneven or unstable ground",
+      "Adverse weather (wind, rain)",
+      "Blind spots/doorways",
+      "Overhead power lines",
+      "Slippery/wet surfaces",
+      "Poor lighting",
+      "Incorrect load placement (e.g., overloading)",
+      "Improper use of attachments"
+    ],
+    inputFields: 10
   },
   {
     id: 12,
