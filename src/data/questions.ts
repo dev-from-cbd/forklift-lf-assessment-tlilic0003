@@ -137,10 +137,10 @@ export const questions: Question[] = [
     question: "Complete the order of the Hierarchy of Controls below:",
     answer: "Elimination; Substitution; Isolation; Engineering Controls; Administrative Controls; PPE",
     acceptableAnswers: [
-      "Substitution",
-      "Isolation",
-      "Administrative Controls",
-      "PPE"
+      "2. Substitution",
+      "3. Isolation",
+      "5. Administrative Controls",
+      "6. PPE"
     ],
     inputFields: 4,
     prefilledAnswers: {
