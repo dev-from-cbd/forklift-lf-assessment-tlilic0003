@@ -169,7 +169,7 @@ export const questions: Question[] = [
   },
   {
     id: 12,
-    question: "What are three (3) things that must be checked on the data plate?",
+    question: "How can you find out information about the voltage of the power lines?",
     answer: "Maximum load capacity; Load center; Mast tilt angles",
     inputFields: 3
   },
