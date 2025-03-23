@@ -171,7 +171,15 @@ export const questions: Question[] = [
     id: 12,
     question: "How can you find out information about the voltage of the power lines?",
     answer: "Maximum load capacity; Load center; Mast tilt angles",
-    inputFields: 3
+    acceptableAnswers: [
+      "Contact the power authority/supplier directly (like SA Power Networks);",
+      "Check for voltage indicators (e.g., signage, markers, or compliance plates on poles/towers);",
+      "Consult with site management or supervisors;",
+      "Refer to site plans or electrical diagrams;",
+      "Checking warning signs on the poles or towers;",
+      "Consulting site documentation or area plans."
+    ],
+    inputFields: 1
   },
   {
     id: 13,
