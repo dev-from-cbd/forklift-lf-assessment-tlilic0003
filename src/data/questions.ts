@@ -189,7 +189,7 @@ export const questions: Question[] = [
   },
   {
     id: 14,
-    question: "What are three (3) factors that affect the load capacity of a forklift?",
+    question: "List two (2) visual indicators that can identify overhead electric powerlines.",
     answer: "Load center; Lift height; Mast tilt angle",
     inputFields: 3
   },
