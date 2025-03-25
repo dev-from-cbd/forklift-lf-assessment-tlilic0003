@@ -183,7 +183,7 @@ export const questions: Question[] = [
   },
   {
     id: 13,
-    question: "What information is displayed on a load chart?",
+    question: "What are the minimum safe distances you must maintain near overhead electric power lines?",
     answer: "Maximum load capacity at different lift heights and load centers",
     inputFields: 1
   },
