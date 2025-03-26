@@ -195,7 +195,7 @@ export const questions: Question[] = [
   },
   {
     id: 15,
-    question: "What is the load center and why is it important?",
+    question: "What procedure should be followed if contact is made with power conductors?",
     answer: "The horizontal distance from the face of the forks to the load's center of gravity; it affects the forklift's stability and load capacity",
     inputFields: 1
   },
