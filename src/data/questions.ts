@@ -201,7 +201,7 @@ export const questions: Question[] = [
   },
   {
     id: 16,
-    question: "List three (3) types of attachments that can be fitted to a forklift.",
+    question: "What are three (3) safe ways to operate a forklift on wet slippery surfaces?",
     answer: "Side shift; Fork extensions; Drum clamps",
     inputFields: 3
   },
