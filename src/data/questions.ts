@@ -207,7 +207,7 @@ export const questions: Question[] = [
   },
   {
     id: 17,
-    question: "What effect do attachments have on the forklift's load capacity?",
+    question: "List three (3) types of weather hazards that could affect forklift operations outdoors.",
     answer: "They reduce the load capacity due to their weight and may change the load center",
     inputFields: 1
   },
