@@ -11,7 +11,7 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: 1,
-    question: "What are three (3) documented sources you could refer to for workplace safety information?",
+    question: "What is the defenition of a hazard?",
     answer: "WHS Act and Regulations; Australian Standards; Management Plans",
     acceptableAnswers: [
       "WHS Act and Regulations",
