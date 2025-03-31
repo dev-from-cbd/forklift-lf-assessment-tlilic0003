@@ -25,7 +25,7 @@ export const questions: Question[] = [
   },
   {
     id: 2,
-    question: "What are three (3) duties an employer should take to ensure the health and safety of a worker?",
+    question: "What is the defenition of a risk?",
     answer: "Provide and maintain a safe work place; Provide and maintain safe plant, equipment and structures; Provide and maintain safe systems of work",
     acceptableAnswers: [
       "Provide and maintain a safe work place",
