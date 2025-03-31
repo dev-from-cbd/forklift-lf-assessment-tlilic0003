@@ -38,7 +38,7 @@ export const questions: Question[] = [
   },
   {
     id: 3,
-    question: "After successfully obtaining your High Risk Work Licence, list two (2) things your employer must provide prior to you operating an unfamiliar forklift.",
+    question: "You have a duty of care as a worker. What are two of those duties?",
     answer: "Information on the plant; Training on the plant",
     acceptableAnswers: [
       "Information on the plant",
