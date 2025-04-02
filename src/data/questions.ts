@@ -11,17 +11,12 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: 1,
-    question: "What is the defenition of a hazard?",
-    answer: "WHS Act and Regulations; Australian Standards; Management Plans",
+    question: "What safety feature on the Order Picking Forklift must be closed at all times when operating?",
+    answer: "Handrail",
     acceptableAnswers: [
-      "WHS Act and Regulations",
-      "Australian Standards",
-      "Management Plans",
-      "Codes of Practice",
-      "Manufacturer's Instructions",
-      "Safe working or job procedures"
+      "Handrail"
     ],
-    inputFields: 3
+    inputFields: 1
   },
   {
     id: 2,
@@ -63,7 +58,7 @@ export const questions: Question[] = [
   },
   {
     id: 5,
-    question: "What are two (2) things the work health and safety regulator could do if it is found that you were not working safely as a High Risk Work Licence holder?",
+    question: "List three documented sources of workplace safety information.",
     answer: "Suspension of your HRW licence; Cancelation of your HRW licence",
     acceptableAnswers: [
       "Suspension of your HRW licence",
