@@ -20,14 +20,17 @@ export const questions: Question[] = [
   },
   {
     id: 2,
-    question: "What is the defenition of a risk?",
-    answer: "Provide and maintain a safe work place; Provide and maintain safe plant, equipment and structures; Provide and maintain safe systems of work",
+    question: "What are three (3) documented sources you could refer to for workplace safety information?",
+    answer: "Work Health and Safety Act 2012 (SA), Work Health and Safety Regulations 2012 (SA), Codes of Practice, Australian Standards, WHS policy and procedures, Safe working procedures, Management plans, Manufacturer’s specifications",
     acceptableAnswers: [
-      "Provide and maintain a safe work place",
-      "Provide and maintain safe plant, equipment and structures",
-      "Provide and maintain safe systems of work",
-      "Provide adequate facilities",
-      "Provide information, training, instruction and supervision for the work to be undertaken"
+      "Work Health and Safety Act 2012 (SA)",
+      "Work Health and Safety Regulations 2012 (SA)",
+      "Codes of Practice",
+      "Australian Standards",
+      "WHS policy and procedures",
+      "Safe working procedures",
+      "Management plans",
+      "Manufacturer’s specifications"
     ],
     inputFields: 3
   },
