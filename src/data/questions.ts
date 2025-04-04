@@ -36,15 +36,18 @@ export const questions: Question[] = [
   },
   {
     id: 3,
-    question: "You have a duty of care as a worker. What are two of those duties?",
-    answer: "Information on the plant; Training on the plant",
+    question: "What are three (3) duties a PCBU should take to ensure the health and safety of a worker?",
+    answer: "Provide and maintain a work environment without risks to health and safety, Provide and maintain safe plant and structures, Provide and maintain safe systems of work, Provide and maintain adequate facilities, Provide and maintain any information, training, instruction or supervision for the work to be undertaken safely, Provide and maintain procedures and systems to ensure the safe use, handling and storage of plant, structures and substances, Provide and maintain monitoring of health for workers and the conditions at the workplace to prevent illness or injury",
     acceptableAnswers: [
-      "Information on the plant",
-      "Training on the plant",
-      "Instruction on the plant",
-      "Supervision while operating the plant"
+      "Provide and maintain safe plant and structures",
+      "Provide and maintain safe systems of work",
+      "Provide and maintain adequate facilities",
+      "Provide and maintain a work environment without risks to health and safety",
+      "Provide and maintain any information, training, instruction or supervision for the work to be undertaken safely",
+      "Provide and maintain procedures and systems to ensure the safe use, handling and storage of plant, structures and substances",
+      "Provide and maintain monitoring of health for workers and the conditions at the workplace to prevent illness or injury"
     ],
-    inputFields: 2
+    inputFields: 3
   },
   {
     id: 4,
