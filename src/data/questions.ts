@@ -51,7 +51,7 @@ export const questions: Question[] = [
   },
   {
     id: 4,
-    question: "What are two actions a work health and safety regulator can take if you fail to work safety when permiting high risk work in your licence class?",
+    question: "After successfully obtaining your High Risk Work Licence, list two (2) things your employer must provide prior to you before operating an unfamiliar Order Picking Forklift.",
     answer: "Take reasonable care for their own health and safety; Take reasonable care for the health and safety of others; Follow reasonable instructions given by your PCBU",
     acceptableAnswers: [
       "Take reasonable care for their own health and safety",
