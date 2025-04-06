@@ -52,15 +52,14 @@ export const questions: Question[] = [
   {
     id: 4,
     question: "After successfully obtaining your High Risk Work Licence, list two (2) things your employer must provide prior to you before operating an unfamiliar Order Picking Forklift.",
-    answer: "Take reasonable care for their own health and safety; Take reasonable care for the health and safety of others; Follow reasonable instructions given by your PCBU",
+    answer: "Information, Training, Instruction, Supervision",
     acceptableAnswers: [
-      "Take reasonable care for their own health and safety",
-      "Take reasonable care for the health and safety of others who may be affected by their acts or omissions",
-      "Follow reasonable instructions given by your PCBU (Person Conducting a Business or Undertaking, i.e. employer) to comply with WHS requirements",
-      "Not intentionally or recklessly interfere with or misuse anything provided at the workplace for WHS",
-      "Follow any requirements set by the WHS Act or Regulations"
+      "Information",
+      "Training",
+      "Instruction",
+      "Supervision"
     ],
-    inputFields: 1
+    inputFields: 2
   },
   {
     id: 5,
