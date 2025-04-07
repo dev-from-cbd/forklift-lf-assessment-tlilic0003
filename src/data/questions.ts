@@ -63,17 +63,16 @@ export const questions: Question[] = [
   },
   {
     id: 5,
-    question: "List three documented sources of workplace safety information.",
-    answer: "Suspension of your HRW licence; Cancelation of your HRW licence",
+    question: "What does the Duty of Care as a worker involve? List two (2) responsibilities",
+    answer: "Take reasonable care for your own health and safety, Take reasonable care for the health and safety of others",
     acceptableAnswers: [
-      "Suspension of your HRW licence",
-      "Cancelation of your HRW licence",
-      "The regulator can refuse to renew your HRW licence",
-      "The regulator direct a HRW licence holder to obtain a reassessment to determine competency",
-      "The regulator can prosecute the HRW licence holder"
+      "Take reasonable care for your own health and safety",
+      "Take reasonable care for the health and safety of others who may be affected by their own acts or omissions",
+      "Cooperate with anything the employer does to comply with WHS requirements",
+      "Not intentionally or recklessly interfere with or misuse anything provided at the workplace for WHS"
     ],
     inputFields: 2
-  },
+  }
   {
     id: 6,
     question: "List three (3) people you should talk to about workplace hazards before starting work.",
