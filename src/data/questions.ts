@@ -75,7 +75,7 @@ export const questions: Question[] = [
   }
   {
     id: 6,
-    question: "List three (3) people you should talk to about workplace hazards before starting work.",
+    question: "What are two (2) actions the Work Health and Safety Regulator could do if it is found that you were not working safely as a High Risk Work Licence holder?",
     answer: "Safety Officers; Managers; Engineers",
     acceptableAnswers: [
       "Safety Officers",
