@@ -21,7 +21,7 @@ export const questions: Question[] = [
   {
     id: 2,
     question: "What are three (3) documented sources you could refer to for workplace safety information?",
-    answer: "Work Health and Safety Act 2012 (SA), Work Health and Safety Regulations 2012 (SA), Codes of Practice, Australian Standards, WHS policy and procedures, Safe working procedures, Management plans, Manufacturer’s specifications",
+    answer: "Work Health and Safety Act 2012 (SA); Work Health and Safety Regulations 2012 (SA); Codes of Practice; Australian Standards; WHS policy and procedures; Safe working procedures; Management plans; Manufacturer’s specifications",
     acceptableAnswers: [
       "Work Health and Safety Act 2012 (SA)",
       "Work Health and Safety Regulations 2012 (SA)",
@@ -37,7 +37,7 @@ export const questions: Question[] = [
   {
     id: 3,
     question: "What are three (3) duties a PCBU should take to ensure the health and safety of a worker?",
-    answer: "Provide and maintain a work environment without risks to health and safety, Provide and maintain safe plant and structures, Provide and maintain safe systems of work, Provide and maintain adequate facilities, Provide and maintain any information, training, instruction or supervision for the work to be undertaken safely, Provide and maintain procedures and systems to ensure the safe use, handling and storage of plant, structures and substances, Provide and maintain monitoring of health for workers and the conditions at the workplace to prevent illness or injury",
+    answer: "Provide and maintain a work environment without risks to health and safety; Provide and maintain safe plant and structures, Provide and maintain safe systems of work; Provide and maintain adequate facilities; Provide and maintain any information, training, instruction or supervision for the work to be undertaken safely; Provide and maintain procedures and systems to ensure the safe use, handling and storage of plant, structures and substances; Provide and maintain monitoring of health for workers and the conditions at the workplace to prevent illness or injury",
     acceptableAnswers: [
       "Provide and maintain safe plant and structures",
       "Provide and maintain safe systems of work",
@@ -52,7 +52,7 @@ export const questions: Question[] = [
   {
     id: 4,
     question: "After successfully obtaining your High Risk Work Licence, list two (2) things your employer must provide prior to you before operating an unfamiliar Order Picking Forklift.",
-    answer: "Information, Training, Instruction, Supervision",
+    answer: "Information; Training; Instruction; Supervision",
     acceptableAnswers: [
       "Information",
       "Training",
@@ -64,7 +64,7 @@ export const questions: Question[] = [
   {
     id: 5,
     question: "What does the Duty of Care as a worker involve? List two (2) responsibilities",
-    answer: "Take reasonable care for your own health and safety, Take reasonable care for the health and safety of others",
+    answer: "Take reasonable care for your own health and safety; Take reasonable care for the health and safety of others",
     acceptableAnswers: [
       "Take reasonable care for your own health and safety",
       "Take reasonable care for the health and safety of others who may be affected by their own acts or omissions",
@@ -76,15 +76,15 @@ export const questions: Question[] = [
   {
     id: 6,
     question: "What are two (2) actions the Work Health and Safety Regulator could do if it is found that you were not working safely as a High Risk Work Licence holder?",
-    answer: "Safety Officers; Managers; Engineers",
+    answer: "Suspend their HRW licence; Cancel their HRW licence; Refuse to renew HRW licence",
     acceptableAnswers: [
-      "Safety Officers",
-      "Managers",
-      "Engineers",
-      "Work team",
-      "Supervisors"
+      "Suspend their HRW licence",
+      "Cancel their HRW licence",
+      "Refuse to renew HRW licence",
+      "Direct reassessment to determine competency",
+      "Prosecute (up to $300,000 fine and/or up to 5 years imprisonment)"
     ],
-    inputFields: 3
+    inputFields: 2
   },
   {
     id: 7,
