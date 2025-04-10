@@ -88,14 +88,14 @@ export const questions: Question[] = [
   },
   {
     id: 7,
-    question: "Why is it important to consult with others about workplace hazards?",
+    question: "List three (3) people you should talk to about workplace hazards before starting work",
     answer: "Consultation helps to identify and manage workplace hazards effectively; It ensures adherence to workplace policies and site-specific safety procedures; It provides information about task plans, required equipment, and specifics of the task",
     acceptableAnswers: [
       "Consultation helps to identify and manage workplace hazards effectively",
       "It ensures adherence to workplace policies and site-specific safety procedures",
       "It provides information about task plans, required equipment, and specifics of the task"
     ],
-    inputFields: 1
+    inputFields: 3
   },
   {
     id: 8,
