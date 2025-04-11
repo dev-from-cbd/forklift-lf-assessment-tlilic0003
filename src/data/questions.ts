@@ -99,7 +99,7 @@ export const questions: Question[] = [
   },
   {
     id: 8,
-    question: "When planning for safe Forklift operations, identify six (6) things you need to consider.",
+    question: "Why is it important to consult with others about workplace hazards?",
     answer: "Characteristics of load; Communication; Access and egress; Location of task; Specifics of task; Permits required",
     acceptableAnswers: [
       "Characteristics of load including unusual shapes and weights",
@@ -119,7 +119,7 @@ export const questions: Question[] = [
       "Weights, load bearing capabilities",
       "Other information that may assist the operator to plan the job"
     ],
-    inputFields: 6
+    inputFields: 2
   },
   {
     id: 9,
