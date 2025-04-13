@@ -89,7 +89,7 @@ export const questions: Question[] = [
   {
     id: 7,
     question: "List three (3) people you should talk to about workplace hazards before starting work",
-    answer: "Consultation helps to identify and manage workplace hazards effectively; It ensures adherence to workplace policies and site-specific safety procedures; It provides information about task plans, required equipment, and specifics of the task",
+    answer: "Supervisors; Safety officers; Other personnel/workers; Workplace engineers (if applicable); Site or operations managers; Health and Safety Representatives; WHS Committee members",
     acceptableAnswers: [
       "Supervisors",
       "Safety officers",
