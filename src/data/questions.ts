@@ -126,7 +126,7 @@ export const questions: Question[] = [
   },
   {
     id: 9,
-    question: "What is the definition of:\na Risk\na Hazard",
+    question: "List six (6) things that you need to plan for before operating the Order Picking Forklift",
     answer: "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage; A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard",
     acceptableAnswers: [
       "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage",
@@ -136,7 +136,7 @@ export const questions: Question[] = [
   },
   {
     id: 10,
-    question: "Complete the order of the Hierarchy of Controls below:",
+    question: "Explain what is meant by: a Hazard",
     answer: "Elimination; Substitution; Isolation; Engineering Controls; Administrative Controls; PPE",
     acceptableAnswers: [
       "2. Substitution",
