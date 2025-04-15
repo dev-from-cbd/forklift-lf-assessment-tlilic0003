@@ -153,7 +153,7 @@ export const questions: Question[] = [
   },
   {
     id: 11,
-    question: "List ten (10) hazards that relate to forklift operations that could be identified prior to operating.",
+    question: "Explain what is meant by: a Risk",
     answer: "Pedestrians in the forklift zone; Obstructions (e.g., pallets, debris); Uneven or unstable ground; Adverse weather (wind, rain); Blind spots/doorways; Overhead power lines; Slippery/wet surfaces; Poor lighting; Incorrect load placement (e.g., overloading); Improper use of attachments",
     acceptableAnswers: [
       "Pedestrians in the forklift zone",
