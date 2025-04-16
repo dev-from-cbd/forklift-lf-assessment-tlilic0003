@@ -171,7 +171,7 @@ export const questions: Question[] = [
   },
   {
     id: 12,
-    question: "How can you find out information about the voltage of the power lines?",
+    question: "List ten (10) hazards that relate to Order Picking Forklift operations that could be identified prior to operating",
     answer: "Maximum load capacity; Load center; Mast tilt angles",
     acceptableAnswers: [
       "Contact the power authority/supplier directly (like SA Power Networks);",
