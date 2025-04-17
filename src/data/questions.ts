@@ -185,7 +185,7 @@ export const questions: Question[] = [
   },
   {
     id: 13,
-    question: "What are the minimum safe distances you must maintain near overhead electric power lines?",
+    question: "What should the operator do if the Order Picking Forklift makes contact with an electrical source? (E.g. power supply to lights) List two (2) actions",
     answer: "Maximum load capacity at different lift heights and load centers",
     inputFields: 1
   },
