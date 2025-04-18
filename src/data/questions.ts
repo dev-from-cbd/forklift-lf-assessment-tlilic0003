@@ -191,7 +191,7 @@ export const questions: Question[] = [
   },
   {
     id: 14,
-    question: "List two (2) visual indicators that can identify overhead electric powerlines.",
+    question: "If the ground is wet and slippery, what are two (2) things we need to do?",
     answer: "Load center; Lift height; Mast tilt angle",
     inputFields: 3
   },
