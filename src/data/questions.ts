@@ -72,7 +72,7 @@ export const questions: Question[] = [
       "Not intentionally or recklessly interfere with or misuse anything provided at the workplace for WHS"
     ],
     inputFields: 2
-  }
+  },
   {
     id: 6,
     question: "What are two (2) actions the Work Health and Safety Regulator could do if it is found that you were not working safely as a High Risk Work Licence holder?",
@@ -747,120 +747,107 @@ export const questions: Question[] = [
   },
   {
     id: 62,
-    question: "What are three (3) procedures for working with flammable loads?",
-    answer: "Eliminate ignition sources; Use proper equipment; Follow storage rules",
+    question: "What are three (3) procedures for working with explosive loads?",
+    answer: "Follow special procedures; Maintain safe distance; Use proper equipment",
     acceptableAnswers: [
-      "Eliminate ignition sources",
+      "Follow special procedures",
+      "Maintain safe distance",
       "Use proper equipment",
-      "Follow storage rules",
-      "Have fire extinguisher ready"
+      "Monitor for hazards"
     ],
     inputFields: 3
   },
   {
     id: 63,
-    question: "What are three (3) procedures for working with explosive loads?",
-    answer: "Follow strict handling procedures; Use appropriate equipment; Maintain safe distances",
+    question: "What are three (3) procedures for working with radioactive loads?",
+    answer: "Follow radiation protocols; Use shielding; Monitor exposure",
     acceptableAnswers: [
-      "Follow strict handling procedures",
-      "Use appropriate equipment",
-      "Maintain safe distances",
-      "Ensure proper storage conditions"
+      "Follow radiation protocols",
+      "Use shielding",
+      "Monitor exposure",
+      "Wear dosimeter"
     ],
     inputFields: 3
   },
   {
     id: 64,
-    question: "What are three (3) procedures for working with radioactive loads?",
-    answer: "Use proper shielding; Limit exposure; Follow radiation protocols",
-    acceptableAnswers: [
-      "Use proper shielding",
-      "Limit exposure",
-      "Follow radiation protocols",
-      "Use dosimeters"
-    ],
-    inputFields: 3
-  },
-  {
-    id: 65,
     question: "Why must batteries be charged in a well ventilated area?",
-    answer: "To prevent build-up of explosive hydrogen gas produced during charging",
+    answer: "To prevent buildup of explosive hydrogen gas during charging",
     acceptableAnswers: [
-      "To prevent build-up of explosive hydrogen gas produced during charging",
-      "To avoid risk of explosion from hydrogen gas",
-      "To ensure safety from flammable gases"
+      "To prevent buildup of explosive hydrogen gas during charging"
     ],
     inputFields: 1
   },
   {
-    id: 66,
+    id: 65,
     question: "What are three (3) procedures for working with compressed gas cylinders?",
-    answer: "Secure cylinders upright; Protect valves; Store properly",
+    answer: "Secure cylinders properly; Keep valves protected; Use proper handling equipment",
     acceptableAnswers: [
-      "Secure cylinders upright",
-      "Protect valves",
-      "Store properly",
-      "Use correct regulators"
+      "Secure cylinders properly",
+      "Keep valves protected",
+      "Use proper handling equipment",
+      "Store upright"
+    ],
+    inputFields: 3
+  },
+  {
+    id: 66,
+    question: "What are three (3) procedures for working with bulk liquids?",
+    answer: "Check container integrity; Secure properly; Avoid sudden movements",
+    acceptableAnswers: [
+      "Check container integrity",
+      "Secure properly",
+      "Avoid sudden movements",
+      "Monitor for leaks"
     ],
     inputFields: 3
   },
   {
     id: 67,
-    question: "What are three (3) procedures for working with bulk liquids?",
-    answer: "Check container integrity; Use correct handling equipment; Prevent spills",
+    question: "What are three (3) procedures for working with food products?",
+    answer: "Maintain hygiene standards; Follow temperature controls; Handle carefully",
     acceptableAnswers: [
-      "Check container integrity",
-      "Use correct handling equipment",
-      "Prevent spills",
-      "Ensure proper labeling"
+      "Maintain hygiene standards",
+      "Follow temperature controls",
+      "Handle carefully",
+      "Use proper containers"
     ],
     inputFields: 3
   },
   {
     id: 68,
-    question: "What are three (3) procedures for working with food products?",
-    answer: "Maintain hygiene; Control temperature; Avoid contamination",
+    question: "What are three (3) procedures for working with pharmaceutical products?",
+    answer: "Follow handling instructions; Maintain required conditions; Document movements",
     acceptableAnswers: [
-      "Maintain hygiene",
-      "Control temperature",
-      "Avoid contamination",
-      "Follow food safety standards"
+      "Follow handling instructions",
+      "Maintain required conditions",
+      "Document movements",
+      "Use proper packaging"
     ],
     inputFields: 3
   },
   {
     id: 69,
-    question: "What are three (3) procedures for working with pharmaceutical products?",
-    answer: "Follow handling procedures; Control environment; Record handling details",
+    question: "What are three (3) procedures for working with electronic equipment?",
+    answer: "Handle carefully; Protect from static; Use proper packaging",
     acceptableAnswers: [
-      "Follow handling procedures",
-      "Control environment",
-      "Record handling details",
-      "Avoid contamination"
+      "Handle carefully",
+      "Protect from static",
+      "Use proper packaging",
+      "Avoid moisture"
     ],
     inputFields: 3
   },
   {
     id: 70,
-    question: "What are three (3) procedures for working with electronic equipment?",
-    answer: "Avoid static discharge; Use proper packaging; Handle with care",
-    acceptableAnswers: [
-      "Avoid static discharge",
-      "Use proper packaging",
-      "Handle with care",
-      "Use anti-static wrist straps"
-    ],
-    inputFields: 3
-  },
-  {
-    id: 71,
     question: "What are three (3) procedures for working with construction materials?",
-    answer: "Check load stability; Use suitable equipment; Consider load distribution",
+    answer: "Check load stability; Use proper attachments; Secure properly",
     acceptableAnswers: [
       "Check load stability",
-      "Use suitable equipment",
-      "Consider load distribution",
-      "Avoid overhead lifting"
+      "Use proper attachments",
+      "Secure properly",
+      "Follow weight limits"
     ],
     inputFields: 3
-  }  
+  }
+];
