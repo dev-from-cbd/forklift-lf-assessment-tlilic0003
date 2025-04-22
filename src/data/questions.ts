@@ -104,7 +104,7 @@ export const questions: Question[] = [
   {
     id: 8,
     question: "Why is it important to consult with others about workplace hazards?",
-    answer: "To inform you of any site-specific hazards and controls",
+    answer: "To inform you of any site-specific hazards and ground conditions; To ensure that you adhere to any workplace policies and site-specific procedures",
     acceptableAnswers: [
       "To inform you of any site-specific hazards and ground conditions",
       "To ensure that you adhere to any workplace policies and site-specific procedures"
