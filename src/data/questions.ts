@@ -30,6 +30,10 @@ export const questions: Question[] = [
       "WHS policy and procedures",
       "Safe working procedures",
       "Management plans",
+      "Relevant Australian Standards",
+      "Manufacturer specifications",
+      "Order Picker Operator Manual",
+      "Regulatory guidelines for Order Picker Operations",
       "Manufacturer’s specifications"
     ],
     inputFields: 3
