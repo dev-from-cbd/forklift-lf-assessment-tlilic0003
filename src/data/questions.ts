@@ -118,15 +118,29 @@ export const questions: Question[] = [
   {
     id: 9,
     question: "List six (6) things that you need to plan for before operating the Order Picking Forklift",
-    answer: "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage; A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard",
+    answer: "Location of the work area; Specific details of the task; The travel path of the Order Picker; Size and type of the Order Picker; Capacity of the Order Picker; Equipment/attachments required for the task; Availability of the equipment; Method of attachment; Characteristics (size, weight, shape) of the load; Pick up and unloading destinations; Is traffic control/an exclusion zone required?; Adequate and safe communications; Type of load – e.g. flammable, fragile, unstable or hot; Spotter availability; Ground surface conditions; Weather conditions",
     acceptableAnswers: [
-      "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage",
-      "A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard"
+      "Location of the work area",
+      "Specific details of the task",
+      "The travel path of the Order Picker",
+      "Size and type of the Order Picker",
+      "Capacity of the Order Picker",
+      "Equipment/attachments required for the task",
+      "Availability of the equipment",
+      "Method of attachment",
+      "Characteristics (size, weight, shape) of the load",
+      "Pick up and unloading destinations",
+      "Is traffic control/an exclusion zone required?",
+      "Adequate and safe communications",
+      "Type of load – e.g. flammable, fragile, unstable or hot",
+      "Spotter availability",
+      "Ground surface conditions",
+      "Weather conditions"
     ],
-    inputFields: 2
+    inputFields: 6,
   },
   {
-    id: 9,
+    id: 10,
     question: "What is the definition of:\na Hazard\na Risk",
     answer: "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage; A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard",
     acceptableAnswers: [
