@@ -141,7 +141,7 @@ export const questions: Question[] = [
   },
   {
     id: 10,
-    question: "What is the definition of:\na Hazard\na Risk",
+    question: "What is the definition of a Hazard?",
     answer: "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage; A risk is the possibility that harm (death, injury or illness) might happen when exposed to a hazard",
     acceptableAnswers: [
       "A hazard is a thing or situation that has the potential to cause harm to a person or cause damage",
