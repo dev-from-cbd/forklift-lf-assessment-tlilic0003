@@ -175,7 +175,7 @@ export const questions: Question[] = [
     displayFormat: 'hierarchy'
   },
   {
-    id: 11,
+    id: 13,
     question: "List ten (10) hazards that relate to Order Picking Forklift operations that could be identified prior to operating",
     answer: "Overhead power lines; Ground surface conditions; Weather conditions; Rear end swing; Pedestrians; Batteries; Load stability; Unfamiliar equipment; Poor lighting; Communication failures",
     acceptableAnswers: [
