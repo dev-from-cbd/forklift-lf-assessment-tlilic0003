@@ -193,7 +193,7 @@ export const questions: Question[] = [
     inputFields: 10
   },
   {
-    id: 12,
+    id: 14,
     question: "What should the operator do if the Order Picking Forklift makes contact with an electrical source? (E.g. power supply to lights) List two (2) actions",
     answer: "Stay on the Order Picker; Warn others to stay away",
     acceptableAnswers: [
