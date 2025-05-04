@@ -224,7 +224,7 @@ export const questions: Question[] = [
     inputFields: 1
   },
   {
-    id: 15,
+    id: 17,
     question: "What are three (3) safe ways to operate an Order Picker on wet slippery surfaces?",
     answer: "Reduce speed; Avoid sudden movements; Increase following distance",
     acceptableAnswers: [
@@ -236,7 +236,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 16,
+    id: 18,
     question: "List three (3) types of weather hazards that could affect Order Picker operations outdoors",
     answer: "High winds; Heavy rain; Extreme heat",
     acceptableAnswers: [
@@ -249,7 +249,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 17,
+    id: 19,
     question: "What are three (3) hazards associated with operating attachments?",
     answer: "Reduced visibility; Changed load center; Increased machine weight",
     acceptableAnswers: [
@@ -261,7 +261,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 18,
+    id: 20,
     question: "What are three (3) safe operating procedures when traveling with a load?",
     answer: "Keep load low; Tilt mast back; Observe speed limits",
     acceptableAnswers: [
