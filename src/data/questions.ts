@@ -273,7 +273,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 19,
+    id: 21,
     question: "What are three (3) factors that affect Order Picker stability?",
     answer: "Load weight; Load position; Ground conditions",
     acceptableAnswers: [
@@ -286,7 +286,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 20,
+    id: 22,
     question: "What is the stability triangle and why is it important?",
     answer: "The area formed by the front wheels and pivot point that determines the machine's stability limits",
     acceptableAnswers: [
@@ -295,7 +295,7 @@ export const questions: Question[] = [
     inputFields: 1
   },
   {
-    id: 21,
+    id: 23,
     question: "What are three (3) causes of Order Picker tip-overs?",
     answer: "Overloading; Turning too sharply; Operating on uneven surfaces",
     acceptableAnswers: [
@@ -307,7 +307,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 22,
+    id: 24,
     question: "What should you do if the Order Picker starts to tip over?",
     answer: "Stay in the operator compartment, hold on firmly, and lean away from the direction of tip",
     acceptableAnswers: [
@@ -316,7 +316,7 @@ export const questions: Question[] = [
     inputFields: 1
   },
   {
-    id: 23,
+    id: 25,
     question: "What are three (3) safe operating procedures when working on ramps or inclines?",
     answer: "Drive straight up/down; Keep load uphill; Avoid turning on slopes",
     acceptableAnswers: [
@@ -328,7 +328,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 24,
+    id: 26,
     question: "What are three (3) procedures for safely picking up a load?",
     answer: "Center load on forks; Check load stability; Verify weight capacity",
     acceptableAnswers: [
@@ -340,7 +340,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 25,
+    id: 27,
     question: "What are three (3) procedures for safely placing a load?",
     answer: "Approach slowly; Level forks before placing; Verify placement is secure",
     acceptableAnswers: [
@@ -352,7 +352,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 26,
+    id: 28,
     question: "What are three (3) hazards when stacking loads?",
     answer: "Unstable stacks; Overhead obstructions; Limited visibility",
     acceptableAnswers: [
@@ -364,7 +364,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 27,
+    id: 29,
     question: "What are three (3) safe procedures when working around pedestrians?",
     answer: "Maintain safe distance; Use horn at blind spots; Stop if pedestrians are near",
     acceptableAnswers: [
@@ -376,7 +376,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 28,
+    id: 30,
     question: "What are three (3) types of signs or markings you might see in a workplace?",
     answer: "Speed limit signs; Pedestrian crossing markings; Loading zone signs",
     acceptableAnswers: [
