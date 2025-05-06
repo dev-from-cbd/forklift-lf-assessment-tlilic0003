@@ -388,7 +388,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 29,
+    id: 31,
     question: "What are three (3) procedures for safely parking an Order Picker?",
     answer: "Lower forks to floor; Apply parking brake; Turn off power",
     acceptableAnswers: [
@@ -400,7 +400,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 30,
+    id: 32,
     question: "What are three (3) shutdown procedures for an Order Picker?",
     answer: "Park in designated area; Complete inspection; Report any issues",
     acceptableAnswers: [
@@ -412,7 +412,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 31,
+    id: 33,
     question: "What are three (3) post-operational checks that must be conducted?",
     answer: "Check for damage; Record operating hours; Inspect safety devices",
     acceptableAnswers: [
@@ -424,7 +424,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 32,
+    id: 34,
     question: "What are three (3) types of documentation that must be completed?",
     answer: "Pre-operation checklist; Maintenance log; Incident reports",
     acceptableAnswers: [
@@ -436,7 +436,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 33,
+    id: 35,
     question: "What are three (3) emergency procedures you should be aware of?",
     answer: "Emergency shutdown; Evacuation routes; First aid locations",
     acceptableAnswers: [
@@ -448,7 +448,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 34,
+    id: 36,
     question: "What should you do in case of an accident or incident?",
     answer: "Secure the area, report to supervisor, complete incident report",
     acceptableAnswers: [
@@ -457,7 +457,7 @@ export const questions: Question[] = [
     inputFields: 1
   },
   {
-    id: 35,
+    id: 37,
     question: "What are three (3) types of loads that require special handling?",
     answer: "Dangerous goods; Oversized loads; Fragile items",
     acceptableAnswers: [
@@ -469,7 +469,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 36,
+    id: 38,
     question: "What are three (3) procedures for handling dangerous goods?",
     answer: "Check SDS; Use proper PPE; Follow segregation rules",
     acceptableAnswers: [
@@ -481,7 +481,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 37,
+    id: 39,
     question: "What are three (3) types of communication methods used in the workplace?",
     answer: "Hand signals; Two-way radios; Warning alarms",
     acceptableAnswers: [
@@ -493,7 +493,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 38,
+    id: 40,
     question: "What are three (3) procedures for working in confined spaces?",
     answer: "Check ventilation; Maintain clear exit; Use spotter when needed",
     acceptableAnswers: [
