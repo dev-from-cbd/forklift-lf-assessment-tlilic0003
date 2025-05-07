@@ -505,7 +505,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 39,
+    id: 41,
     question: "What are three (3) procedures for working at night or in poor visibility?",
     answer: "Use all lights; Reduce speed; Increase scanning",
     acceptableAnswers: [
@@ -517,7 +517,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 40,
+    id: 42,
     question: "What are three (3) procedures for working in wet conditions?",
     answer: "Check tire traction; Increase stopping distance; Avoid sudden moves",
     acceptableAnswers: [
@@ -529,7 +529,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 41,
+    id: 43,
     question: "What are three (3) procedures for working in cold storage areas?",
     answer: "Wear proper clothing; Check for ice buildup; Monitor exposure time",
     acceptableAnswers: [
@@ -541,7 +541,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 42,
+    id: 44,
     question: "What are three (3) procedures for working with pallets?",
     answer: "Inspect pallet condition; Center load properly; Verify weight limits",
     acceptableAnswers: [
@@ -553,7 +553,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 43,
+    id: 45,
     question: "What are three (3) types of pallet damage that make them unsafe to use?",
     answer: "Broken boards; Missing blocks; Protruding nails",
     acceptableAnswers: [
@@ -565,7 +565,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 44,
+    id: 46,
     question: "What are three (3) procedures for working with shipping containers?",
     answer: "Check container stability; Verify floor condition; Ensure proper ventilation",
     acceptableAnswers: [
@@ -577,7 +577,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 45,
+    id: 47,
     question: "What are three (3) procedures for working on loading docks?",
     answer: "Check dock lock status; Verify trailer is secured; Watch edge of dock",
     acceptableAnswers: [
@@ -589,7 +589,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 46,
+    id: 48,
     question: "What are three (3) procedures for entering/exiting trailers?",
     answer: "Check trailer brakes; Verify dock plate is secure; Inspect trailer floor",
     acceptableAnswers: [
@@ -601,7 +601,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 47,
+    id: 49,
     question: "What are three (3) procedures for working near overhead power lines?",
     answer: "Maintain safe distance; Use spotter when close; Assume lines are live",
     acceptableAnswers: [
@@ -613,7 +613,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 48,
+    id: 50,
     question: "What are three (3) procedures for refueling an Order Picker?",
     answer: "Turn off engine; No smoking; Clean up spills",
     acceptableAnswers: [
