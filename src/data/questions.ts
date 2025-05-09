@@ -1,22 +1,26 @@
+// Define a TypeScript interface for Question objects
 export interface Question {
-  id: number;
-  question: string;
-  answer: string;
-  inputFields?: number;
-  acceptableAnswers?: string[];
-  prefilledAnswers?: { [key: number]: string };
-  displayFormat?: 'hierarchy';
+  id: number;                  // Unique numeric identifier for each question
+  question: string;            // The actual question text to be displayed
+  answer: string;              // The correct answer to the question
+  inputFields?: number;        // Optional: Number of input fields needed for answer
+  acceptableAnswers?: string[]; // Optional: Array of valid answer variations
+  prefilledAnswers?: {         // Optional: Pre-filled answer values with their positions
+    [key: number]: string;     // (for partially completed answers or hints)
+  };
+  displayFormat?: 'hierarchy'; // Optional: Special display format (e.g., hierarchical questions)
 }
 
+// Export an array of Question objects following the interface structure
 export const questions: Question[] = [
   {
-    id: 1,
-    question: "What safety feature on the Order Picking Forklift must be closed at all times when operating?",
-    answer: "Handrail",
-    acceptableAnswers: [
-      "Handrail"
+    id: 1,  // Question ID
+    question: "What safety feature on the Order Picking Forklift must be closed at all times when operating?",  // Question text
+    answer: "Handrail",  // Correct answer
+    acceptableAnswers: [  // Allowed answer variations (for validation)
+      "Handrail"         // Only "Handrail" is accepted in this case
     ],
-    inputFields: 1
+    inputFields: 1  // Requires 1 input field for user response
   },
   {
     id: 2,
