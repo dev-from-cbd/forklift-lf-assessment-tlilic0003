@@ -625,7 +625,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 49,
+    id: 51,
     question: "What are three (3) procedures for charging batteries?",
     answer: "Ensure ventilation; Check fluid levels; Follow charging schedule",
     acceptableAnswers: [
@@ -637,7 +637,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 50,
+    id: 52,
     question: "What are three (3) types of Order Picker fires and appropriate extinguishers?",
     answer: "Electrical (CO2); Fuel (Dry Chemical); Battery (Class D)",
     acceptableAnswers: [
@@ -649,7 +649,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 51,
+    id: 53,
     question: "What are three (3) procedures for working in high traffic areas?",
     answer: "Follow designated paths; Use horn at intersections; Maintain safe speed",
     acceptableAnswers: [
@@ -661,7 +661,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 52,
+    id: 54,
     question: "What are three (3) procedures for working with fragile loads?",
     answer: "Handle gently; Use proper attachments; Secure properly",
     acceptableAnswers: [
@@ -673,7 +673,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 53,
+    id: 55,
     question: "What are three (3) procedures for working with tall loads?",
     answer: "Check overhead clearance; Travel in reverse if needed; Use spotter",
     acceptableAnswers: [
@@ -685,7 +685,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 54,
+    id: 56,
     question: "What are three (3) procedures for working with wide loads?",
     answer: "Check clearances; Use warning devices; Travel slowly",
     acceptableAnswers: [
@@ -697,7 +697,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 55,
+    id: 57,
     question: "What are three (3) procedures for working with cylindrical loads?",
     answer: "Use proper attachments; Secure from rolling; Handle carefully",
     acceptableAnswers: [
@@ -709,7 +709,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 56,
+    id: 58,
     question: "What are three (3) procedures for working with loose loads?",
     answer: "Use containment; Avoid sudden moves; Check frequently",
     acceptableAnswers: [
@@ -721,7 +721,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 57,
+    id: 59,
     question: "What are three (3) procedures for working with hot loads?",
     answer: "Use proper PPE; Maintain safe distance; Check handling equipment",
     acceptableAnswers: [
@@ -733,7 +733,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 58,
+    id: 60,
     question: "What are three (3) procedures for working with cold loads?",
     answer: "Wear insulated gloves; Check for condensation; Monitor exposure time",
     acceptableAnswers: [
@@ -745,7 +745,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 59,
+    id: 61,
     question: "What are three (3) procedures for working with sharp loads?",
     answer: "Use protective covers; Handle carefully; Inspect for damage",
     acceptableAnswers: [
@@ -757,7 +757,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 60,
+    id: 62,
     question: "What are three (3) procedures for working with toxic loads?",
     answer: "Check SDS; Use proper PPE; Follow containment procedures",
     acceptableAnswers: [
@@ -769,7 +769,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 61,
+    id: 63,
     question: "What are three (3) procedures for working with flammable loads?",
     answer: "Eliminate ignition sources; Use proper equipment; Follow storage rules",
     acceptableAnswers: [
@@ -781,7 +781,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 62,
+    id: 64,
     question: "What are three (3) procedures for working with explosive loads?",
     answer: "Follow special procedures; Maintain safe distance; Use proper equipment",
     acceptableAnswers: [
@@ -793,7 +793,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 63,
+    id: 65,
     question: "What are three (3) procedures for working with radioactive loads?",
     answer: "Follow radiation protocols; Use shielding; Monitor exposure",
     acceptableAnswers: [
@@ -805,7 +805,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 64,
+    id: 66,
     question: "Why must batteries be charged in a well ventilated area?",
     answer: "To prevent buildup of explosive hydrogen gas during charging",
     acceptableAnswers: [
@@ -814,7 +814,7 @@ export const questions: Question[] = [
     inputFields: 1
   },
   {
-    id: 65,
+    id: 67,
     question: "What are three (3) procedures for working with compressed gas cylinders?",
     answer: "Secure cylinders properly; Keep valves protected; Use proper handling equipment",
     acceptableAnswers: [
@@ -826,7 +826,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 66,
+    id: 68,
     question: "What are three (3) procedures for working with bulk liquids?",
     answer: "Check container integrity; Secure properly; Avoid sudden movements",
     acceptableAnswers: [
@@ -838,7 +838,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 67,
+    id: 69,
     question: "What are three (3) procedures for working with food products?",
     answer: "Maintain hygiene standards; Follow temperature controls; Handle carefully",
     acceptableAnswers: [
@@ -850,7 +850,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 68,
+    id: 70,
     question: "What are three (3) procedures for working with pharmaceutical products?",
     answer: "Follow handling instructions; Maintain required conditions; Document movements",
     acceptableAnswers: [
@@ -862,7 +862,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 69,
+    id: 71,
     question: "What are three (3) procedures for working with electronic equipment?",
     answer: "Handle carefully; Protect from static; Use proper packaging",
     acceptableAnswers: [
@@ -874,7 +874,7 @@ export const questions: Question[] = [
     inputFields: 3
   },
   {
-    id: 70,
+    id: 72,
     question: "What are three (3) procedures for working with construction materials?",
     answer: "Check load stability; Use proper attachments; Secure properly",
     acceptableAnswers: [
