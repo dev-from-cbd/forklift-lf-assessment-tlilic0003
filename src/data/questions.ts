@@ -1,31 +1,29 @@
-// Define a TypeScript interface for Question objects
+// Define the Question interface
 export interface Question {
-  id: number;                  // Unique numeric identifier for each question
-  question: string;            // The actual question text to be displayed
-  answer: string;              // The correct answer to the question
-  inputFields?: number;        // Optional: Number of input fields needed for answer
-  acceptableAnswers?: string[]; // Optional: Array of valid answer variations
-  prefilledAnswers?: {         // Optional: Pre-filled answer values with their positions
-    [key: number]: string;     // (for partially completed answers or hints)
-  };
-  displayFormat?: 'hierarchy'; // Optional: Special display format (e.g., hierarchical questions)
+  id: number;
+  question: string;
+  answer: string;
+  inputFields?: number;
+  acceptableAnswers?: string[];
+  prefilledAnswers?: { [key: number]: string };
+  displayFormat?: 'hierarchy';
 }
 
-// Export an array of Question objects following the interface structure
+// Export the questions array
 export const questions: Question[] = [
   {
-    id: 1,  // Question ID
-    question: "What safety feature on the Order Picking Forklift must be closed at all times when operating?",  // Question text
-    answer: "Handrail",  // Correct answer
-    acceptableAnswers: [  // Allowed answer variations (for validation)
-      "Handrail"         // Only "Handrail" is accepted in this case
+    id: 1,
+    question: "What safety feature on the Order Picking Forklift must be closed at all times when operating?",
+    answer: "Handrail",
+    acceptableAnswers: [
+      "Handrail"
     ],
-    inputFields: 1  // Requires 1 input field for user response
+    inputFields: 1
   },
   {
     id: 2,
     question: "What are three (3) documented sources you could refer to for workplace safety information?",
-    answer: "Work Health and Safety Act 2012 (SA); Work Health and Safety Regulations 2012 (SA); Codes of Practice; Australian Standards; WHS policy and procedures; Safe working procedures; Management plans; Manufacturer’s specifications",
+    answer: "Work Health and Safety Act 2012 (SA); Work Health and Safety Regulations 2012 (SA); Codes of Practice; Australian Standards; WHS policy and procedures; Safe working procedures; Management plans; Manufacturer's specifications",
     acceptableAnswers: [
       "Work Health and Safety Act 2012 (SA)",
       "Work Health and Safety Regulations 2012 (SA)",
@@ -37,7 +35,8 @@ export const questions: Question[] = [
       "Relevant Australian Standards",
       "Manufacturer specifications",
       "Order Picker Operator Manual",
-      "Regulatory guidelines for Order Picker Operations"
+      "Regulatory guidelines for Order Picker Operations",
+      "Manufacturer's specifications"
     ],
     inputFields: 3
   },
@@ -140,7 +139,7 @@ export const questions: Question[] = [
       "Ground surface conditions",
       "Weather conditions"
     ],
-    inputFields: 6,
+    inputFields: 6
   },
   {
     id: 10,

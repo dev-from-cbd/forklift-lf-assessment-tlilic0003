@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
@@ -10,7 +10,7 @@ export default defineConfig({
       manifest: {
         name: 'Forklift Training & Assessment',
         short_name: 'Forklift Training',
-        description: 'TLILIC0003 High Risk Licence Training and Assessment Application',
+        description: 'TLILIC0004 Licence to Operate an Order Picking Forklift Truck (LO) Training and Assessment Application',
         theme_color: '#1e40af',
         background_color: '#ffffff',
         display: 'standalone',
@@ -60,16 +60,13 @@ export default defineConfig({
         ]
       },
       devOptions: {
-        // Disable service worker in development
-        enabled: false
+        enabled: false // Disable service worker in development
       }
     })
   ],
   server: {
-    proxy: {
-      '/api/auth': 'http://localhost:3001',
-      '/api/questions': 'http://localhost:3002',
-      '/api/progress': 'http://localhost:3003'
-    }
+    watch: {
+      usePolling: true,
+    },
   }
-});
+})

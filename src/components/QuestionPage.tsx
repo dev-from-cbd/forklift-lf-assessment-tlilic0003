@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
 import { questions } from '../data/questions';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,67 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
   const [answers, setAnswers] = useState<string[]>(Array(question?.inputFields || 1).fill(''));
   const [showAnswer, setShowAnswer] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [wordBankWords, setWordBankWords] = useState<string[]>([]);
+  const [selectedWords, setSelectedWords] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (question) {
+      // Create word bank from the answer
+      const words = question.answer
+        .split(';')
+        .map(part => part.trim())
+        .join(' ')
+        .split(' ')
+        .filter(word => word.length > 0);
+      
+      // Shuffle the words
+      const shuffled = [...words].sort(() => Math.random() - 0.5);
+      setWordBankWords(shuffled);
+      setSelectedWords([]);
+    }
+  }, [question]);
+
+  const getVisiblePages = () => {
+    const totalPages = questions.length;
+    const currentPage = currentQuestionId;
+    const delta = 2; // Number of pages to show on each side of current page
+    
+    const range = [];
+    const rangeWithDots = [];
+    let l: number;
+    
+    // Always show first page
+    range.push(1);
+    
+    // Calculate the range of pages to show
+    for (let i = currentPage - delta; i <= currentPage + delta; i++) {
+      if (i > 1 && i < totalPages) {
+        range.push(i);
+      }
+    }
+    
+    // Always show last page
+    if (totalPages > 1) {
+      range.push(totalPages);
+    }
+    
+    // Add dots where needed
+    for (const i of range) {
+      if (l) {
+        if (i - l === 2) {
+          // If gap is 2, show the middle number
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          // If gap is larger than 2, show dots
+          rangeWithDots.push('...');
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+    
+    return rangeWithDots;
+  };
 
   if (!question) {
     return (
@@ -68,32 +129,67 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
     }
   };
 
-  const getVisiblePages = () => {
-    const delta = 2;
-    const range = [];
-    const totalPages = questions.length;
-    
-    for (
-      let i = Math.max(2, currentQuestionId - delta);
-      i <= Math.min(totalPages - 1, currentQuestionId + delta);
-      i++
-    ) {
-      range.push(i);
+  const handleWordClick = (word: string, isFromBank: boolean) => {
+    if (isFromBank) {
+      setSelectedWords([...selectedWords, word]);
+      setWordBankWords(wordBankWords.filter(w => w !== word));
+    } else {
+      setWordBankWords([...wordBankWords, word]);
+      setSelectedWords(selectedWords.filter(w => w !== word));
     }
+  };
 
-    if (currentQuestionId - delta > 2) {
-      range.unshift('...');
-    }
-    if (currentQuestionId + delta < totalPages - 1) {
-      range.push('...');
-    }
+  const shuffleWordBank = () => {
+    setWordBankWords([...wordBankWords].sort(() => Math.random() - 0.5));
+  };
 
-    range.unshift(1);
-    if (totalPages !== 1) {
-      range.push(totalPages);
-    }
+  const renderWordBank = () => {
+    return (
+      <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Word Bank Exercise</h3>
+          <button
+            onClick={shuffleWordBank}
+            className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+          >
+            <Shuffle className="w-4 h-4 mr-2" />
+            Shuffle Words
+          </button>
+        </div>
+        
+        <div className="space-y-4">
+          <div className="min-h-[100px] p-4 bg-white border-2 border-dashed border-gray-300 rounded-lg">
+            <p className="text-sm text-gray-500 mb-2">Construct your answer:</p>
+            <div className="flex flex-wrap gap-2">
+              {selectedWords.map((word, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleWordClick(word, false)}
+                  className="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded transition-colors"
+                >
+                  {word}
+                </button>
+              ))}
+            </div>
+          </div>
 
-    return range;
+          <div className="p-4 bg-gray-100 rounded-lg">
+            <p className="text-sm text-gray-500 mb-2">Available words:</p>
+            <div className="flex flex-wrap gap-2">
+              {wordBankWords.map((word, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleWordClick(word, true)}
+                  className="px-3 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded transition-colors"
+                >
+                  {word}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const renderHierarchyQuestion = () => {
@@ -218,6 +314,8 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           Question {question.id} of {questions.length}
         </h3>
         <p className="text-lg mb-6 whitespace-pre-line">{question.question}</p>
+        
+        {renderWordBank()}
         
         {question.displayFormat === 'hierarchy' ? renderHierarchyQuestion() : renderStandardQuestion()}
       </div>
