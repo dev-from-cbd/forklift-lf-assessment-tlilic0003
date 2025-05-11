@@ -37,8 +37,7 @@ export const questions: Question[] = [
       "Relevant Australian Standards",
       "Manufacturer specifications",
       "Order Picker Operator Manual",
-      "Regulatory guidelines for Order Picker Operations",
-      "Manufacturer’s specifications"
+      "Regulatory guidelines for Order Picker Operations"
     ],
     inputFields: 3
   },
