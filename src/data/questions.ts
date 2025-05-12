@@ -25,18 +25,17 @@ export const questions: Question[] = [
     question: "What are three (3) documented sources you could refer to for workplace safety information?",
     answer: "Work Health and Safety Act 2012 (SA); Work Health and Safety Regulations 2012 (SA); Codes of Practice; Australian Standards; WHS policy and procedures; Safe working procedures; Management plans; Manufacturer's specifications",
     acceptableAnswers: [
+      "Order Picker Operator Manual",
+      "WHS policy and procedures",
+      "Management plans",
+      "Australian Standards",
       "Work Health and Safety Act 2012 (SA)",
       "Work Health and Safety Regulations 2012 (SA)",
       "Codes of Practice",
-      "Australian Standards",
-      "WHS policy and procedures",
       "Safe working procedures",
-      "Management plans",
       "Relevant Australian Standards",
-      "Manufacturer specifications",
-      "Order Picker Operator Manual",
       "Regulatory guidelines for Order Picker Operations",
-      "Manufacturer's specifications"
+      "Manufacturer specifications"
     ],
     inputFields: 3
   },
