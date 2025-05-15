@@ -24,7 +24,6 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
 
   useEffect(() => {
     if (question) {
-      // Create word bank from the answer
       const words = question.answer
         .split(';')
         .map(part => part.trim())
@@ -32,7 +31,6 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
         .split(' ')
         .filter(word => word.length > 0);
       
-      // Shuffle the words
       const shuffled = [...words].sort(() => Math.random() - 0.5);
       setWordBankWords(shuffled);
       setSelectedWords([]);
@@ -114,33 +112,25 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
 
   const renderWordBank = () => {
     return (
-      <div className="mb-8 p-6 bg-gray-50 rounded-lg">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold">Word Bank Exercise</h3>
-          <button
-            onClick={shuffleWordBank}
-            className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
-          >
-            <Shuffle className="w-4 h-4 mr-2" />
-            Shuffle Words
-          </button>
-        </div>
+      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h3 className="text-xl font-semibold mb-4">Exercise 1: Word Bank</h3>
+        <p className="text-gray-600 mb-6">{question.question}</p>
         
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className={`min-h-[100px] p-4 rounded-lg transition-colors ${
             isWordBankChecked
               ? isWordBankCorrect
                 ? 'bg-green-50 border-2 border-green-500'
                 : 'bg-red-50 border-2 border-red-500'
-              : 'bg-white border-2 border-dashed border-gray-300'
+              : 'bg-gray-50 border-2 border-dashed border-gray-300'
           }`}>
-            <p className="text-sm text-gray-500 mb-2">Construct your answer:</p>
+            <p className="text-sm text-gray-500 mb-2">Arrange words to form your answer:</p>
             <div className="flex flex-wrap gap-2">
               {selectedWords.map((word, index) => (
                 <button
                   key={index}
                   onClick={() => handleWordClick(word, false)}
-                  className={`px-3 py-1 rounded transition-colors ${
+                  className={`px-3 py-1.5 rounded transition-colors ${
                     isWordBankChecked
                       ? isWordBankCorrect
                         ? 'bg-green-100 hover:bg-green-200 text-green-800'
@@ -154,14 +144,23 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             </div>
           </div>
 
-          <div className="p-4 bg-gray-100 rounded-lg">
-            <p className="text-sm text-gray-500 mb-2">Available words:</p>
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-sm text-gray-500">Available words:</p>
+              <button
+                onClick={shuffleWordBank}
+                className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+              >
+                <Shuffle className="w-4 h-4 mr-2" />
+                Shuffle Words
+              </button>
+            </div>
             <div className="flex flex-wrap gap-2">
               {wordBankWords.map((word, index) => (
                 <button
                   key={index}
                   onClick={() => handleWordClick(word, true)}
-                  className="px-3 py-1 bg-white hover:bg-gray-50 border border-gray-200 rounded transition-colors"
+                  className="px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded transition-colors"
                 >
                   {word}
                 </button>
@@ -170,7 +169,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           </div>
         </div>
 
-        <div className="mt-6 flex space-x-4">
+        <div className="mt-6 flex items-center gap-4">
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={checkWordBankAnswer}
@@ -196,122 +195,99 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
               )}
             </div>
           )}
+          <button
+            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center ml-auto"
+            onClick={toggleShowAnswer}
+          >
+            <Eye className="w-5 h-5 mr-2" />
+            {showAnswer ? 'Hide Answer' : 'Show Answer'}
+          </button>
         </div>
       </div>
     );
   };
 
-  const renderHierarchyQuestion = () => {
-    const totalPositions = 6;
+  const renderStandardExercise = () => {
     return (
-      <div className="space-y-2 border rounded-lg p-4">
-        {[...Array(totalPositions)].map((_, position) => {
-          const actualPosition = position + 1;
-          const isPrefilled = question.prefilledAnswers?.[actualPosition];
-          const inputIndex = !isPrefilled ? 
-            (actualPosition <= 3 ? actualPosition - 1 : actualPosition - 2) : 
-            null;
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Exercise 2: Free Response</h3>
+        <p className="text-gray-600 mb-6">{question.question}</p>
 
-          return (
-            <div key={position} className="flex items-center border-b last:border-b-0 p-2">
-              <span className="mr-3 font-medium w-8">{actualPosition}.</span>
-              {isPrefilled ? (
-                <input
-                  type="text"
-                  className="w-full p-2 bg-gray-100 border rounded"
-                  value={isPrefilled}
-                  disabled
-                />
-              ) : (
+        {question.inputFields > 1 ? (
+          <div className="space-y-4">
+            {[...Array(question.inputFields)].map((_, index) => (
+              <div key={index} className="flex items-start">
+                <span className="mr-3 mt-2 font-medium">{index + 1}.</span>
                 <div className="flex-1 relative">
                   <input
                     type="text"
-                    className={`w-full p-2 border rounded ${
+                    className={`w-full border rounded-lg p-2 pr-10 ${
                       isChecked
-                        ? getAnswerStatus(inputIndex!) === 'correct'
+                        ? getAnswerStatus(index) === 'correct'
                           ? 'border-green-500 bg-green-50'
                           : 'border-red-500 bg-red-50'
                         : 'border-gray-300'
                     }`}
-                    value={answers[inputIndex!] || ''}
-                    onChange={(e) => handleAnswerChange(inputIndex!, e.target.value)}
+                    value={answers[index]}
+                    onChange={(e) => handleAnswerChange(index, e.target.value)}
                     placeholder="Enter your answer"
                   />
                   {isChecked && (
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                      {getAnswerStatus(inputIndex!) === 'correct' ? (
-                        <Check className="w-5 h-5 text-green-500" />
+                    <div className="absolute right-2 top-2">
+                      {getAnswerStatus(index) === 'correct' ? (
+                        <Check className="w-6 h-6 text-green-500" />
                       ) : (
-                        <X className="w-5 h-5 text-red-500" />
+                        <X className="w-6 h-6 text-red-500" />
                       )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const renderStandardQuestion = () => {
-    return question.inputFields > 1 ? (
-      <div className="space-y-3">
-        {[...Array(question.inputFields)].map((_, index) => (
-          <div key={index} className="flex items-start">
-            <span className="mr-3 mt-2 font-medium">{index + 1}.</span>
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                className={`w-full border rounded-md p-2 pr-10 ${
-                  isChecked
-                    ? getAnswerStatus(index) === 'correct'
-                      ? 'border-green-500 bg-green-50'
-                      : 'border-red-500 bg-red-50'
-                    : 'border-gray-300'
-                }`}
-                value={answers[index]}
-                onChange={(e) => handleAnswerChange(index, e.target.value)}
-                placeholder="Enter your answer"
-              />
-              {isChecked && (
-                <div className="absolute right-2 top-2">
-                  {getAnswerStatus(index) === 'correct' ? (
-                    <Check className="w-6 h-6 text-green-500" />
-                  ) : (
-                    <X className="w-6 h-6 text-red-500" />
-                  )}
-                </div>
-              )}
-            </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    ) : (
-      <div className="relative">
-        <textarea
-          className={`w-full border rounded-md p-2 ${
-            isChecked
-              ? getAnswerStatus(0) === 'correct'
-                ? 'border-green-500 bg-green-50'
-                : 'border-red-500 bg-red-50'
-              : 'border-gray-300'
-          }`}
-          rows={3}
-          value={answers[0]}
-          onChange={(e) => handleAnswerChange(0, e.target.value)}
-          placeholder="Enter your answer"
-        />
-        {isChecked && (
-          <div className="absolute right-2 top-2">
-            {getAnswerStatus(0) === 'correct' ? (
-              <Check className="w-6 h-6 text-green-500" />
-            ) : (
-              <X className="w-6 h-6 text-red-500" />
+        ) : (
+          <div className="relative">
+            <textarea
+              className={`w-full border rounded-lg p-2 ${
+                isChecked
+                  ? getAnswerStatus(0) === 'correct'
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-red-500 bg-red-50'
+                  : 'border-gray-300'
+              }`}
+              rows={3}
+              value={answers[0]}
+              onChange={(e) => handleAnswerChange(0, e.target.value)}
+              placeholder="Enter your answer"
+            />
+            {isChecked && (
+              <div className="absolute right-2 top-2">
+                {getAnswerStatus(0) === 'correct' ? (
+                  <Check className="w-6 h-6 text-green-500" />
+                ) : (
+                  <X className="w-6 h-6 text-red-500" />
+                )}
+              </div>
             )}
           </div>
         )}
+
+        <div className="mt-6 flex items-center gap-4">
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+            onClick={checkAnswer}
+          >
+            <HelpCircle className="w-5 h-5 mr-2" />
+            Check Answer
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center ml-auto"
+            onClick={toggleShowAnswer}
+          >
+            <Eye className="w-5 h-5 mr-2" />
+            {showAnswer ? 'Hide Answer' : 'Show Answer'}
+          </button>
+        </div>
       </div>
     );
   };
@@ -327,35 +303,28 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
   const getVisiblePages = () => {
     const totalPages = questions.length;
     const currentPage = currentQuestionId;
-    const delta = 2; // Number of pages to show on each side of current page
-    
+    const delta = 2;
     const range = [];
     const rangeWithDots = [];
     let l: number;
     
-    // Always show first page
     range.push(1);
     
-    // Calculate the range of pages to show
     for (let i = currentPage - delta; i <= currentPage + delta; i++) {
       if (i > 1 && i < totalPages) {
         range.push(i);
       }
     }
     
-    // Always show last page
     if (totalPages > 1) {
       range.push(totalPages);
     }
     
-    // Add dots where needed
     for (const i of range) {
       if (l) {
         if (i - l === 2) {
-          // If gap is 2, show the middle number
           rangeWithDots.push(l + 1);
         } else if (i - l !== 1) {
-          // If gap is larger than 2, show dots
           rangeWithDots.push('...');
         }
       }
@@ -367,41 +336,21 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-4">
-          Question {question.id} of {questions.length}
-        </h3>
-        <p className="text-lg mb-6 whitespace-pre-line">{question.question}</p>
-        
-        {renderWordBank()}
-        
-        {question.displayFormat === 'hierarchy' ? renderHierarchyQuestion() : renderStandardQuestion()}
+    <div className="space-y-6">
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-2xl font-bold mb-2">Question {question.id} of {questions.length}</h2>
       </div>
 
-      <div className="mt-6 flex space-x-4">
-        <button
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
-          onClick={checkAnswer}
-        >
-          <HelpCircle className="w-5 h-5 mr-2" />
-          Check Answer
-        </button>
-        <button
-          className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
-          onClick={toggleShowAnswer}
-        >
-          <Eye className="w-5 h-5 mr-2" />
-          {showAnswer ? 'Hide Answer' : 'Show Answer'}
-        </button>
-      </div>
-      
+      {renderWordBank()}
+      {renderStandardExercise()}
+
       {showAnswer && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-md">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h3 className="text-xl font-semibold mb-4">Correct Answer</h3>
           {question.acceptableAnswers ? (
             <div>
-              <p className="font-medium text-gray-800">Correct answers:</p>
-              <ul className="list-disc list-inside mt-2 text-gray-700">
+              <p className="font-medium text-gray-800">Acceptable answers:</p>
+              <ul className="list-disc list-inside mt-2 text-gray-700 space-y-1">
                 {question.acceptableAnswers.map((answer, index) => (
                   <li key={index}>{answer}</li>
                 ))}
@@ -409,48 +358,49 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             </div>
           ) : (
             <p className="text-gray-800">
-              <span className="font-medium">Correct Answer: </span>
               {question.answer}
             </p>
           )}
         </div>
       )}
 
-      <div className="mt-8 flex items-center justify-center space-x-2">
-        <button
-          onClick={() => handleNavigation('prev')}
-          disabled={currentQuestionId === 1}
-          className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        
-        {getVisiblePages().map((page, index) => (
-          <React.Fragment key={index}>
-            {typeof page === 'number' ? (
-              <button
-                onClick={() => navigate(`/question/${page}`)}
-                className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  page === currentQuestionId
-                    ? 'bg-blue-600 text-white'
-                    : 'hover:bg-gray-100'
-                }`}
-              >
-                {page}
-              </button>
-            ) : (
-              <span className="px-2">...</span>
-            )}
-          </React.Fragment>
-        ))}
+      <div className="bg-white rounded-lg shadow-lg p-4">
+        <div className="flex items-center justify-center space-x-2">
+          <button
+            onClick={() => handleNavigation('prev')}
+            disabled={currentQuestionId === 1}
+            className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          
+          {getVisiblePages().map((page, index) => (
+            <React.Fragment key={index}>
+              {typeof page === 'number' ? (
+                <button
+                  onClick={() => navigate(`/question/${page}`)}
+                  className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    page === currentQuestionId
+                      ? 'bg-blue-600 text-white'
+                      : 'hover:bg-gray-100'
+                  }`}
+                >
+                  {page}
+                </button>
+              ) : (
+                <span className="px-2">...</span>
+              )}
+            </React.Fragment>
+          ))}
 
-        <button
-          onClick={() => handleNavigation('next')}
-          disabled={currentQuestionId === questions.length}
-          className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <ChevronRight size={20} />
-        </button>
+          <button
+            onClick={() => handleNavigation('next')}
+            disabled={currentQuestionId === questions.length}
+            className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </div>
     </div>
   );

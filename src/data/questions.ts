@@ -97,13 +97,13 @@ export const questions: Question[] = [
     question: "List three (3) people you should talk to about workplace hazards before starting work",
     answer: "Supervisors; Safety officers; Other personnel/workers",
     acceptableAnswers: [
-      "Workplace engineers (if applicable)",
-      "Safety officers",
-      "Health and Safety Representatives",
-      "WHS Committee members",
-      "Site or operations managers",
       "Supervisors",
-      "Other personnel/workers"
+      "Safety officers",
+      "Other personnel/workers",
+      "Workplace engineers (if applicable)",
+      "Site or operations managers",
+      "Health and Safety Representatives",
+      "WHS Committee members"
     ],
     inputFields: 3
   },
