@@ -147,13 +147,15 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           <div className="p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-between mb-2">
               <p className="text-sm text-gray-500">Available words:</p>
-              <button
-                onClick={shuffleWordBank}
-                className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
-              >
-                <Shuffle className="w-4 h-4 mr-2" />
-                Shuffle Words
-              </button>
+              {wordBankWords.length > 1 && (
+                <button
+                  onClick={shuffleWordBank}
+                  className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+                >
+                  <Shuffle className="w-4 h-4 mr-2" />
+                  Shuffle Words
+                </button>
+              )}
             </div>
             <div className="flex flex-wrap gap-2">
               {wordBankWords.map((word, index) => (
