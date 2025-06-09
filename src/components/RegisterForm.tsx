@@ -1,172 +1,196 @@
-// Import React and useState hook for managing component state
 import React, { useState } from 'react';
-// Import Link for navigation and useNavigate hook for programmatic navigation
 import { Link, useNavigate } from 'react-router-dom';
-// Import useAuth hook from AuthContext to access authentication functions
 import { useAuth } from '../contexts/AuthContext';
-// Import icons from Lucide library for UI elements
-import { Loader2, UserPlus, Eye, EyeOff } from 'lucide-react';
+import { Loader2, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 
-// Define RegisterForm as a functional React component
 const RegisterForm: React.FC = () => {
-  // State for email input field
   const [email, setEmail] = useState('');
-  // State for password input field
   const [password, setPassword] = useState('');
-  // State for confirm password input field
   const [confirmPassword, setConfirmPassword] = useState('');
-  // State for error messages
   const [error, setError] = useState('');
-  // State for tracking loading status during form submission
   const [loading, setLoading] = useState(false);
-  // State for toggling password visibility
   const [showPassword, setShowPassword] = useState(false);
-  // State for toggling confirm password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  // Extract signUp function from useAuth hook
+  const [isSuccess, setIsSuccess] = useState(false);
   const { signUp } = useAuth();
-  // Initialize navigate function for programmatic navigation
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    // Prevent default form submission behavior
     e.preventDefault();
 
-    // Validate that passwords match
     if (password !== confirmPassword) {
-      // Set error message and exit function if passwords don't match
       return setError('Passwords do not match');
     }
 
+    if (password.length < 6) {
+      return setError('Password must be at least 6 characters long');
+    }
+
     try {
-      // Clear any previous error messages
       setError('');
-      // Set loading state to true to show loading indicator
       setLoading(true);
-      // Call signUp function from AuthContext with email and password
       await signUp(email, password);
-      // Navigate to home page after successful registration
-      navigate('/');
-    } catch (err) {
-      // Set error message if registration fails
-      setError('Failed to create an account');
+      setIsSuccess(true);
+      
+      // Automatically redirect to home page after 2 seconds
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (err: any) {
+      console.error('Registration error:', err);
+      if (err.message?.includes('User already registered')) {
+        setError('User with this email already exists. Please try signing in.');
+      } else if (err.message?.includes('Password should be at least 6 characters')) {
+        setError('Password must be at least 6 characters long');
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     } finally {
-      // Reset loading state regardless of success or failure
       setLoading(false);
     }
   };
 
-  // Render the registration form
   return (
-    // Container with styling for the form
-    <div className="bg-white rounded-lg shadow p-4">
-      {/* Form title */}
-      <h2 className="text-xl font-semibold text-center mb-4">Create Account</h2>
-      {/* Form element with submit handler and spacing between elements */}
-      <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Conditional rendering of error message if error state is not empty */}
-        {error && (
-          <div className="text-sm text-red-600">
-            {error}
-          </div>
-        )}
-        
-        {/* Email input field container */}
-        <div>
-          {/* Email input with styling and event handler */}
-          <input
-            type="email"
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        
-        {/* Password input field container with relative positioning for the toggle button */}
-        <div className="relative">
-          {/* Password input with dynamic type based on showPassword state */}
-          <input
-            type={showPassword ? "text" : "password"}
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 pr-10"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {/* Button to toggle password visibility */}
-          <button
-            type="button"
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {/* Conditional rendering of eye icon based on password visibility */}
-            {showPassword ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
-            )}
-          </button>
-        </div>
-        
-        {/* Confirm password input field container with relative positioning for the toggle button */}
-        <div className="relative">
-          {/* Confirm password input with dynamic type based on showConfirmPassword state */}
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 pr-10"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          {/* Button to toggle confirm password visibility */}
-          <button
-            type="button"
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-          >
-            {/* Conditional rendering of eye icon based on confirm password visibility */}
-            {showConfirmPassword ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
-            )}
-          </button>
-        </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Create your account
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Sign up to access the full training course
+        </p>
+      </div>
 
-        {/* Container for login link */}
-        <div className="text-xs text-center">
-          {/* Link to login page for users who already have an account */}
-          <Link to="/login" className="text-blue-600 hover:text-blue-500">
-            Already have an account?
-          </Link>
-        </div>
-
-        {/* Submit button with loading state and styling */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex justify-center items-center px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-        >
-          {/* Conditional rendering based on loading state */}
-          {loading ? (
-            // Show spinning loader icon when loading
-            <Loader2 className="w-4 h-4 animate-spin" />
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {isSuccess ? (
+            <div className="text-center space-y-4">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                <CheckCircle className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="text-sm text-green-600 bg-green-50 p-4 rounded-lg">
+                Account created successfully! Redirecting you to the course...
+              </div>
+            </div>
           ) : (
-            // Show sign up text and icon when not loading
-            <>
-              <UserPlus className="w-4 h-4 mr-2" />
-              Sign up
-            </>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <div className="flex items-start p-4 bg-red-50 text-red-700 rounded-lg">
+                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{error}</span>
+                </div>
+              )}
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  Email address
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    required
+                    className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Minimum 6 characters"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                  Confirm password
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    required
+                    className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Repeat your password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Link 
+                  to="/login" 
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Already have an account? Sign in
+                </Link>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      <UserPlus className="w-5 h-5 mr-2" />
+                      Create Account
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           )}
-        </button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };
 
-// Export the RegisterForm component as the default export
 export default RegisterForm;

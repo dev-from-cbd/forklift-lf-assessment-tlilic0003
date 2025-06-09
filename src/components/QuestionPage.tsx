@@ -1,145 +1,146 @@
-// Import React and necessary hooks for component state and side effects
 import React, { useState, useEffect } from 'react';
-// Import useParams hook to access URL parameters
-import { useParams } from 'react-router-dom';
-// Import Lucide icons for UI elements
-import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight, Shuffle, AlertCircle } from 'lucide-react';
-// Import questions data from local data file
-import { questions } from '../data/questions';
-// Import useNavigate hook for programmatic navigation
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
-// Define interface for QuestionPage component props
-interface QuestionPageProps {
-  questionNumber?: number; // Optional prop to directly specify question number
-}
+// Demo question for unauthenticated users
+const demoQuestion = {
+  id: 10,
+  question: "What is the definition of a Hazard?",
+  answer: "It is a thing or situation that has the potential to cause harm to a person or cause damage",
+  acceptableAnswers: [
+    "It is a thing or situation that has the potential to cause harm to a person or cause damage"
+  ],
+  inputFields: 2,
+  multipleChoice: [
+    "It is a thing or situation that has the potential to cause harm to a person or cause damage",
+    "A potential risk that needs to be assessed and controlled",
+    "Any condition that could lead to injury or damage",
+    "A magical unicorn that grants wishes" // Absurd incorrect answer
+  ]
+};
 
-// Define QuestionPage component with typed props
-const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
-  // Get question ID from URL parameters
+const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber }) => {
   const { id } = useParams();
-  // Initialize navigate function for routing
   const navigate = useNavigate();
-  // Determine current question ID from props or URL params, defaulting to 1
-  const currentQuestionId = questionNumber || Number(id) || 1;
-  // Get the current question object from questions array
-  const question = questions[currentQuestionId - 1];
-  
-  // State for storing user's answers as an array of strings
+  const { user } = useAuth();
+  const [questions, setQuestions] = useState([demoQuestion]);
+  const [currentQuestionId, setCurrentQuestionId] = useState(10);
+  const [question, setQuestion] = useState(demoQuestion);
   const [answers, setAnswers] = useState<string[]>(Array(question?.inputFields || 1).fill(''));
-  // State for toggling answer visibility
   const [showAnswer, setShowAnswer] = useState(false);
-  // State for tracking if answer has been checked
   const [isChecked, setIsChecked] = useState(false);
-  // State for storing shuffled words for word bank exercise
   const [wordBankWords, setWordBankWords] = useState<string[]>([]);
-  // State for storing words selected by user from word bank
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
-  // State for tracking if word bank answer has been checked
   const [isWordBankChecked, setIsWordBankChecked] = useState(false);
-  // State for tracking if word bank answer is correct
   const [isWordBankCorrect, setIsWordBankCorrect] = useState(false);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [selectedChoices, setSelectedChoices] = useState<Set<number>>(new Set());
+  const [isMultipleChoiceChecked, setIsMultipleChoiceChecked] = useState(false);
+  const [isMultipleChoiceCorrect, setIsMultipleChoiceCorrect] = useState(false);
 
-  // Effect hook to initialize word bank when question changes
+  useEffect(() => {
+    if (user) {
+      fetch('/api/questions')
+        .then(res => res.json())
+        .then(data => {
+          setQuestions(data);
+          const qId = questionNumber || Number(id) || 1;
+          setCurrentQuestionId(qId);
+          setQuestion(data.find((q: any) => q.id === qId) || data[0]);
+        });
+    } else {
+      setQuestions([demoQuestion]);
+      setCurrentQuestionId(10);
+      setQuestion(demoQuestion);
+    }
+  }, [user, id, questionNumber]);
+
   useEffect(() => {
     if (question) {
-      // Process the answer string into individual words
       const words = question.answer
-        .split(';') // Split by semicolons
-        .map(part => part.trim()) // Trim whitespace
-        .join(' ') // Join with spaces
-        .split(' ') // Split into individual words
-        .filter(word => word.length > 0); // Remove empty strings
+        .split(';')
+        .map(part => part.trim())
+        .join(' ')
+        .split(' ')
+        .filter(word => word.length > 0);
       
-      // Shuffle the words randomly
-      const shuffled = [...words].sort(() => Math.random() - 0.5);
-      // Update state with shuffled words
-      setWordBankWords(shuffled);
-      // Reset selected words
+      setWordBankWords([...words]);
       setSelectedWords([]);
-      // Reset check states
       setIsWordBankChecked(false);
       setIsWordBankCorrect(false);
+      setSelectedChoices(new Set());
+      setIsMultipleChoiceChecked(false);
+      setIsMultipleChoiceCorrect(false);
     }
-  }, [question]); // Re-run when question changes
+  }, [question]);
 
-  // Function to check if word bank answer is correct
   const checkWordBankAnswer = () => {
-    // Format correct answer for comparison
     const correctAnswer = question.answer
       .split(';')
       .map(part => part.trim())
       .join(' ')
       .toLowerCase();
 
-    // Format user's answer for comparison
     const userAnswer = selectedWords.join(' ').toLowerCase();
-    // Set checked state to true
     setIsWordBankChecked(true);
-    // Compare answers and set correctness state
     setIsWordBankCorrect(correctAnswer === userAnswer);
+
+    if (!user && !showAuthPrompt) {
+      setTimeout(() => {
+        setShowAuthPrompt(true);
+      }, 1500);
+    }
   };
 
-  // Handler for when user changes an answer in the input fields
   const handleAnswerChange = (index: number, value: string) => {
-    // Create a copy of the answers array
     const newAnswers = [...answers];
-    // Update the value at the specified index
     newAnswers[index] = value;
-    // Update state with new answers
     setAnswers(newAnswers);
-    // Reset check state
     setIsChecked(false);
-    // Hide answer
     setShowAnswer(false);
   };
 
-  // Function to check if user's answers are correct
   const checkAnswer = () => {
-    // Set checked state to true
     setIsChecked(true);
+    
+    if (!user && !showAuthPrompt) {
+      setTimeout(() => {
+        setShowAuthPrompt(true);
+      }, 1500);
+    }
   };
 
-  // Function to toggle answer visibility
   const toggleShowAnswer = () => {
-    // Toggle show answer state
     setShowAnswer(!showAnswer);
   };
 
-  // Function to check if a specific answer is correct
   const isAnswerCorrect = (answer: string, index: number) => {
-    // Normalize user's answer for comparison
     const trimmedAnswer = answer.toLowerCase().trim();
     
-    // If question has acceptable answers array, use it for comparison
     if (question.acceptableAnswers) {
       return question.acceptableAnswers[index]?.toLowerCase().trim() === trimmedAnswer;
     }
     
-    // Otherwise, split the answer string by semicolons and compare
     const correctAnswers = question.answer.split(';').map(a => a.trim());
     return trimmedAnswer === correctAnswers[index]?.toLowerCase().trim();
   };
 
-  // Function to get the status of an answer (neutral, correct, incorrect)
   const getAnswerStatus = (index: number) => {
-    // If not checked yet, return neutral
     if (!isChecked) return 'neutral';
-    // Otherwise, return correct or incorrect based on answer
     return isAnswerCorrect(answers[index], index) ? 'correct' : 'incorrect';
   };
 
-  // Handler for navigating to previous or next question
   const handleNavigation = (direction: 'prev' | 'next') => {
-    // Calculate new question ID based on direction
+    if (!user) {
+      setShowAuthPrompt(true);
+      return;
+    }
+
     const newQuestionId = direction === 'prev' ? currentQuestionId - 1 : currentQuestionId + 1;
-    // Check if new ID is within valid range
     if (newQuestionId >= 1 && newQuestionId <= questions.length) {
-      // Navigate to new question
       navigate(`/question/${newQuestionId}`);
-      // Reset answers array for new question
       setAnswers(Array(questions[newQuestionId - 1]?.inputFields || 1).fill(''));
-      // Reset UI states
       setShowAnswer(false);
       setIsChecked(false);
       setIsWordBankChecked(false);
@@ -147,51 +148,124 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
     }
   };
 
-  // Handler for when user clicks a word in word bank or selected area
   const handleWordClick = (word: string, isFromBank: boolean) => {
     if (isFromBank) {
-      // If clicking from word bank, move to selected words
       setSelectedWords([...selectedWords, word]);
       setWordBankWords(wordBankWords.filter(w => w !== word));
     } else {
-      // If clicking from selected words, move back to word bank
       setWordBankWords([...wordBankWords, word]);
       setSelectedWords(selectedWords.filter(w => w !== word));
     }
-    // Reset check state
     setIsWordBankChecked(false);
   };
 
-  // Function to shuffle the word bank
-  const shuffleWordBank = () => {
-    // Randomize word bank order
-    setWordBankWords([...wordBankWords].sort(() => Math.random() - 0.5));
+  const handleMultipleChoiceChange = (index: number) => {
+    const newSelectedChoices = new Set(selectedChoices);
+    if (newSelectedChoices.has(index)) {
+      newSelectedChoices.delete(index);
+    } else {
+      newSelectedChoices.add(index);
+    }
+    setSelectedChoices(newSelectedChoices);
+    setIsMultipleChoiceChecked(false);
   };
 
-  // Function to render the word bank exercise UI
+  const checkMultipleChoiceAnswer = () => {
+    const correctAnswers = question.multipleChoice?.slice(0, 3) || []; // First 3 are correct
+    const isCorrect = selectedChoices.size === correctAnswers.length &&
+      Array.from(selectedChoices).every(index => index < correctAnswers.length);
+    
+    setIsMultipleChoiceChecked(true);
+    setIsMultipleChoiceCorrect(isCorrect);
+
+    if (!user && !showAuthPrompt) {
+      setTimeout(() => {
+        setShowAuthPrompt(true);
+      }, 1500);
+    }
+  };
+
+  const renderEasyExercise = () => {
+    if (!question.multipleChoice) return null;
+
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Exercise 1: Multiple Choice (Easy)</h3>
+        <p className="text-gray-600 mb-6">{question.question}</p>
+
+        <div className="space-y-4">
+          {question.multipleChoice.map((choice, index) => (
+            <label
+              key={index}
+              className={`flex items-start p-4 rounded-lg border-2 transition-colors cursor-pointer ${
+                isMultipleChoiceChecked
+                  ? index < 3 && selectedChoices.has(index)
+                    ? 'bg-green-50 border-green-500'
+                    : index >= 3 && selectedChoices.has(index)
+                    ? 'bg-red-50 border-red-500'
+                    : 'bg-white border-gray-200'
+                  : 'hover:bg-gray-50 border-gray-200'
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={selectedChoices.has(index)}
+                onChange={() => handleMultipleChoiceChange(index)}
+                className="mt-1 h-5 w-5 text-blue-600 rounded"
+                disabled={isMultipleChoiceChecked}
+              />
+              <span className="ml-3">{choice}</span>
+            </label>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center gap-4">
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center disabled:opacity-50"
+            onClick={checkMultipleChoiceAnswer}
+            disabled={selectedChoices.size === 0 || isMultipleChoiceChecked}
+          >
+            <HelpCircle className="w-5 h-5 mr-2" />
+            Check Answer
+          </button>
+          {isMultipleChoiceChecked && (
+            <div className={`flex items-center ${
+              isMultipleChoiceCorrect ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {isMultipleChoiceCorrect ? (
+                <>
+                  <Check className="w-5 h-5 mr-1" />
+                  <span>Correct!</span>
+                </>
+              ) : (
+                <>
+                  <AlertCircle className="w-5 h-5 mr-1" />
+                  <span>Try again</span>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   const renderWordBank = () => {
     return (
-      // Container for word bank exercise
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-        {/* Exercise title */}
-        <h3 className="text-xl font-semibold mb-4">Exercise 1: Word Bank</h3>
-        {/* Question text */}
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Exercise 2: Word Bank (Medium)</h3>
         <p className="text-gray-600 mb-6">{question.question}</p>
         
         <div className="space-y-6">
-          {/* Selected words area with dynamic styling based on check state */}
           <div className={`min-h-[100px] p-4 rounded-lg transition-colors ${
             isWordBankChecked
               ? isWordBankCorrect
-                ? 'bg-green-50 border-2 border-green-500' // Correct answer styling
-                : 'bg-red-50 border-2 border-red-500' // Incorrect answer styling
-              : 'bg-gray-50 border-2 border-dashed border-gray-300' // Neutral styling
+                ? 'bg-green-50 border-2 border-green-500'
+                : 'bg-red-50 border-2 border-red-500'
+              : 'bg-gray-50 border-2 border-dashed border-gray-300'
           }`}>
-            {/* Instruction text */}
             <p className="text-sm text-gray-500 mb-2">Arrange words to form your answer:</p>
-            {/* Container for selected words */}
             <div className="flex flex-wrap gap-2">
-              {/* Map through selected words and render buttons */}
               {selectedWords.map((word, index) => (
                 <button
                   key={index}
@@ -199,9 +273,9 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
                   className={`px-3 py-1.5 rounded transition-colors ${
                     isWordBankChecked
                       ? isWordBankCorrect
-                        ? 'bg-green-100 hover:bg-green-200 text-green-800' // Correct styling
-                        : 'bg-red-100 hover:bg-red-200 text-red-800' // Incorrect styling
-                      : 'bg-blue-100 hover:bg-blue-200 text-blue-800' // Neutral styling
+                        ? 'bg-green-100 hover:bg-green-200 text-green-800'
+                        : 'bg-red-100 hover:bg-red-200 text-red-800'
+                      : 'bg-blue-100 hover:bg-blue-200 text-blue-800'
                   }`}
                 >
                   {word}
@@ -210,25 +284,11 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             </div>
           </div>
 
-          {/* Word bank area */}
           <div className="p-4 bg-gray-50 rounded-lg">
-            {/* Header with title and shuffle button */}
             <div className="flex items-center justify-between mb-2">
               <p className="text-sm text-gray-500">Available words:</p>
-              {/* Only show shuffle button if more than one word */}
-              {wordBankWords.length > 1 && (
-                <button
-                  onClick={shuffleWordBank}
-                  className="flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
-                >
-                  <Shuffle className="w-4 h-4 mr-2" />
-                  Shuffle Words
-                </button>
-              )}
             </div>
-            {/* Container for word bank words */}
             <div className="flex flex-wrap gap-2">
-              {/* Map through word bank words and render buttons */}
               {wordBankWords.map((word, index) => (
                 <button
                   key={index}
@@ -242,30 +302,25 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
           </div>
         </div>
 
-        {/* Action buttons and feedback area */}
         <div className="mt-6 flex items-center gap-4">
-          {/* Check answer button */}
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={checkWordBankAnswer}
-            disabled={selectedWords.length === 0} // Disable if no words selected
+            disabled={selectedWords.length === 0}
           >
             <HelpCircle className="w-5 h-5 mr-2" />
             Check Answer
           </button>
-          {/* Feedback message when checked */}
           {isWordBankChecked && (
             <div className={`flex items-center ${
               isWordBankCorrect ? 'text-green-600' : 'text-red-600'
             }`}>
               {isWordBankCorrect ? (
-                // Correct answer feedback
                 <>
                   <Check className="w-5 h-5 mr-1" />
                   <span>Correct!</span>
                 </>
               ) : (
-                // Incorrect answer feedback
                 <>
                   <AlertCircle className="w-5 h-5 mr-1" />
                   <span>Try again</span>
@@ -273,59 +328,51 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
               )}
             </div>
           )}
-          {/* Show/hide answer button */}
-          <button
-            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center ml-auto"
-            onClick={toggleShowAnswer}
-          >
-            <Eye className="w-5 h-5 mr-2" />
-            {showAnswer ? 'Hide Answer' : 'Show Answer'}
-          </button>
+          {!isWordBankCorrect && !user && (
+            <button
+              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+              onClick={toggleShowAnswer}
+            >
+              <Eye className="w-5 h-5 mr-2" />
+              {showAnswer ? 'Hide Answer' : 'Show Answer'}
+            </button>
+          )}
         </div>
       </div>
     );
   };
 
-  // Function to render the standard free response exercise UI
   const renderStandardExercise = () => {
     return (
-      // Container for standard exercise
       <div className="bg-white rounded-lg shadow-lg p-6">
-        {/* Exercise title */}
-        <h3 className="text-xl font-semibold mb-4">Exercise 2: Free Response</h3>
-        {/* Question text */}
+        <h3 className="text-xl font-semibold mb-4">Exercise 3: Free Response (Hard)</h3>
         <p className="text-gray-600 mb-6">{question.question}</p>
 
-        {/* Render multiple input fields if needed, otherwise render single textarea */}
         {question.inputFields > 1 ? (
           <div className="space-y-4">
-            {/* Map through number of input fields and render each */}
             {[...Array(question.inputFields)].map((_, index) => (
               <div key={index} className="flex items-start">
-                {/* Numbered label */}
                 <span className="mr-3 mt-2 font-medium">{index + 1}.</span>
                 <div className="flex-1 relative">
-                  {/* Input field with dynamic styling based on check state */}
                   <input
                     type="text"
                     className={`w-full border rounded-lg p-2 pr-10 ${
                       isChecked
                         ? getAnswerStatus(index) === 'correct'
-                          ? 'border-green-500 bg-green-50' // Correct styling
-                          : 'border-red-500 bg-red-50' // Incorrect styling
-                        : 'border-gray-300' // Neutral styling
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-red-500 bg-red-50'
+                        : 'border-gray-300'
                     }`}
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
                     placeholder="Enter your answer"
                   />
-                  {/* Feedback icon when checked */}
                   {isChecked && (
                     <div className="absolute right-2 top-2">
                       {getAnswerStatus(index) === 'correct' ? (
-                        <Check className="w-6 h-6 text-green-500" /> // Correct icon
+                        <Check className="w-6 h-6 text-green-500" />
                       ) : (
-                        <X className="w-6 h-6 text-red-500" /> // Incorrect icon
+                        <X className="w-6 h-6 text-red-500" />
                       )}
                     </div>
                   )}
@@ -334,37 +381,33 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             ))}
           </div>
         ) : (
-          // Single textarea for single answer questions
           <div className="relative">
             <textarea
               className={`w-full border rounded-lg p-2 ${
                 isChecked
                   ? getAnswerStatus(0) === 'correct'
-                    ? 'border-green-500 bg-green-50' // Correct styling
-                    : 'border-red-500 bg-red-50' // Incorrect styling
-                  : 'border-gray-300' // Neutral styling
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-red-500 bg-red-50'
+                  : 'border-gray-300'
               }`}
               rows={3}
               value={answers[0]}
               onChange={(e) => handleAnswerChange(0, e.target.value)}
               placeholder="Enter your answer"
             />
-            {/* Feedback icon when checked */}
             {isChecked && (
               <div className="absolute right-2 top-2">
                 {getAnswerStatus(0) === 'correct' ? (
-                  <Check className="w-6 h-6 text-green-500" /> // Correct icon
+                  <Check className="w-6 h-6 text-green-500" />
                 ) : (
-                  <X className="w-6 h-6 text-red-500" /> // Incorrect icon
+                  <X className="w-6 h-6 text-red-500" />
                 )}
               </div>
             )}
           </div>
         )}
 
-        {/* Action buttons */}
         <div className="mt-6 flex items-center gap-4">
-          {/* Check answer button */}
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
             onClick={checkAnswer}
@@ -372,20 +415,20 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
             <HelpCircle className="w-5 h-5 mr-2" />
             Check Answer
           </button>
-          {/* Show/hide answer button */}
-          <button
-            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center ml-auto"
-            onClick={toggleShowAnswer}
-          >
-            <Eye className="w-5 h-5 mr-2" />
-            {showAnswer ? 'Hide Answer' : 'Show Answer'}
-          </button>
+          {!answers.every((answer, index) => isAnswerCorrect(answer, index)) && !user && (
+            <button
+              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+              onClick={toggleShowAnswer}
+            >
+              <Eye className="w-5 h-5 mr-2" />
+              {showAnswer ? 'Hide Answer' : 'Show Answer'}
+            </button>
+          )}
         </div>
       </div>
     );
   };
 
-  // Render error message if question not found
   if (!question) {
     return (
       <div className="bg-white rounded-lg shadow-lg p-6">
@@ -394,67 +437,55 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
     );
   }
 
-  // Function to calculate which page numbers to show in pagination
-  const getVisiblePages = () => {
-    const totalPages = questions.length;
-    const currentPage = currentQuestionId;
-    const delta = 2; // Number of pages to show on each side of current page
-    const range = [];
-    const rangeWithDots = [];
-    let l: number;
-    
-    // Always include first page
-    range.push(1);
-    
-    // Add pages around current page
-    for (let i = currentPage - delta; i <= currentPage + delta; i++) {
-      if (i > 1 && i < totalPages) {
-        range.push(i);
-      }
-    }
-    
-    // Always include last page if there's more than one page
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-    
-    // Add dots for page gaps
-    for (const i of range) {
-      if (l) {
-        if (i - l === 2) {
-          // If gap is exactly 1 page, show that page
-          rangeWithDots.push(l + 1);
-        } else if (i - l !== 1) {
-          // If gap is more than 1 page, show dots
-          rangeWithDots.push('...');
-        }
-      }
-      // Add current page to result
-      rangeWithDots.push(i);
-      l = i;
-    }
-    
-    return rangeWithDots;
-  };
-
-  // Main component render
   return (
     <div className="space-y-6">
-      {/* Header showing question number */}
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-2">Question {question.id} of {questions.length}</h2>
+        <h2 className="text-2xl font-bold mb-2">Question {question.id} of {user ? questions.length : 1}</h2>
       </div>
 
-      {/* Render both exercise types */}
+      {showAuthPrompt && !user && (
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg shadow-lg mb-6">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <AlertCircle className="h-5 w-5 text-blue-500" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-lg font-medium text-blue-800">Ready to access all questions?</h3>
+              <div className="mt-2 text-blue-700">
+                <p>Sign up or log in to:</p>
+                <ul className="list-disc list-inside mt-2">
+                  <li>Access all {questions.length} questions</li>
+                  <li>Track your progress</li>
+                  <li>Get personalized recommendations</li>
+                </ul>
+                <div className="mt-4 flex gap-4">
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Log in
+                  </button>
+                  <button
+                    onClick={() => navigate('/register')}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    Sign up
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {renderEasyExercise()}
       {renderWordBank()}
       {renderStandardExercise()}
 
-      {/* Show answer section if enabled */}
-      {showAnswer && (
+      {showAnswer && !user && (
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h3 className="text-xl font-semibold mb-4">Correct Answer</h3>
           {question.acceptableAnswers ? (
-            // If question has multiple acceptable answers, show as list
             <div>
               <p className="font-medium text-gray-800">Acceptable answers:</p>
               <ul className="list-disc list-inside mt-2 text-gray-700 space-y-1">
@@ -464,7 +495,6 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
               </ul>
             </div>
           ) : (
-            // Otherwise show single answer
             <p className="text-gray-800">
               {question.answer}
             </p>
@@ -472,53 +502,29 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questionNumber }) => {
         </div>
       )}
 
-      {/* Pagination controls */}
-      <div className="bg-white rounded-lg shadow-lg p-4">
-        <div className="flex items-center justify-center space-x-2">
-          {/* Previous button */}
-          <button
-            onClick={() => handleNavigation('prev')}
-            disabled={currentQuestionId === 1} // Disable if on first question
-            className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          
-          {/* Page number buttons */}
-          {getVisiblePages().map((page, index) => (
-            <React.Fragment key={index}>
-              {typeof page === 'number' ? (
-                // Render page number button
-                <button
-                  onClick={() => navigate(`/question/${page}`)}
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    page === currentQuestionId
-                      ? 'bg-blue-600 text-white' // Current page styling
-                      : 'hover:bg-gray-100' // Other page styling
-                  }`}
-                >
-                  {page}
-                </button>
-              ) : (
-                // Render dots for page gaps
-                <span className="px-2">...</span>
-              )}
-            </React.Fragment>
-          ))}
-
-          {/* Next button */}
-          <button
-            onClick={() => handleNavigation('next')}
-            disabled={currentQuestionId === questions.length} // Disable if on last question
-            className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronRight size={20} />
-          </button>
+      {user && (
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <div className="flex items-center justify-center space-x-2">
+            <button
+              onClick={() => handleNavigation('prev')}
+              disabled={currentQuestionId === 1}
+              className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            
+            <button
+              onClick={() => handleNavigation('next')}
+              disabled={currentQuestionId === questions.length}
+              className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
-// Export the QuestionPage component as default
 export default QuestionPage;

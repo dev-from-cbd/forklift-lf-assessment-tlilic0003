@@ -1,114 +1,125 @@
-// Import React and useState hook for managing component state
 import React, { useState } from 'react';
-// Import Link for navigation and useNavigate hook for programmatic navigation
-import { Link, useNavigate } from 'react-router-dom';
-// Import useAuth hook from AuthContext to access authentication functions
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-// Import icons from Lucide library for UI elements
-import { Loader2, KeyRound } from 'lucide-react';
+import { Loader2, KeyRound, CheckCircle, AlertCircle } from 'lucide-react';
 
-// Define ResetPasswordForm as a functional React component
 const ResetPasswordForm: React.FC = () => {
-  // State for email input field
   const [email, setEmail] = useState('');
-  // State for success message
   const [message, setMessage] = useState('');
-  // State for error messages
   const [error, setError] = useState('');
-  // State for tracking loading status during form submission
   const [loading, setLoading] = useState(false);
-  // Extract resetPassword function from useAuth hook
+  const [isSuccess, setIsSuccess] = useState(false);
   const { resetPassword } = useAuth();
-  // Initialize navigate function for programmatic navigation
-  const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    // Prevent default form submission behavior
     e.preventDefault();
 
     try {
-      // Clear any previous messages
       setMessage('');
-      // Clear any previous error messages
       setError('');
-      // Set loading state to true to show loading indicator
       setLoading(true);
-      // Call resetPassword function from AuthContext with email
+      
       await resetPassword(email);
-      // Set success message after password reset email is sent
-      setMessage('Check your email for password reset instructions');
-    } catch (err) {
-      // Set error message if password reset fails
-      setError('Failed to reset password');
+      
+      setIsSuccess(true);
+      setMessage('Password reset instructions have been sent to your email. Please check your spam folder if you don\'t see the email.');
+    } catch (err: any) {
+      console.error('Password reset error:', err);
+      setError('Failed to send password reset email. Please check your email address.');
     } finally {
-      // Reset loading state regardless of success or failure
       setLoading(false);
     }
   };
 
-  // Render the password reset form
   return (
-    // Container with styling for the form
-    <div className="bg-white rounded-lg shadow p-4">
-      {/* Form element with submit handler and spacing between elements */}
-      <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Conditional rendering of error message if error state is not empty */}
-        {error && (
-          <div className="text-sm text-red-600">
-            {error}
-          </div>
-        )}
-        {/* Conditional rendering of success message if message state is not empty */}
-        {message && (
-          <div className="text-sm text-green-600">
-            {message}
-          </div>
-        )}
-        
-        {/* Email input field container */}
-        <div>
-          {/* Email input with styling and event handler */}
-          <input
-            type="email"
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Reset your password
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Enter your email to receive password reset instructions
+        </p>
+      </div>
 
-        {/* Container for back to login link */}
-        <div className="text-xs text-center">
-          {/* Link to login page */}
-          <Link to="/login" className="text-blue-600 hover:text-blue-500">
-            Back to login
-          </Link>
-        </div>
-
-        {/* Submit button with loading state and styling */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex justify-center items-center px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-        >
-          {/* Conditional rendering based on loading state */}
-          {loading ? (
-            // Show spinning loader icon when loading
-            <Loader2 className="w-4 h-4 animate-spin" />
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {isSuccess ? (
+            <div className="text-center space-y-4">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                <CheckCircle className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="text-sm text-green-600 bg-green-50 p-4 rounded-lg">
+                {message}
+              </div>
+              <div className="text-center">
+                <Link 
+                  to="/login" 
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Back to sign in
+                </Link>
+              </div>
+            </div>
           ) : (
-            // Show reset password text and icon when not loading
-            <>
-              <KeyRound className="w-4 h-4 mr-2" />
-              Reset Password
-            </>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <div className="flex items-center p-4 bg-red-50 text-red-700 rounded-lg">
+                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                  <span className="text-sm">{error}</span>
+                </div>
+              )}
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  Email address
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      <KeyRound className="w-5 h-5 mr-2" />
+                      Send Instructions
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="text-center">
+                <Link 
+                  to="/login" 
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Back to sign in
+                </Link>
+              </div>
+            </form>
           )}
-        </button>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };
 
-// Export the ResetPasswordForm component as the default export
 export default ResetPasswordForm;

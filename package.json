@@ -15,6 +15,8 @@
   "dependencies": {
     "@module-federation/node": "^1.0.6",
     "@supabase/supabase-js": "^2.39.7",
+    "@stripe/stripe-js": "^2.4.0",
+    "crypto-js": "^4.2.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -23,12 +25,14 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
+    "stripe": "^14.17.0",
     "workbox-core": "^7.0.0",
     "workbox-precaching": "^7.0.0",
     "workbox-routing": "^7.0.0",
     "workbox-strategies": "^7.0.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

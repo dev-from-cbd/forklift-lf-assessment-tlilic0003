@@ -1,137 +1,148 @@
-// Import React and useState hook for managing component state
 import React, { useState } from 'react';
-// Import routing components from react-router-dom
 import { Link, useNavigate } from 'react-router-dom';
-// Import custom authentication context hook
 import { useAuth } from '../contexts/AuthContext';
-// Import icons from Lucide library
-import { Loader2, LogIn, Eye, EyeOff } from 'lucide-react';
+import { Loader2, LogIn, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
-// Define LoginForm as a functional component
 const LoginForm: React.FC = () => {
-  // State for storing user email input
   const [email, setEmail] = useState('');
-  // State for storing user password input
   const [password, setPassword] = useState('');
-  // State for storing error messages
   const [error, setError] = useState('');
-  // State for tracking loading status during form submission
   const [loading, setLoading] = useState(false);
-  // State for toggling password visibility
   const [showPassword, setShowPassword] = useState(false);
-  // Get signIn function from auth context
   const { signIn } = useAuth();
-  // Get navigate function for programmatic navigation
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    // Prevent default form submission behavior
     e.preventDefault();
     try {
-      // Clear any previous errors
       setError('');
-      // Set loading state to true to show loading indicator
       setLoading(true);
-      // Call signIn function with user credentials
       await signIn(email, password);
-      // Navigate to home page after successful login
       navigate('/');
-    } catch (err) {
-      // Set error message if login fails
-      setError('Failed to sign in. Please check your credentials.');
+    } catch (err: any) {
+      console.error('Login error:', err);
+      if (err.message?.includes('Invalid login credentials')) {
+        setError('Invalid email or password. Please check your credentials or use password recovery.');
+      } else if (err.message?.includes('Email not confirmed')) {
+        setError('Please confirm your email address. Check your inbox and click the confirmation link.');
+      } else {
+        setError('Login failed. Please try again or use password recovery.');
+      }
     } finally {
-      // Set loading state to false regardless of outcome
       setLoading(false);
     }
   };
 
-  // Render the login form
   return (
-    // Container with styling for the form
-    <div className="bg-white rounded-lg shadow p-4">
-      // Form element with submit handler and spacing between elements
-      <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Conditionally render error message if it exists */}
-        {error && (
-          <div className="text-sm text-red-600">
-            {error}
-          </div>
-        )}
-        
-        {/* Email input field container */}
-        <div>
-          {/* Email input with styling and event handler */}
-          <input
-            type="email"
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        
-        {/* Password input field container with relative positioning for the toggle button */}
-        <div className="relative">
-          {/* Password input with dynamic type based on showPassword state */}
-          <input
-            type={showPassword ? "text" : "password"}
-            required
-            className="w-full px-3 py-1.5 text-sm border rounded focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 pr-10"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {/* Button to toggle password visibility */}
-          <button
-            type="button"
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {/* Conditionally render eye icon based on password visibility state */}
-            {showPassword ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Sign in to your account
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Access your forklift training course
+        </p>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="flex items-start p-4 bg-red-50 text-red-700 rounded-lg">
+                <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+                <span className="text-sm">{error}</span>
+              </div>
             )}
-          </button>
-        </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5 text-gray-400" />
+                  ) : (
+                    <Eye className="h-5 w-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+            </div>
 
-        {/* Container for forgot password and create account links */}
-        <div className="flex items-center justify-between text-xs">
-          {/* Link to password reset page */}
-          <Link to="/reset-password" className="text-blue-600 hover:text-blue-500">
-            Forgot password?
-          </Link>
-          {/* Link to registration page */}
-          <Link to="/register" className="text-blue-600 hover:text-blue-500">
-            Create account
-          </Link>
-        </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm">
+                <Link 
+                  to="/reset-password" 
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+              <div className="text-sm">
+                <Link 
+                  to="/register" 
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Create account
+                </Link>
+              </div>
+            </div>
 
-        {/* Submit button with loading state handling */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex justify-center items-center px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-        >
-          {/* Conditionally render loading spinner or login text with icon */}
-          {loading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <>
-              {/* Login icon */}
-              <LogIn className="w-4 h-4 mr-2" />
-              {/* Login text */}
-              Log in
-            </>
-          )}
-        </button>
-      </form>
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    <LogIn className="w-5 h-5 mr-2" />
+                    Sign In
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
 
-// Export the LoginForm component as default
 export default LoginForm;

@@ -1,138 +1,135 @@
 // Create a context to manage authentication state throughout the app
-// Import necessary React hooks and types, User type from Supabase, and the Supabase client instance.
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js'; // Type definition for a Supabase user.
-import { supabase } from '../config/supabase'; // Supabase client initialized in a separate config file.
+import { User } from '@supabase/supabase-js';
+import { supabase } from '../config/supabase';
 
-// Define the shape (interface) of our authentication context.
-// This specifies what values and functions will be available via this context.
+// Define the shape of our auth context
 interface AuthContextType {
-  user: User | null; // The current authenticated user object, or null if not authenticated.
-  loading: boolean; // A boolean flag to indicate if authentication status is currently being loaded.
-  signUp: (email: string, password: string) => Promise<void>; // Function to handle user registration.
-  signIn: (email: string, password: string) => Promise<void>; // Function to handle user login.
-  signOut: () => Promise<void>; // Function to handle user logout.
-  resetPassword: (email: string) => Promise<void>; // Function to handle password reset requests.
-  updatePassword: (newPassword: string) => Promise<void>; // Function to update the current user's password.
-  updateEmail: (newEmail: string) => Promise<void>; // Function to update the current user's email.
+  user: User | null;
+  loading: boolean;
+  signUp: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  updatePassword: (newPassword: string) => Promise<void>;
+  updateEmail: (newEmail: string) => Promise<void>;
 }
 
-// Create the actual React Context with a default value of 'undefined'.
-// Consumers will need to check if the context is defined before using it.
+// Create the context with a default value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Custom hook 'useAuth' to easily consume the AuthContext in functional components.
+// Custom hook to use the auth context
 export const useAuth = () => {
-  // Get the current context value.
   const context = useContext(AuthContext);
-  // If the context is undefined, it means 'useAuth' is used outside of an 'AuthProvider'.
-  // Throw an error to alert the developer.
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  // Return the context, providing access to user, loading state, and auth functions.
   return context;
 };
 
-// AuthProvider component: wraps parts of the app that need access to authentication state.
-// It takes 'children' as a prop, which are the components it will wrap.
+// Provider component that wraps the app and makes auth object available
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // State to hold the authenticated user object (or null) and the loading status.
-  const [user, setUser] = useState<User | null>(null); // Initialize user as null.
-  const [loading, setLoading] = useState(true); // Initialize loading as true, as we'll fetch session initially.
+  // State to hold the authenticated user and loading status
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect hook to run side effects (like fetching data or subscriptions) after component renders.
   useEffect(() => {
-    // Attempt to get the initial user session from Supabase when the component mounts.
+    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      // Set the user state based on the session's user, or null if no session.
       setUser(session?.user ?? null);
-      // Set loading to false once the initial session check is complete.
       setLoading(false);
     });
 
-    // Listen for changes in Supabase's authentication state (e.g., login, logout).
+    // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      // When auth state changes, update the user state accordingly.
       setUser(session?.user ?? null);
     });
 
-    // Cleanup function for useEffect: Unsubscribe from the auth state changes when the component unmounts.
-    // This prevents memory leaks.
+    // Cleanup subscription
     return () => subscription.unsubscribe();
-  }, []); // The empty dependency array [] means this effect runs once on mount and cleans up on unmount.
+  }, []);
 
-  // Asynchronous function to handle user sign-up.
+  // Sign up function
   const signUp = async (email: string, password: string) => {
-    // Call Supabase's signUp method with the provided email and password.
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: undefined // Disable email confirmation
+      }
     });
-    // If there's an error during sign-up, throw it to be caught by the caller.
+    
     if (error) throw error;
+
+    // If this is the admin email, ensure admin role is set
+    if (email === 'neoguru@gmail.com' && data.user) {
+      try {
+        await supabase
+          .from('user_roles')
+          .upsert({ 
+            user_id: data.user.id, 
+            role: 'admin' 
+          }, { 
+            onConflict: 'user_id' 
+          });
+      } catch (roleError) {
+        console.error('Error setting admin role:', roleError);
+      }
+    }
   };
 
-  // Asynchronous function to handle user sign-in.
+  // Sign in function
   const signIn = async (email: string, password: string) => {
-    // Call Supabase's signInWithPassword method.
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    // If there's an error during sign-in, throw it.
     if (error) throw error;
   };
 
-  // Asynchronous function to handle user sign-out.
+  // Sign out function
   const signOut = async () => {
-    // Call Supabase's signOut method.
     const { error } = await supabase.auth.signOut();
-    // If there's an error during sign-out, throw it.
     if (error) throw error;
   };
 
-  // Asynchronous function to handle password reset requests.
+  // Reset password function
   const resetPassword = async (email: string) => {
-    // Call Supabase's resetPasswordForEmail method.
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
-    // If there's an error, throw it.
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password-confirm`
+    });
     if (error) throw error;
   };
 
-  // Asynchronous function to update the current user's password.
+  // Update password function
   const updatePassword = async (newPassword: string) => {
-    // Call Supabase's updateUser method with the new password.
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     });
-    // If there's an error, throw it.
     if (error) throw error;
   };
 
-  // Asynchronous function to update the current user's email.
+  // Update email function
   const updateEmail = async (newEmail: string) => {
-    // Call Supabase's updateUser method with the new email.
     const { error } = await supabase.auth.updateUser({
       email: newEmail,
     });
-    // If there's an error, throw it.
     if (error) throw error;
   };
 
-  // Provide the authentication context value (user, loading state, and auth functions) to its children.
+  // Provide the auth context value to children
   return (
     <AuthContext.Provider value={{
-      user,          // Current user object or null.
-      loading,       // Loading state boolean.
-      signUp,        // Sign-up function.
-      signIn,        // Sign-in function.
-      signOut,       // Sign-out function.
-      resetPassword, // Password reset function.
-      updatePassword,// Password update function.
-      updateEmail,   // Email update function.
+      user,
+      loading,
+      signUp,
+      signIn,
+      signOut,
+      resetPassword,
+      updatePassword,
+      updateEmail,
     }}>
-      {children} {/* Render the child components wrapped by this provider. */}
+      {children}
     </AuthContext.Provider>
   );
 };
