@@ -1,8 +1,13 @@
+// Import React hooks and components
 import React, { useEffect, useState } from 'react';
+// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
+// Import Supabase client
 import { supabase } from '../config/supabase';
+// Import icons from Lucide React
 import { Users, Award, AlertCircle, Search, Loader2 } from 'lucide-react';
 
+// Define interface for user data structure
 interface UserData {
   id: string;
   email: string;
@@ -14,13 +19,20 @@ interface UserData {
   };
 }
 
+// AdminPanel component definition
 const AdminPanel: React.FC = () => {
+  // State for storing users data
   const [users, setUsers] = useState<UserData[]>([]);
+  // State for loading status
   const [loading, setLoading] = useState(true);
+  // State for error messages
   const [error, setError] = useState('');
+  // State for search term
   const [searchTerm, setSearchTerm] = useState('');
+  // Get current user from auth context
   const { user } = useAuth();
 
+  // Effect hook to fetch users data when component mounts
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -69,10 +81,12 @@ const AdminPanel: React.FC = () => {
     fetchUsers();
   }, [user]);
 
+  // Filter users based on search term
   const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Loading state UI
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -81,6 +95,7 @@ const AdminPanel: React.FC = () => {
     );
   }
 
+  // Main component UI
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg p-6">
