@@ -1,25 +1,38 @@
+// Import React hooks and components
 import React, { useEffect, useState } from 'react';
+// Import routing components
 import { Navigate, useLocation } from 'react-router-dom';
+// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
+// Import loading spinner icon
 import { Loader2 } from 'lucide-react';
+// Import Supabase client
 import { supabase } from '../config/supabase';
 
+// Define props interface for AuthLayout component
 interface AuthLayoutProps {
   children: React.ReactNode;
   requireAuth?: boolean;
   requireAdmin?: boolean;
 }
 
+// AuthLayout component definition
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, requireAdmin = false }) => {
+  // Get current user and loading state from auth context
   const { user, loading } = useAuth();
+  // Get current route location
   const location = useLocation();
+  // State for admin status
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  // State for admin status checking
   const [checkingAdmin, setCheckingAdmin] = useState(requireAdmin);
 
+  // Effect hook to check admin status when user changes
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user) {
         try {
+          // Query user roles from Supabase
           const { data: roleData, error } = await supabase
             .from('user_roles')
             .select('role')
@@ -30,6 +43,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
             console.error('Error checking admin status:', error);
             setIsAdmin(false);
           } else {
+            // Set admin status based on role
             setIsAdmin(roleData?.role === 'admin');
           }
         } catch (error) {
@@ -39,6 +53,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
           setCheckingAdmin(false);
         }
       } else {
+        // User not logged in
         setIsAdmin(false);
         setCheckingAdmin(false);
       }
@@ -71,6 +86,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
     return <Navigate to="/" replace />;
   }
 
+  // Render children if all checks pass
   return <>{children}</>;
 };
 
