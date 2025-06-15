@@ -1,26 +1,44 @@
+// Import React hooks and components
 import React, { useState } from 'react';
+// Import routing components
 import { Link, useNavigate } from 'react-router-dom';
+// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
+// Import icons from Lucide React
 import { Loader2, LogIn, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
+// LoginForm component definition
 const LoginForm: React.FC = () => {
+  // State for email input
   const [email, setEmail] = useState('');
+  // State for password input
   const [password, setPassword] = useState('');
+  // State for error messages
   const [error, setError] = useState('');
+  // State for loading status
   const [loading, setLoading] = useState(false);
+  // State for password visibility toggle
   const [showPassword, setShowPassword] = useState(false);
+  // Get signIn function from auth context
   const { signIn } = useAuth();
+  // Get navigation function
   const navigate = useNavigate();
 
+  // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Reset error state
       setError('');
+      // Set loading state
       setLoading(true);
+      // Call signIn function with email and password
       await signIn(email, password);
+      // Navigate to home page on success
       navigate('/');
     } catch (err: any) {
       console.error('Login error:', err);
+      // Handle different error cases
       if (err.message?.includes('Invalid login credentials')) {
         setError('Invalid email or password. Please check your credentials or use password recovery.');
       } else if (err.message?.includes('Email not confirmed')) {
@@ -29,10 +47,12 @@ const LoginForm: React.FC = () => {
         setError('Login failed. Please try again or use password recovery.');
       }
     } finally {
+      // Reset loading state
       setLoading(false);
     }
   };
 
+  // Component UI
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
