@@ -1,9 +1,15 @@
+// Import React and useState hook for state management
 import React, { useState } from 'react';
+// Import routing components
 import { Link, useNavigate } from 'react-router-dom';
+// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
+// Import icons from Lucide React
 import { Loader2, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 
+// RegisterForm component definition
 const RegisterForm: React.FC = () => {
+  // State for form fields and UI
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -12,24 +18,35 @@ const RegisterForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  
+  // Get signUp function from auth context
   const { signUp } = useAuth();
+  // Get navigation function
   const navigate = useNavigate();
 
+  // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate password match
     if (password !== confirmPassword) {
       return setError('Passwords do not match');
     }
 
+    // Validate password length
     if (password.length < 6) {
       return setError('Password must be at least 6 characters long');
     }
 
     try {
+      // Reset error state and set loading
       setError('');
       setLoading(true);
+      
+      // Call signUp function from auth context
       await signUp(email, password);
+      
+      // Set success state
       setIsSuccess(true);
       
       // Automatically redirect to home page after 2 seconds
@@ -37,6 +54,7 @@ const RegisterForm: React.FC = () => {
         navigate('/');
       }, 2000);
     } catch (err: any) {
+      // Handle registration errors
       console.error('Registration error:', err);
       if (err.message?.includes('User already registered')) {
         setError('User with this email already exists. Please try signing in.');
@@ -46,12 +64,16 @@ const RegisterForm: React.FC = () => {
         setError('Registration failed. Please try again.');
       }
     } finally {
+      // Reset loading state
       setLoading(false);
     }
   };
 
+  // Component UI rendering
   return (
+    // Main container with background and centering
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {/* Header section */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Create your account
@@ -61,8 +83,10 @@ const RegisterForm: React.FC = () => {
         </p>
       </div>
 
+      {/* Form container */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {/* Success state */}
           {isSuccess ? (
             <div className="text-center space-y-4">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -73,7 +97,9 @@ const RegisterForm: React.FC = () => {
               </div>
             </div>
           ) : (
+            // Registration form
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Error message display */}
               {error && (
                 <div className="flex items-start p-4 bg-red-50 text-red-700 rounded-lg">
                   <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
@@ -81,6 +107,7 @@ const RegisterForm: React.FC = () => {
                 </div>
               )}
               
+              {/* Email input field */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email address
@@ -100,6 +127,7 @@ const RegisterForm: React.FC = () => {
                 </div>
               </div>
               
+              {/* Password input field with toggle visibility */}
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
@@ -130,6 +158,7 @@ const RegisterForm: React.FC = () => {
                 </div>
               </div>
               
+              {/* Confirm password input field with toggle visibility */}
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm password
@@ -160,6 +189,7 @@ const RegisterForm: React.FC = () => {
                 </div>
               </div>
 
+              {/* Link to login page */}
               <div className="text-center">
                 <Link 
                   to="/login" 
@@ -169,6 +199,7 @@ const RegisterForm: React.FC = () => {
                 </Link>
               </div>
 
+              {/* Submit button */}
               <div>
                 <button
                   type="submit"
@@ -193,4 +224,5 @@ const RegisterForm: React.FC = () => {
   );
 };
 
+// Export RegisterForm component
 export default RegisterForm;
