@@ -1,47 +1,47 @@
 {
-  "name": "forklift-training-app",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "start:auth": "node services/auth/index.js",
-    "start:questions": "node services/questions/index.js",
-    "start:progress": "node services/progress/index.js"
+  "name": "forklift-training-app",  // Name of the project
+  "private": true,  // Indicates this is a private package (won't be published)
+  "version": "1.0.0",  // Current version of the project
+  "type": "module",  // Uses ES modules (import/export syntax)
+  "scripts": {  // NPM scripts for common tasks
+    "dev": "vite",  // Start development server
+    "build": "tsc && vite build",  // Build for production
+    "lint": "eslint .",  // Run ESLint on all files
+    "preview": "vite preview",  // Preview production build
+    "start:auth": "node services/auth/index.js",  // Start auth service
+    "start:questions": "node services/questions/index.js",  // Start questions service
+    "start:progress": "node services/progress/index.js"  // Start progress service
   },
-  "dependencies": {
-    "@module-federation/node": "^1.0.6",
-    "@supabase/supabase-js": "^2.39.7",
-    "@stripe/stripe-js": "^2.4.0",
-    "crypto-js": "^4.2.0",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "express": "^4.18.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "jsonwebtoken": "^9.0.2",
-    "stripe": "^14.17.0",
-    "workbox-core": "^7.0.0",
-    "workbox-precaching": "^7.0.0",
-    "workbox-routing": "^7.0.0",
-    "workbox-strategies": "^7.0.0"
+  "dependencies": {  // Production dependencies
+    "@module-federation/node": "^1.0.6",  // Module Federation for Node
+    "@supabase/supabase-js": "^2.39.7",  // Supabase client library
+    "@stripe/stripe-js": "^2.4.0",  // Stripe.js library
+    "crypto-js": "^4.2.0",  // Crypto utilities
+    "lucide-react": "^0.344.0",  // Icon library
+    "react": "^18.3.1",  // React core
+    "react-dom": "^18.3.1",  // React DOM
+    "react-router-dom": "^6.22.3",  // React Router
+    "express": "^4.18.3",  // Express web framework
+    "cors": "^2.8.5",  // CORS middleware
+    "dotenv": "^16.4.5",  // Environment variables loader
+    "jsonwebtoken": "^9.0.2",  // JWT implementation
+    "stripe": "^14.17.0",  // Stripe Node.js library
+    "workbox-core": "^7.0.0",  // Workbox core
+    "workbox-precaching": "^7.0.0",  // Workbox precaching
+    "workbox-routing": "^7.0.0",  // Workbox routing
+    "workbox-strategies": "^7.0.0"  // Workbox caching strategies
   },
-  "devDependencies": {
-    "@types/crypto-js": "^4.2.2",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.2",
-    "vite-plugin-pwa": "^0.19.2"
+  "devDependencies": {  // Development dependencies
+    "@types/crypto-js": "^4.2.2",  // TypeScript definitions for crypto-js
+    "@types/react": "^18.3.5",  // TypeScript definitions for React
+    "@types/react-dom": "^18.3.0",  // TypeScript definitions for React DOM
+    "@vitejs/plugin-react": "^4.3.1",  // Vite React plugin
+    "autoprefixer": "^10.4.18",  // CSS autoprefixer
+    "eslint": "^9.9.1",  // JavaScript linter
+    "postcss": "^8.4.35",  // CSS processor
+    "tailwindcss": "^3.4.1",  // Tailwind CSS
+    "typescript": "^5.5.3",  // TypeScript compiler
+    "vite": "^5.4.2",  // Vite build tool
+    "vite-plugin-pwa": "^0.19.2"  // Vite PWA plugin
   }
 }
