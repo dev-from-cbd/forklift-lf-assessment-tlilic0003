@@ -1,50 +1,64 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Loader2, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { Loader2, KeyRound, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
-const RegisterForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const ResetPasswordConfirm: React.FC = () => {
+  const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { signUp } = useAuth();
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { updatePassword } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if this is a valid password reset session
+    const urlParams = new URLSearchParams(window.location.search);
+    const error_description = urlParams.get('error_description');
+    
+    if (error_description) {
+      if (error_description.includes('expired')) {
+        setError('Password reset link has expired. Please request a new password reset.');
+      } else if (error_description.includes('invalid')) {
+        setError('Password reset link is invalid. Please request a new password reset.');
+      } else {
+        setError('Password reset failed. Please try again.');
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       return setError('Passwords do not match');
     }
 
-    if (password.length < 6) {
+    if (newPassword.length < 6) {
       return setError('Password must be at least 6 characters long');
     }
 
     try {
+      setMessage('');
       setError('');
       setLoading(true);
-      await signUp(email, password);
-      setIsSuccess(true);
       
-      // Automatically redirect to home page after 2 seconds
+      await updatePassword(newPassword);
+      
+      setIsSuccess(true);
+      setMessage('Password updated successfully! Redirecting to your account...');
+      
+      // Redirect to home page after 2 seconds
       setTimeout(() => {
         navigate('/');
       }, 2000);
     } catch (err: any) {
-      console.error('Registration error:', err);
-      if (err.message?.includes('User already registered')) {
-        setError('User with this email already exists. Please try signing in.');
-      } else if (err.message?.includes('Password should be at least 6 characters')) {
-        setError('Password must be at least 6 characters long');
-      } else {
-        setError('Registration failed. Please try again.');
-      }
+      console.error('Password update error:', err);
+      setError('Failed to update password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -54,10 +68,10 @@ const RegisterForm: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create your account
+          Set new password
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Sign up to access the full training course
+          Enter your new password below
         </p>
       </div>
 
@@ -69,59 +83,40 @@ const RegisterForm: React.FC = () => {
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
               <div className="text-sm text-green-600 bg-green-50 p-4 rounded-lg">
-                Account created successfully! Redirecting you to the course...
+                {message}
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="flex items-start p-4 bg-red-50 text-red-700 rounded-lg">
-                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+                <div className="flex items-center p-4 bg-red-50 text-red-700 rounded-lg">
+                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
                   <span className="text-sm">{error}</span>
                 </div>
               )}
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
+                  New Password
                 </label>
                 <div className="mt-1 relative">
                   <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
+                    id="newPassword"
+                    name="newPassword"
+                    type={showNewPassword ? "text" : "password"}
                     autoComplete="new-password"
                     required
                     className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     placeholder="Minimum 6 characters"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                   <button
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => setShowNewPassword(!showNewPassword)}
                   >
-                    {showPassword ? (
+                    {showNewPassword ? (
                       <EyeOff className="h-5 w-5 text-gray-400" />
                     ) : (
                       <Eye className="h-5 w-5 text-gray-400" />
@@ -132,7 +127,7 @@ const RegisterForm: React.FC = () => {
               
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                  Confirm password
+                  Confirm New Password
                 </label>
                 <div className="mt-1 relative">
                   <input
@@ -142,7 +137,7 @@ const RegisterForm: React.FC = () => {
                     autoComplete="new-password"
                     required
                     className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    placeholder="Repeat your password"
+                    placeholder="Repeat your new password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
@@ -160,15 +155,6 @@ const RegisterForm: React.FC = () => {
                 </div>
               </div>
 
-              <div className="text-center">
-                <Link 
-                  to="/login" 
-                  className="font-medium text-blue-600 hover:text-blue-500"
-                >
-                  Already have an account? Sign in
-                </Link>
-              </div>
-
               <div>
                 <button
                   type="submit"
@@ -179,10 +165,20 @@ const RegisterForm: React.FC = () => {
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
-                      <UserPlus className="w-5 h-5 mr-2" />
-                      Create Account
+                      <KeyRound className="w-5 h-5 mr-2" />
+                      Update Password
                     </>
                   )}
+                </button>
+              </div>
+
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => navigate('/login')}
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Back to sign in
                 </button>
               </div>
             </form>
@@ -193,4 +189,4 @@ const RegisterForm: React.FC = () => {
   );
 };
 
-export default RegisterForm;
+export default ResetPasswordConfirm;

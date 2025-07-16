@@ -1,8 +1,3 @@
-/* Import Tailwind's base styles - includes normalize.css and basic element styles */
 @tailwind base;
-
-/* Import Tailwind's component classes - reusable component styles */
 @tailwind components;
-
-/* Import Tailwind's utility classes - small, single-purpose classes */
 @tailwind utilities;

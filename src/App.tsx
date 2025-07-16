@@ -1,45 +1,35 @@
-// Import React and necessary dependencies
 import React from 'react';
-// Import routing components from react-router-dom
 import { Routes, Route, useNavigate } from 'react-router-dom';
-// Import icons from lucide-react library
 import { Forklift, ChevronLeft, ChevronRight, LogIn, LogOut, UserPlus, User, Shield } from 'lucide-react';
-// Import application components
 import QuestionPage from './components/QuestionPage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import ResetPasswordForm from './components/ResetPasswordForm';
+import ResetPasswordConfirm from './components/ResetPasswordConfirm';
+import AuthCallback from './components/AuthCallback';
 import AdminPanel from './components/AdminPanel';
 import UserProfile from './components/UserProfile';
 import OfflineIndicator from './components/OfflineIndicator';
 import AuthLayout from './components/AuthLayout';
-// Import authentication context and Supabase client
+import DatabaseStatus from './components/DatabaseStatus';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
-// Import React hooks
 import { useState, useEffect } from 'react';
 
-// Main App component
 function App() {
-  // Navigation hook for programmatic routing
   const navigate = useNavigate();
-  // Get user authentication state and signOut function
   const { user, signOut } = useAuth();
-  // State to track admin status
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Effect to check admin status when user changes
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user) {
-        // Query user role from Supabase
         const { data: roleData } = await supabase
           .from('user_roles')
           .select('role')
           .eq('user_id', user.id)
           .single();
 
-        // Set admin status based on role
         setIsAdmin(roleData?.role === 'admin');
       }
     };
@@ -47,7 +37,6 @@ function App() {
     checkAdminStatus();
   }, [user]);
 
-  // Handle user sign out
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -57,15 +46,12 @@ function App() {
     }
   };
 
-  // Handle header click to navigate home
   const handleHeaderClick = () => {
     navigate('/');
   };
 
-  // Main component render
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header section with gradient background */}
       <div 
         className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-8"
         style={{
@@ -77,7 +63,6 @@ function App() {
       >
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Logo and title section */}
             <div 
               className="flex items-center cursor-pointer hover:opacity-90 transition-opacity"
               onClick={handleHeaderClick}
@@ -95,11 +80,9 @@ function App() {
               </div>
             </div>
             
-            {/* User controls section */}
             <div className="flex items-center gap-4">
               {user ? (
                 <div className="flex items-center gap-4">
-                  {/* Profile button */}
                   <button
                     onClick={() => navigate('/profile')}
                     className="flex items-center px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-lg transition-colors duration-200"
@@ -107,7 +90,6 @@ function App() {
                     <User className="w-5 h-5 mr-2" />
                     <span>{user.email}</span>
                   </button>
-                  {/* Admin panel button (visible only for admins) */}
                   {isAdmin && (
                     <button
                       onClick={() => navigate('/admin')}
@@ -117,7 +99,6 @@ function App() {
                       <span>Admin Panel</span>
                     </button>
                   )}
-                  {/* Sign out button */}
                   <button
                     onClick={handleSignOut}
                     className="flex items-center px-6 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200"
@@ -128,7 +109,6 @@ function App() {
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
-                  {/* Login button */}
                   <button
                     onClick={() => navigate('/login')}
                     className="flex items-center px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200"
@@ -136,7 +116,6 @@ function App() {
                     <LogIn className="w-5 h-5 mr-2" />
                     <span>Log in</span>
                   </button>
-                  {/* Register button */}
                   <button
                     onClick={() => navigate('/register')}
                     className="flex items-center px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
@@ -151,14 +130,14 @@ function App() {
         </div>
       </div>
 
-      {/* Main content area */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          {/* Application routes */}
           <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/reset-password" element={<ResetPasswordForm />} />
+            <Route path="/auth/reset-password-confirm" element={<ResetPasswordConfirm />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/admin" element={
               <AuthLayout requireAuth requireAdmin>
                 <AdminPanel />
@@ -171,18 +150,17 @@ function App() {
             } />
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
+            <Route path="/status" element={<DatabaseStatus />} />
           </Routes>
         </div>
       </div>
 
-      {/* Footer section */}
       <footer className="bg-gray-800 text-white py-4 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p>© {new Date().getFullYear()} Forklift Training & Assessment - TLILIC0004 Licence to Operate an Order Picking Forklift Truck (LO)</p>
         </div>
       </footer>
       
-      {/* Offline indicator component */}
       <OfflineIndicator />
     </div>
   );

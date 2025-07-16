@@ -1,24 +1,24 @@
 {
-  "compilerOptions": { // TypeScript compiler options
-    "target": "ES2020", // Compile to ECMAScript 2020
-    "useDefineForClassFields": true, // Use ECMAScript standard class fields
-    "lib": ["ES2020", "DOM", "DOM.Iterable"], // Include standard libraries
-    "module": "ESNext", // Use ES modules
-    "skipLibCheck": true, // Skip type checking of declaration files
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler", // Module resolution strategy
-    "allowImportingTsExtensions": true, // Allow importing .ts files
-    "isolatedModules": true, // Treat each file as separate module
-    "moduleDetection": "force", // Force module detection
-    "noEmit": true, // Don't output compiled files
-    "jsx": "react-jsx", // JSX transformation mode for React
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true, // Enable all strict type checking
-    "noUnusedLocals": true, // Error on unused locals
-    "noUnusedParameters": true, // Error on unused parameters
-    "noFallthroughCasesInSwitch": true // Error on switch case fallthroughs
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"] // Files to include in compilation
+  "include": ["src"]
 }

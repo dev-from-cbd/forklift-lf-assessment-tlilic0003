@@ -1,16 +1,16 @@
-# Forklift Training & Assessment  <!-- Main project title -->
+# Forklift Training & Assessment
 
-## Security Notice  <!-- Important security information section -->
+## Security Notice
 This project contains sensitive information. Please follow these security guidelines:
 
-1. Never commit `.env` files  <!-- Avoid committing environment files -->
-2. Never share API keys or secrets  <!-- Keep credentials private -->
-3. Use environment variables for sensitive data  <!-- Recommended storage method -->
-4. Keep Supabase credentials private  <!-- Specific security requirement -->
+1. Never commit `.env` files
+2. Never share API keys or secrets
+3. Use environment variables for sensitive data
+4. Keep Supabase credentials private
 
-## Setup  <!-- Project setup instructions -->
+## Setup
 
-1. Copy `.env.example` to `.env`:  <!-- Copy environment template -->
+1. Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```

@@ -1,13 +1,9 @@
-// Import React hooks for state management and side effects
 import React, { useState, useEffect } from 'react';
-// Import routing utilities
 import { useParams, useNavigate } from 'react-router-dom';
-// Import icons from Lucide React
 import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
-// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
 
-// Demo question data structure for unauthenticated users
+// Demo question for unauthenticated users
 const demoQuestion = {
   id: 10,
   question: "What is the definition of a Hazard?",
@@ -24,15 +20,10 @@ const demoQuestion = {
   ]
 };
 
-// Main QuestionPage component definition
 const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber }) => {
-  // Get URL parameters and navigation function
   const { id } = useParams();
   const navigate = useNavigate();
-  // Get current user from auth context
   const { user } = useAuth();
-  
-  // State management for questions and answers
   const [questions, setQuestions] = useState([demoQuestion]);
   const [currentQuestionId, setCurrentQuestionId] = useState(10);
   const [question, setQuestion] = useState(demoQuestion);
@@ -48,10 +39,8 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
   const [isMultipleChoiceChecked, setIsMultipleChoiceChecked] = useState(false);
   const [isMultipleChoiceCorrect, setIsMultipleChoiceCorrect] = useState(false);
 
-  // Effect hook to load questions when user changes
   useEffect(() => {
     if (user) {
-      // Fetch questions from API for authenticated users
       fetch('/api/questions')
         .then(res => res.json())
         .then(data => {
@@ -61,17 +50,14 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
           setQuestion(data.find((q: any) => q.id === qId) || data[0]);
         });
     } else {
-      // Use demo question for unauthenticated users
       setQuestions([demoQuestion]);
       setCurrentQuestionId(10);
       setQuestion(demoQuestion);
     }
   }, [user, id, questionNumber]);
 
-  // Effect hook to reset word bank when question changes
   useEffect(() => {
     if (question) {
-      // Process answer text into words for word bank
       const words = question.answer
         .split(';')
         .map(part => part.trim())
@@ -79,7 +65,6 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
         .split(' ')
         .filter(word => word.length > 0);
       
-      // Reset word bank state
       setWordBankWords([...words]);
       setSelectedWords([]);
       setIsWordBankChecked(false);
@@ -90,21 +75,17 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   }, [question]);
 
-  // Function to check word bank answers
   const checkWordBankAnswer = () => {
-    // Process correct answer for comparison
     const correctAnswer = question.answer
       .split(';')
       .map(part => part.trim())
       .join(' ')
       .toLowerCase();
 
-    // Process user answer for comparison
     const userAnswer = selectedWords.join(' ').toLowerCase();
     setIsWordBankChecked(true);
     setIsWordBankCorrect(correctAnswer === userAnswer);
 
-    // Show auth prompt for unauthenticated users
     if (!user && !showAuthPrompt) {
       setTimeout(() => {
         setShowAuthPrompt(true);
@@ -112,7 +93,6 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   };
 
-  // Function to handle answer input changes
   const handleAnswerChange = (index: number, value: string) => {
     const newAnswers = [...answers];
     newAnswers[index] = value;
@@ -121,11 +101,9 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     setShowAnswer(false);
   };
 
-  // Function to check regular answers
   const checkAnswer = () => {
     setIsChecked(true);
     
-    // Show auth prompt for unauthenticated users
     if (!user && !showAuthPrompt) {
       setTimeout(() => {
         setShowAuthPrompt(true);
@@ -133,48 +111,35 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   };
 
-  // Function to toggle answer visibility
   const toggleShowAnswer = () => {
     setShowAnswer(!showAnswer);
   };
 
-  // Function to check if answer is correct
   const isAnswerCorrect = (answer: string, index: number) => {
     const trimmedAnswer = answer.toLowerCase().trim();
     
-    // Check against acceptable answers if available
     if (question.acceptableAnswers) {
       return question.acceptableAnswers[index]?.toLowerCase().trim() === trimmedAnswer;
     }
     
-    // Otherwise check against standard answer format
     const correctAnswers = question.answer.split(';').map(a => a.trim());
     return trimmedAnswer === correctAnswers[index]?.toLowerCase().trim();
   };
 
-  // Function to get answer status (correct/incorrect/neutral)
   const getAnswerStatus = (index: number) => {
     if (!isChecked) return 'neutral';
     return isAnswerCorrect(answers[index], index) ? 'correct' : 'incorrect';
   };
 
-  // Function to handle question navigation
   const handleNavigation = (direction: 'prev' | 'next') => {
-    // Require authentication for navigation
     if (!user) {
       setShowAuthPrompt(true);
       return;
     }
 
-    // Calculate new question ID
     const newQuestionId = direction === 'prev' ? currentQuestionId - 1 : currentQuestionId + 1;
-    
-    // Validate question ID range
     if (newQuestionId >= 1 && newQuestionId <= questions.length) {
-      // Navigate to new question
       navigate(`/question/${newQuestionId}`);
-      
-      // Reset answer state for new question
       setAnswers(Array(questions[newQuestionId - 1]?.inputFields || 1).fill(''));
       setShowAnswer(false);
       setIsChecked(false);
@@ -183,21 +148,17 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   };
 
-  // Function to handle word selection in word bank
   const handleWordClick = (word: string, isFromBank: boolean) => {
     if (isFromBank) {
-      // Move word from bank to selected words
       setSelectedWords([...selectedWords, word]);
       setWordBankWords(wordBankWords.filter(w => w !== word));
     } else {
-      // Move word from selected back to bank
       setWordBankWords([...wordBankWords, word]);
       setSelectedWords(selectedWords.filter(w => w !== word));
     }
     setIsWordBankChecked(false);
   };
 
-  // Function to handle multiple choice selection
   const handleMultipleChoiceChange = (index: number) => {
     const newSelectedChoices = new Set(selectedChoices);
     if (newSelectedChoices.has(index)) {
@@ -209,19 +170,14 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     setIsMultipleChoiceChecked(false);
   };
 
-  // Function to check multiple choice answers
   const checkMultipleChoiceAnswer = () => {
-    // First 3 choices are correct (demo logic)
-    const correctAnswers = question.multipleChoice?.slice(0, 3) || [];
-    
-    // Check if all selected choices are correct
+    const correctAnswers = question.multipleChoice?.slice(0, 3) || []; // First 3 are correct
     const isCorrect = selectedChoices.size === correctAnswers.length &&
       Array.from(selectedChoices).every(index => index < correctAnswers.length);
     
     setIsMultipleChoiceChecked(true);
     setIsMultipleChoiceCorrect(isCorrect);
 
-    // Show auth prompt for unauthenticated users
     if (!user && !showAuthPrompt) {
       setTimeout(() => {
         setShowAuthPrompt(true);
@@ -229,7 +185,6 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   };
 
-  // Function to render easy exercise (multiple choice)
   const renderEasyExercise = () => {
     if (!question.multipleChoice) return null;
 

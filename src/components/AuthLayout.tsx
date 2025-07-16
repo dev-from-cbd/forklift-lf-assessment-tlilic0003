@@ -1,59 +1,52 @@
-// Import React hooks and components
 import React, { useEffect, useState } from 'react';
-// Import routing components
 import { Navigate, useLocation } from 'react-router-dom';
-// Import authentication context
 import { useAuth } from '../contexts/AuthContext';
-// Import loading spinner icon
 import { Loader2 } from 'lucide-react';
-// Import Supabase client
 import { supabase } from '../config/supabase';
 
-// Define props interface for AuthLayout component
 interface AuthLayoutProps {
   children: React.ReactNode;
   requireAuth?: boolean;
   requireAdmin?: boolean;
 }
 
-// AuthLayout component definition
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, requireAdmin = false }) => {
-  // Get current user and loading state from auth context
   const { user, loading } = useAuth();
-  // Get current route location
   const location = useLocation();
-  // State for admin status
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  // State for admin status checking
   const [checkingAdmin, setCheckingAdmin] = useState(requireAdmin);
 
-  // Effect hook to check admin status when user changes
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user) {
         try {
-          // Query user roles from Supabase
+          // Check if user is admin by email (fallback method)
+          if (user.email === 'neoguru@gmail.com') {
+            setIsAdmin(true);
+            setCheckingAdmin(false);
+            return;
+          }
+
+          // Check admin status in database
           const { data: roleData, error } = await supabase
             .from('user_roles')
             .select('role')
             .eq('user_id', user.id)
             .single();
 
-          if (error) {
+          if (error && error.code !== 'PGRST116') {
             console.error('Error checking admin status:', error);
-            setIsAdmin(false);
-          } else {
-            // Set admin status based on role
-            setIsAdmin(roleData?.role === 'admin');
           }
+
+          setIsAdmin(roleData?.role === 'admin' || user.email === 'neoguru@gmail.com');
         } catch (error) {
           console.error('Error checking admin status:', error);
-          setIsAdmin(false);
+          // Fallback: check by email
+          setIsAdmin(user.email === 'neoguru@gmail.com');
         } finally {
           setCheckingAdmin(false);
         }
       } else {
-        // User not logged in
         setIsAdmin(false);
         setCheckingAdmin(false);
       }
@@ -78,7 +71,25 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
 
   // Only redirect if we've confirmed the user is not an admin
   if (requireAdmin && isAdmin === false) {
-    return <Navigate to="/" replace />;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h2>
+          <p className="text-gray-600 mb-4">
+            You don't have administrator privileges to access this page.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Current user: {user?.email}
+          </p>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Go to Home
+          </button>
+        </div>
+      </div>
+    );
   }
 
   // Redirect to questions if user is logged in but tries to access auth pages
@@ -86,7 +97,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
     return <Navigate to="/" replace />;
   }
 
-  // Render children if all checks pass
   return <>{children}</>;
 };
 

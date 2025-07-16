@@ -1,22 +1,22 @@
 {
-  "compilerOptions": { // TypeScript compiler options for Node environment
-    "target": "ES2022", // Compile to ECMAScript 2022
-    "lib": ["ES2023"], // Use ES2023 standard library
-    "module": "ESNext", // Use latest ES modules syntax
-    "skipLibCheck": true, // Skip type checking of declaration files
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler", // Module resolution strategy for bundlers
-    "allowImportingTsExtensions": true, // Allow importing .ts files directly
-    "isolatedModules": true, // Treat each file as separate module
-    "moduleDetection": "force", // Force module detection
-    "noEmit": true, // Don't output compiled files
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
 
     /* Linting */
-    "strict": true, // Enable all strict type checking
-    "noUnusedLocals": true, // Error on unused local variables
-    "noUnusedParameters": true, // Error on unused parameters
-    "noFallthroughCasesInSwitch": true // Error on switch case fallthroughs
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"] // Only includes Vite configuration file
+  "include": ["vite.config.ts"]
 }
