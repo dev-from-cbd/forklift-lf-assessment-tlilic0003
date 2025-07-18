@@ -83,7 +83,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       email,
       password,
       options: {
-        emailRedirectTo: `${siteUrl}/auth/callback`
+        emailRedirectTo: `${siteUrl}/auth/callback`,
+        data: {
+          email_confirm_redirect_url: `${siteUrl}/auth/callback`
+        }
       }
     });
     
@@ -102,6 +105,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           });
       } catch (roleError) {
         console.error('Error setting admin role:', roleError);
+      }
+    }
+
+    // Create user preferences record
+    if (data.user) {
+      try {
+        await supabase
+          .from('user_preferences')
+          .insert({
+            user_id: data.user.id,
+            email: email,
+            email_notifications: true,
+            marketing_emails: true
+          });
+      } catch (prefError) {
+        console.error('Error creating user preferences:', prefError);
       }
     }
   };

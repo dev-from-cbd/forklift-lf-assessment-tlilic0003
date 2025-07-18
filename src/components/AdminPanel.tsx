@@ -16,8 +16,11 @@ import {
   Database,
   Shield,
   CheckCircle,
-  XCircle
+  XCircle,
+  RefreshCw,
+  Bell
 } from 'lucide-react';
+import AdminNotifications from './AdminNotifications';
 
 interface UserData {
   id: string;
@@ -52,7 +55,8 @@ const AdminPanel: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTab, setSelectedTab] = useState<'overview' | 'users' | 'content' | 'settings'>('overview');
+  const [selectedTab, setSelectedTab] = useState<'overview' | 'users' | 'content' | 'settings' | 'notifications'>('overview');
+  const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'error'>('checking');
   const { user } = useAuth();
 
   useEffect(() => {
@@ -63,9 +67,48 @@ const AdminPanel: React.FC = () => {
     try {
       setLoading(true);
       setError('');
+      setConnectionStatus('checking');
       
-      // Get user progress data
-      const { data: progressData, error: progressError } = await supabase
+      // Set timeout for the entire operation
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Operation timeout')), 10000)
+      );
+
+      const dataPromise = fetchDataWithFallback();
+      
+      await Promise.race([dataPromise, timeoutPromise]);
+      setConnectionStatus('connected');
+      
+    } catch (err) {
+      console.error('Error fetching admin data:', err);
+      setConnectionStatus('error');
+      
+      if (err instanceof Error && err.message === 'Operation timeout') {
+        setError('Connection timeout. Database may be unavailable.');
+      } else {
+        setError('Failed to fetch admin data. Using fallback data.');
+      }
+      
+      // Set fallback data
+      setFallbackData();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchDataWithFallback = async () => {
+    try {
+      // Test basic connection first
+      const { error: connectionError } = await supabase
+        .from('user_roles')
+        .select('count', { count: 'exact', head: true });
+
+      if (connectionError) {
+        throw new Error(`Database connection failed: ${connectionError.message}`);
+      }
+
+      // Get user progress data with timeout
+      const progressPromise = supabase
         .from('user_progress')
         .select(`
           user_id,
@@ -74,23 +117,22 @@ const AdminPanel: React.FC = () => {
           question_id
         `);
 
-      if (progressError) {
-        console.error('Progress error:', progressError);
-      }
-
-      // Get user roles
-      const { data: rolesData, error: rolesError } = await supabase
+      const rolesPromise = supabase
         .from('user_roles')
         .select('user_id, role');
 
-      if (rolesError) {
-        console.error('Roles error:', rolesError);
-      }
+      const [progressResult, rolesResult] = await Promise.allSettled([
+        progressPromise,
+        rolesPromise
+      ]);
 
-      // Create user map from progress data
+      const progressData = progressResult.status === 'fulfilled' ? progressResult.value.data : [];
+      const rolesData = rolesResult.status === 'fulfilled' ? rolesResult.value.data : [];
+
+      // Process data
       const userMap = new Map();
       
-      // Add current user if not in progress data
+      // Add current user if authenticated
       if (user) {
         userMap.set(user.id, {
           id: user.id,
@@ -132,7 +174,6 @@ const AdminPanel: React.FC = () => {
         userData.progress.total_questions++;
         if (record.correct) userData.progress.correct_answers++;
         
-        // Update last activity
         if (!userData.progress.last_activity || 
             new Date(record.last_attempt_at) > new Date(userData.progress.last_activity)) {
           userData.progress.last_activity = record.last_attempt_at;
@@ -156,36 +197,64 @@ const AdminPanel: React.FC = () => {
       const usersArray = Array.from(userMap.values());
       setUsers(usersArray);
 
-      // Calculate admin stats
-      const totalUsers = usersArray.length;
-      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-      
-      const activeUsers = usersArray.filter(u => 
-        u.last_sign_in_at && 
-        new Date(u.last_sign_in_at) > weekAgo
-      ).length;
-      
-      const avgCompletion = usersArray.length > 0
-        ? usersArray.reduce((sum, u) => sum + u.progress.completion_rate, 0) / usersArray.length
-        : 0;
+      // Calculate stats
+      calculateStats(usersArray);
 
-      const newUsersThisWeek = usersArray.filter(u => 
-        new Date(u.created_at) > weekAgo
-      ).length;
-
-      setStats({
-        totalUsers,
-        activeUsers,
-        completionRate: avgCompletion,
-        newUsersThisWeek
-      });
-
-    } catch (err) {
-      console.error('Error fetching admin data:', err);
-      setError('Failed to fetch admin data. Some features may be limited.');
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error('Data fetch error:', error);
+      throw error;
     }
+  };
+
+  const setFallbackData = () => {
+    // Create fallback data when database is unavailable
+    const fallbackUsers: UserData[] = user ? [{
+      id: user.id,
+      email: user.email || 'neoguru@gmail.com',
+      created_at: user.created_at || new Date().toISOString(),
+      email_confirmed_at: user.email_confirmed_at,
+      last_sign_in_at: user.last_sign_in_at,
+      progress: {
+        total_questions: 72,
+        correct_answers: 65,
+        completion_rate: 90.3,
+        last_activity: new Date().toISOString()
+      },
+      role: 'admin'
+    }] : [];
+
+    setUsers(fallbackUsers);
+    setStats({
+      totalUsers: fallbackUsers.length,
+      activeUsers: fallbackUsers.length,
+      completionRate: 90.3,
+      newUsersThisWeek: 0
+    });
+  };
+
+  const calculateStats = (usersArray: UserData[]) => {
+    const totalUsers = usersArray.length;
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    
+    const activeUsers = usersArray.filter(u => 
+      u.last_sign_in_at && 
+      new Date(u.last_sign_in_at) > weekAgo
+    ).length;
+    
+    const avgCompletion = usersArray.length > 0
+      ? usersArray.reduce((sum, u) => sum + u.progress.completion_rate, 0) / usersArray.length
+      : 0;
+
+    const newUsersThisWeek = usersArray.filter(u => 
+      new Date(u.created_at) > weekAgo
+    ).length;
+
+    setStats({
+      totalUsers,
+      activeUsers,
+      completionRate: avgCompletion,
+      newUsersThisWeek
+    });
   };
 
   const filteredUsers = users.filter(user =>
@@ -202,7 +271,6 @@ const AdminPanel: React.FC = () => {
 
       if (error) throw error;
 
-      // Update local state
       setUsers(users.map(u => 
         u.id === userId ? { ...u, role: newRole } : u
       ));
@@ -214,8 +282,16 @@ const AdminPanel: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+              <p className="text-gray-600">Loading admin panel...</p>
+              <p className="text-sm text-gray-500 mt-2">This may take a few seconds</p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -236,6 +312,17 @@ const AdminPanel: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center space-x-2">
+              <div className={`flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                connectionStatus === 'connected' ? 'bg-green-100 text-green-800' :
+                connectionStatus === 'error' ? 'bg-red-100 text-red-800' :
+                'bg-yellow-100 text-yellow-800'
+              }`}>
+                {connectionStatus === 'connected' && <CheckCircle className="w-4 h-4 mr-1" />}
+                {connectionStatus === 'error' && <XCircle className="w-4 h-4 mr-1" />}
+                {connectionStatus === 'checking' && <Loader2 className="w-4 h-4 mr-1 animate-spin" />}
+                {connectionStatus === 'connected' ? 'Connected' : 
+                 connectionStatus === 'error' ? 'Database Error' : 'Checking...'}
+              </div>
               <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
                 Administrator
               </span>
@@ -252,6 +339,7 @@ const AdminPanel: React.FC = () => {
             {[
               { id: 'overview', label: 'Overview', icon: BarChart3 },
               { id: 'users', label: 'Users', icon: Users },
+              { id: 'notifications', label: 'Notifications', icon: Bell },
               { id: 'content', label: 'Content', icon: Database },
               { id: 'settings', label: 'Settings', icon: Settings }
             ].map(tab => {
@@ -277,7 +365,16 @@ const AdminPanel: React.FC = () => {
         {error && (
           <div className="mx-6 mt-4 p-4 bg-yellow-100 text-yellow-700 rounded-lg flex items-center">
             <AlertCircle className="w-5 h-5 mr-2" />
-            {error}
+            <div className="flex-1">
+              {error}
+            </div>
+            <button
+              onClick={fetchAdminData}
+              className="ml-4 px-3 py-1 bg-yellow-200 hover:bg-yellow-300 rounded text-sm flex items-center"
+            >
+              <RefreshCw className="w-4 h-4 mr-1" />
+              Retry
+            </button>
           </div>
         )}
 
@@ -335,8 +432,14 @@ const AdminPanel: React.FC = () => {
                 <h3 className="text-lg font-semibold mb-4">System Status</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm">Database Connected</span>
+                    {connectionStatus === 'connected' ? (
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-red-500 mr-2" />
+                    )}
+                    <span className="text-sm">
+                      Database {connectionStatus === 'connected' ? 'Connected' : 'Disconnected'}
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
@@ -473,6 +576,10 @@ const AdminPanel: React.FC = () => {
             </div>
           )}
 
+          {selectedTab === 'notifications' && (
+            <AdminNotifications />
+          )}
+
           {selectedTab === 'content' && (
             <div className="space-y-6">
               <div className="bg-blue-50 p-6 rounded-lg">
@@ -497,8 +604,17 @@ const AdminPanel: React.FC = () => {
                     <h4 className="font-medium mb-2">System Health</h4>
                     <p className="text-sm text-gray-600 mb-3">Monitor system status</p>
                     <div className="flex items-center">
-                      <CheckCircle className="w-6 h-6 text-green-500 mr-2" />
-                      <span className="text-sm font-medium text-green-600">Operational</span>
+                      {connectionStatus === 'connected' ? (
+                        <>
+                          <CheckCircle className="w-6 h-6 text-green-500 mr-2" />
+                          <span className="text-sm font-medium text-green-600">Operational</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-6 h-6 text-red-500 mr-2" />
+                          <span className="text-sm font-medium text-red-600">Issues Detected</span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -534,8 +650,12 @@ const AdminPanel: React.FC = () => {
                       <h4 className="font-medium">Database Connection</h4>
                       <p className="text-sm text-gray-600">Supabase database status</p>
                     </div>
-                    <span className="bg-green-500 text-white px-4 py-2 rounded-lg text-sm">
-                      Connected
+                    <span className={`px-4 py-2 rounded-lg text-sm ${
+                      connectionStatus === 'connected' 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-red-500 text-white'
+                    }`}>
+                      {connectionStatus === 'connected' ? 'Connected' : 'Disconnected'}
                     </span>
                   </div>
                 </div>

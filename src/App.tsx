@@ -12,6 +12,8 @@ import UserProfile from './components/UserProfile';
 import OfflineIndicator from './components/OfflineIndicator';
 import AuthLayout from './components/AuthLayout';
 import DatabaseStatus from './components/DatabaseStatus';
+import UnsubscribePage from './components/UnsubscribePage';
+import ConnectionCheck from './components/ConnectionCheck';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
 import { useState, useEffect } from 'react';
@@ -138,6 +140,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordForm />} />
             <Route path="/auth/reset-password-confirm" element={<ResetPasswordConfirm />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/unsubscribe" element={<UnsubscribePage />} />
             <Route path="/admin" element={
               <AuthLayout requireAuth requireAdmin>
                 <AdminPanel />
@@ -151,6 +154,7 @@ function App() {
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/status" element={<DatabaseStatus />} />
+            <Route path="/connection" element={<ConnectionCheck />} />
           </Routes>
         </div>
       </div>
