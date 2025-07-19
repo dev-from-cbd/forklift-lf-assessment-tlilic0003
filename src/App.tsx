@@ -14,9 +14,12 @@ import AuthLayout from './components/AuthLayout';
 import DatabaseStatus from './components/DatabaseStatus';
 import UnsubscribePage from './components/UnsubscribePage';
 import ConnectionCheck from './components/ConnectionCheck';
+import CourseCreator from './components/CourseCreator';
+import CourseBrowser from './components/CourseBrowser';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
 import { useState, useEffect } from 'react';
+import { Plus, BookOpen } from 'lucide-react';
 
 function App() {
   const navigate = useNavigate();
@@ -108,6 +111,20 @@ function App() {
                     <LogOut className="w-5 h-5 mr-2" />
                     <span>Sign Out</span>
                   </button>
+                  <button
+                    onClick={() => navigate('/create-course')}
+                    className="flex items-center px-6 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <Plus className="w-5 h-5 mr-2" />
+                    <span>Create Course</span>
+                  </button>
+                  <button
+                    onClick={() => navigate('/courses')}
+                    className="flex items-center px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <BookOpen className="w-5 h-5 mr-2" />
+                    <span>Browse Courses</span>
+                  </button>
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
@@ -124,6 +141,13 @@ function App() {
                   >
                     <UserPlus className="w-5 h-5 mr-2" />
                     <span>Sign up</span>
+                  </button>
+                  <button
+                    onClick={() => navigate('/courses')}
+                    className="flex items-center px-8 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <BookOpen className="w-5 h-5 mr-2" />
+                    <span>Browse Courses</span>
                   </button>
                 </div>
               )}
@@ -151,6 +175,12 @@ function App() {
                 <UserProfile />
               </AuthLayout>
             } />
+            <Route path="/create-course" element={
+              <AuthLayout requireAuth>
+                <CourseCreator />
+              </AuthLayout>
+            } />
+            <Route path="/courses" element={<CourseBrowser />} />
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/status" element={<DatabaseStatus />} />
