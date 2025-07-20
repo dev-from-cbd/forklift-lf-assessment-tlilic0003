@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(session?.user ?? null);
       
       // If user signs in and is the admin email, ensure admin role
-      if (session?.user && session.user.email === 'neoguru@gmail.com') {
+      if (session?.user && session.user.email === import.meta.env.VITE_ADMIN_EMAIL) {
         try {
           await supabase
             .from('user_roles')
@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (error) throw error;
 
     // If this is the admin email, ensure admin role is set
-    if (email === 'neoguru@gmail.com' && data.user) {
+    if (email === import.meta.env.VITE_ADMIN_EMAIL && data.user) {
       try {
         await supabase
           .from('user_roles')

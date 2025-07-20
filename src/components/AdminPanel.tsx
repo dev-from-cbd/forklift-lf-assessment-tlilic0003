@@ -327,7 +327,7 @@ const AdminPanel: React.FC = () => {
                 Administrator
               </span>
               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                {user?.email}
+                Administrator
               </span>
             </div>
           </div>

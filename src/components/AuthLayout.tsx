@@ -21,7 +21,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
       if (user) {
         try {
           // Check if user is admin by email (fallback method)
-          if (user.email === 'neoguru@gmail.com') {
+          if (user.email === import.meta.env.VITE_ADMIN_EMAIL) {
             setIsAdmin(true);
             setCheckingAdmin(false);
             return;
@@ -39,10 +39,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, requireAuth = false, 
           }
 
           setIsAdmin(roleData?.role === 'admin' || user.email === 'neoguru@gmail.com');
+          setIsAdmin(roleData?.role === 'admin' || user.email === import.meta.env.VITE_ADMIN_EMAIL);
         } catch (error) {
           console.error('Error checking admin status:', error);
           // Fallback: check by email
-          setIsAdmin(user.email === 'neoguru@gmail.com');
+          setIsAdmin(user.email === import.meta.env.VITE_ADMIN_EMAIL);
         } finally {
           setCheckingAdmin(false);
         }

@@ -16,6 +16,10 @@ import UnsubscribePage from './components/UnsubscribePage';
 import ConnectionCheck from './components/ConnectionCheck';
 import CourseCreator from './components/CourseCreator';
 import CourseBrowser from './components/CourseBrowser';
+import AboutUs from './components/AboutUs';
+import Team from './components/Team';
+import ForInvestors from './components/ForInvestors';
+import ContactForm from './components/ContactForm';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
 import { useState, useEffect } from 'react';
@@ -29,6 +33,12 @@ function App() {
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user) {
+        // Check by environment variable first
+        if (user.email === import.meta.env.VITE_ADMIN_EMAIL) {
+          setIsAdmin(true);
+          return;
+        }
+        
         const { data: roleData } = await supabase
           .from('user_roles')
           .select('role')
@@ -185,13 +195,122 @@ function App() {
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/status" element={<DatabaseStatus />} />
             <Route path="/connection" element={<ConnectionCheck />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/investors" element={<ForInvestors />} />
+            <Route path="/contact" element={<ContactForm />} />
           </Routes>
         </div>
       </div>
 
-      <footer className="bg-gray-800 text-white py-4 mt-12">
+      <footer className="bg-gray-800 text-white py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
-          <p>© {new Date().getFullYear()} Forklift Training & Assessment - TLILIC0004 Licence to Operate an Order Picking Forklift Truck (LO)</p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/about')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/team')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Team
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/investors')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    For Investors
+                  </button>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Platform</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/courses')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Browse Courses
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/create-course')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Create Course
+                  </button>
+                </li>
+                {user && (
+                  <li>
+                    <button
+                      onClick={() => navigate('/profile')}
+                      className="text-gray-300 hover:text-white transition-colors"
+                    >
+                      My Profile
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Training</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    TLILIC0004 Course
+                  </button>
+                </li>
+                <li>
+                  <span className="text-gray-400">More courses coming soon</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/contact')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Contact Us
+                  </button>
+                </li>
+                <li>
+                  <span className="text-gray-400">Built with AI & Bolt.new</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-700 pt-6">
+            <p className="text-gray-400">
+              © {new Date().getFullYear()} Forklift Training & Assessment - TLILIC0004 Licence to Operate an Order Picking Forklift Truck (LO)
+            </p>
+            <p className="text-gray-500 text-sm mt-2">
+              Revolutionizing professional education through AI-powered learning platforms
+            </p>
+          </div>
         </div>
       </footer>
       
