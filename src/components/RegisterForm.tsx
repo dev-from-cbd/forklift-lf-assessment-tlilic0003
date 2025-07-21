@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Loader2, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 
 const RegisterForm: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,6 +15,7 @@ const RegisterForm: React.FC = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const referralCode = searchParams.get('ref');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +31,11 @@ const RegisterForm: React.FC = () => {
     try {
       setError('');
       setLoading(true);
-      await signUp(email, password);
+      
+      // Include referral code in user metadata if present
+      const metadata = referralCode ? { referral_code: referralCode } : undefined;
+      await signUp(email, password, metadata);
+      
       setIsSuccess(true);
       
       // Automatically redirect to home page after 2 seconds
@@ -71,9 +77,23 @@ const RegisterForm: React.FC = () => {
               <div className="text-sm text-green-600 bg-green-50 p-4 rounded-lg">
                 Account created successfully! Redirecting you to the course...
               </div>
+              {referralCode && (
+                <div className="text-sm text-blue-600 bg-blue-50 p-4 rounded-lg">
+                  ✨ You were referred by a friend! You'll both benefit from this partnership.
+                </div>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {referralCode && (
+                <div className="p-4 bg-green-50 text-green-700 rounded-lg flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                  <span className="text-sm">
+                    🎉 You're signing up with a referral code! You and your friend will both benefit.
+                  </span>
+                </div>
+              )}
+              
               {error && (
                 <div className="flex items-start p-4 bg-red-50 text-red-700 rounded-lg">
                   <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />

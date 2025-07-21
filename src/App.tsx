@@ -20,10 +20,11 @@ import AboutUs from './components/AboutUs';
 import Team from './components/Team';
 import ForInvestors from './components/ForInvestors';
 import ContactForm from './components/ContactForm';
+import ReferralDashboard from './components/ReferralDashboard';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
 import { useState, useEffect } from 'react';
-import { Plus, BookOpen } from 'lucide-react';
+import { Plus, BookOpen, Share2 } from 'lucide-react';
 
 function App() {
   const navigate = useNavigate();
@@ -159,7 +160,22 @@ function App() {
                     <BookOpen className="w-5 h-5 mr-2" />
                     <span>Browse Courses</span>
                   </button>
+                  <button
+                    onClick={() => navigate('/referrals')}
+                    className="flex items-center px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <Share2 className="w-5 h-5 mr-2" />
+                    <span>Referrals</span>
+                  </button>
                 </div>
+                <li>
+                  <button
+                    onClick={() => navigate('/referrals')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Referral Program
+                  </button>
+                </li>
               )}
             </div>
           </div>
@@ -199,6 +215,11 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/investors" element={<ForInvestors />} />
             <Route path="/contact" element={<ContactForm />} />
+            <Route path="/referrals" element={
+              <AuthLayout requireAuth>
+                <ReferralDashboard />
+              </AuthLayout>
+            } />
           </Routes>
         </div>
       </div>

@@ -169,6 +169,7 @@ const AdminNotifications: React.FC = () => {
                       {notification.type === 'email_confirmation' ? 'Email Confirmation Sent' :
                        notification.type === 'welcome_email' ? 'Welcome Email Sent' :
                        notification.type === 'user_unsubscribed' ? 'User Unsubscribed' :
+                       notification.type === 'contact_form_submission' ? 'Contact Form Submission' :
                        'New User Registration'}
                     </h3>
                     {!notification.read && (
@@ -200,7 +201,8 @@ const AdminNotifications: React.FC = () => {
                       className="flex items-center px-3 py-1 bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
                     >
                       <Eye className="w-4 h-4 mr-1" />
-                      {notification.type === 'user_unsubscribed' ? 'View Details' : 'View Email'}
+                      {notification.type === 'user_unsubscribed' ? 'View Details' : 
+                       notification.type === 'contact_form_submission' ? 'View Message' : 'View Email'}
                     </button>
                     
                     {!notification.read && (
@@ -226,7 +228,8 @@ const AdminNotifications: React.FC = () => {
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between p-6 border-b">
               <h3 className="text-xl font-bold">
-                {selectedNotification.type === 'user_unsubscribed' ? 'Unsubscribe Details' : 'Email Preview'} - {selectedNotification.user_email}
+                {selectedNotification.type === 'user_unsubscribed' ? 'Unsubscribe Details' : 
+                 selectedNotification.type === 'contact_form_submission' ? 'Contact Form Message' : 'Email Preview'} - {selectedNotification.user_email}
               </h3>
               <button
                 onClick={() => setShowEmailPreview(false)}
@@ -252,6 +255,47 @@ const AdminNotifications: React.FC = () => {
                       <li><strong>Unsubscribed at:</strong> {selectedNotification.notification_data.unsubscribed_at ? new Date(selectedNotification.notification_data.unsubscribed_at).toLocaleString() : 'Unknown'}</li>
                       <li><strong>User Agent:</strong> {selectedNotification.notification_data.user_agent || 'Unknown'}</li>
                     </ul>
+                  </div>
+                </div>
+              ) : selectedNotification.type === 'contact_form_submission' ? (
+                <div className="space-y-4">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-900 mb-2">Contact Form Submission</h4>
+                    <p className="text-blue-800">
+                      New message received from {selectedNotification.user_email}
+                    </p>
+                  </div>
+                  
+                  {selectedNotification.notification_data.contact_form_data && (
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="font-semibold mb-2">Message Details:</h4>
+                      <div className="space-y-2 text-sm">
+                        <p><strong>Type:</strong> {selectedNotification.notification_data.contact_form_data.type}</p>
+                        <p><strong>Name:</strong> {selectedNotification.notification_data.contact_form_data.name}</p>
+                        <p><strong>Email:</strong> {selectedNotification.notification_data.contact_form_data.email}</p>
+                        <p><strong>Subject:</strong> {selectedNotification.notification_data.contact_form_data.subject}</p>
+                        <p><strong>Submitted:</strong> {selectedNotification.notification_data.submitted_at ? new Date(selectedNotification.notification_data.submitted_at).toLocaleString() : 'Unknown'}</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {selectedNotification.notification_data.contact_form_data?.message && (
+                    <div className="bg-white p-4 rounded-lg border">
+                      <h4 className="font-semibold mb-2">Message:</h4>
+                      <div className="whitespace-pre-wrap text-gray-800">
+                        {selectedNotification.notification_data.contact_form_data.message}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-green-900 mb-2">Action Required:</h4>
+                    <p className="text-green-800">
+                      Please respond to this inquiry by replying directly to: 
+                      <a href={`mailto:${selectedNotification.user_email}`} className="font-semibold underline ml-1">
+                        {selectedNotification.user_email}
+                      </a>
+                    </p>
                   </div>
                 </div>
               ) : (

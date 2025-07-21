@@ -21,9 +21,23 @@ const ContactForm: React.FC = () => {
     setError('');
 
     try {
-      // Here you would integrate with your email service
-      // For now, we'll simulate sending
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Send to Supabase Edge Function
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-contact-email`;
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to send message');
+      }
       
       setSuccess(true);
       setFormData({
@@ -34,7 +48,7 @@ const ContactForm: React.FC = () => {
         type: 'general'
       });
     } catch (err) {
-      setError('Failed to send message. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
     } finally {
       setLoading(false);
     }
