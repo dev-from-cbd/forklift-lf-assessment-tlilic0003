@@ -1,136 +1,160 @@
+// Import React and hooks for component functionality
 import React, { useEffect, useState } from 'react';
+// Import Supabase client for database operations
 import { supabase } from '../config/supabase';
+// Import Lucide React icons for UI elements
 import { CheckCircle, XCircle, AlertCircle, Database, Users, Shield, Loader2, RefreshCw } from 'lucide-react';
+// Import authentication context to access user data
 import { useAuth } from '../contexts/AuthContext';
 
+// Interface defining the structure of database status information
 interface DatabaseStatus {
-  connection: 'connected' | 'disconnected' | 'checking';
+  connection: 'connected' | 'disconnected' | 'checking'; // Status of database connection
   tables: {
-    user_roles: boolean;
-    user_progress: boolean;
+    user_roles: boolean; // Whether user_roles table is accessible
+    user_progress: boolean; // Whether user_progress table is accessible
   };
-  auth: 'working' | 'error' | 'checking';
-  adminAccess: boolean;
-  userCount: number;
-  error?: string;
+  auth: 'working' | 'error' | 'checking'; // Status of authentication service
+  adminAccess: boolean; // Whether current user has admin privileges
+  userCount: number; // Total number of users in the system
+  error?: string; // Optional error message if something fails
 }
 
+// Component for displaying and checking database connection status
 const DatabaseStatus: React.FC = () => {
+  // Get current authenticated user from context
   const { user } = useAuth();
+  
+  // Initialize database status state with default checking values
   const [status, setStatus] = useState<DatabaseStatus>({
-    connection: 'checking',
+    connection: 'checking', // Initial connection status is checking
     tables: {
-      user_roles: false,
+      user_roles: false, // Initially assume tables are not accessible
       user_progress: false
     },
-    auth: 'checking',
-    adminAccess: false,
-    userCount: 0
+    auth: 'checking', // Initial auth status is checking
+    adminAccess: false, // Initially assume no admin access
+    userCount: 0 // Initially no users counted
   });
+  
+  // State to track if status check is in progress
   const [loading, setLoading] = useState(true);
+  
+  // State to track if connection timeout has been reached
   const [timeoutReached, setTimeoutReached] = useState(false);
 
+  // Effect to check database status when component mounts or user changes
   useEffect(() => {
-    // Set timeout to prevent infinite loading
+    // Set timeout to prevent infinite loading if database check takes too long
     const timeout = setTimeout(() => {
-      setTimeoutReached(true);
-      setLoading(false);
+      setTimeoutReached(true); // Mark timeout as reached
+      setLoading(false); // Stop loading state
     }, 10000); // 10 seconds timeout
 
+    // Check database status and clear timeout when done regardless of success/failure
     checkDatabaseStatus().finally(() => {
       clearTimeout(timeout);
     });
 
+    // Cleanup function to clear timeout if component unmounts
     return () => clearTimeout(timeout);
-  }, [user]);
+  }, [user]); // Re-run when user changes
 
+  // Function to check database connection status and related information
   const checkDatabaseStatus = async () => {
-    setLoading(true);
-    setTimeoutReached(false);
+    setLoading(true); // Start loading state
+    setTimeoutReached(false); // Reset timeout flag
     
     try {
-      // Check environment variables first
+      // Check if required environment variables are present
       const hasSupabaseUrl = !!import.meta.env.VITE_SUPABASE_URL;
       const hasSupabaseKey = !!import.meta.env.VITE_SUPABASE_ANON_KEY;
       
+      // If environment variables are missing, update status and exit early
       if (!hasSupabaseUrl || !hasSupabaseKey) {
         setStatus({
-          connection: 'disconnected',
-          tables: { user_roles: false, user_progress: false },
-          auth: 'error',
-          adminAccess: false,
-          userCount: 0,
-          error: 'Missing Supabase environment variables'
+          connection: 'disconnected', // Mark connection as disconnected
+          tables: { user_roles: false, user_progress: false }, // Tables not accessible
+          auth: 'error', // Auth service has error
+          adminAccess: false, // No admin access
+          userCount: 0, // No users
+          error: 'Missing Supabase environment variables' // Set error message
         });
-        setLoading(false);
-        return;
+        setLoading(false); // Stop loading state
+        return; // Exit function early
       }
 
-      // Test basic connection with timeout
+      // Test basic database connection with a 5-second timeout
       const connectionPromise = supabase
-        .from('user_roles')
-        .select('count', { count: 'exact', head: true });
+        .from('user_roles') // Try to access user_roles table
+        .select('count', { count: 'exact', head: true }); // Just get count, don't fetch actual data
 
+      // Create a promise that rejects after 5 seconds to implement connection timeout
       const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Connection timeout')), 5000)
+        setTimeout(() => reject(new Error('Connection timeout')), 5000) // 5 second timeout
       );
 
+      // Race the connection attempt against the timeout
       const { data: connectionTest, error: connectionError } = await Promise.race([
         connectionPromise,
         timeoutPromise
       ]) as any;
 
+      // If connection failed or timed out, update status and exit early
       if (connectionError) {
         setStatus(prev => ({
-          ...prev,
-          connection: 'disconnected',
-          error: connectionError.message,
-          auth: 'error'
+          ...prev, // Keep previous state for other fields
+          connection: 'disconnected', // Mark connection as failed
+          error: connectionError.message, // Store error message
+          auth: 'error' // Auth also marked as error since it depends on connection
         }));
-        setLoading(false);
-        return;
+        setLoading(false); // Stop loading state
+        return; // Exit function early
       }
 
-      // Check tables existence
-      const rolesPromise = supabase.from('user_roles').select('id').limit(1);
-      const progressPromise = supabase.from('user_progress').select('id').limit(1);
+      // Check if required database tables exist and are accessible
+      const rolesPromise = supabase.from('user_roles').select('id').limit(1); // Check user_roles table
+      const progressPromise = supabase.from('user_progress').select('id').limit(1); // Check user_progress table
       
+      // Use Promise.allSettled to continue even if some queries fail
       const [rolesResult, progressResult] = await Promise.allSettled([
         rolesPromise,
         progressPromise
       ]);
 
-      // Check auth status
+      // Check authentication service status by getting current session
       const { data: { session }, error: authError } = await supabase.auth.getSession();
 
-      // Check admin access
+      // Check if current user has admin access
       let adminAccess = false;
-      if (session?.user) {
-        if (session.user.email === 'neoguru@gmail.com') {
-          adminAccess = true;
+      if (session?.user) { // If user is logged in
+        if (session.user.email === 'neoguru@gmail.com') { // Hardcoded admin email
+          adminAccess = true; // Grant admin access to specific email
         } else {
           try {
+            // Check user_roles table for admin role
             const { data: roleData } = await supabase
               .from('user_roles')
-              .select('role')
-              .eq('user_id', session.user.id)
-              .single();
-            adminAccess = roleData?.role === 'admin';
+              .select('role') // Get user's role
+              .eq('user_id', session.user.id) // Filter by user ID
+              .single(); // Expect only one result
+            adminAccess = roleData?.role === 'admin'; // Check if role is admin
           } catch (err) {
-            console.log('Role check failed:', err);
+            console.log('Role check failed:', err); // Log error but continue
           }
         }
       }
 
-      // Get user count
+      // Get total count of users in the system
       let userCount = 0;
       try {
+        // Count distinct users in user_progress table
         const { count } = await supabase
           .from('user_progress')
-          .select('user_id', { count: 'exact', head: true });
-        userCount = count || 0;
+          .select('user_id', { count: 'exact', head: true }); // Count users without fetching data
+        userCount = count || 0; // Use count or default to 0
       } catch (err) {
-        console.log('User count failed:', err);
+        console.log('User count failed:', err); // Log error but continue
       }
 
       setStatus({
