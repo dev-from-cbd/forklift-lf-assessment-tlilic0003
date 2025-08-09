@@ -1,87 +1,76 @@
-// Import React library and hooks for state management and lifecycle methods
 import React, { useEffect, useState } from 'react';
-// Import Supabase client configuration for database operations
 import { supabase } from '../config/supabase';
-// Import icon components from Lucide React for UI status indicators
 import { CheckCircle, XCircle, AlertCircle, Database, Loader2 } from 'lucide-react';
 
-// Define ConnectionCheck functional component with TypeScript typing
 const ConnectionCheck: React.FC = () => {
-  // State hook to manage connection status, environment variables, and user information
   const [status, setStatus] = useState<{
-    connection: 'checking' | 'connected' | 'error';    // Connection status enum
-    details: string;                                    // Detailed status message
-    envVars: {                                         // Environment variables status
-      hasUrl: boolean;                                 // Whether Supabase URL is configured
-      hasKey: boolean;                                 // Whether Supabase key is configured
-      url?: string;                                    // Optional Supabase URL value
+    connection: 'checking' | 'connected' | 'error';
+    details: string;
+    envVars: {
+      hasUrl: boolean;
+      hasKey: boolean;
+      url?: string;
     };
-    user: any;                                         // Current authenticated user data
+    user: any;
   }>({
-    connection: 'checking',                            // Initial state: checking connection
-    details: '',                                       // Initial details: empty string
-    envVars: { hasUrl: false, hasKey: false },        // Initial env vars: not configured
-    user: null                                         // Initial user: not authenticated
+    connection: 'checking',
+    details: '',
+    envVars: { hasUrl: false, hasKey: false },
+    user: null
   });
 
-  // Effect hook that runs once when component mounts to check connection
   useEffect(() => {
-    checkConnection();                                 // Call connection check function
-  }, []);                                             // Empty dependency array - run only once
+    checkConnection();
+  }, []);
 
-  // Async function to check Supabase connection and environment configuration
   const checkConnection = async () => {
     try {
       // Check environment variables
-      const hasUrl = !!import.meta.env.VITE_SUPABASE_URL;      // Convert to boolean - check if URL exists
-      const hasKey = !!import.meta.env.VITE_SUPABASE_ANON_KEY; // Convert to boolean - check if key exists
-      const url = import.meta.env.VITE_SUPABASE_URL;           // Get the actual URL value
+      const hasUrl = !!import.meta.env.VITE_SUPABASE_URL;
+      const hasKey = !!import.meta.env.VITE_SUPABASE_ANON_KEY;
+      const url = import.meta.env.VITE_SUPABASE_URL;
 
-      // If either URL or key is missing, set error status and return early
       if (!hasUrl || !hasKey) {
         setStatus({
-          connection: 'error',                                  // Set connection status to error
-          details: 'Missing Supabase environment variables',   // Provide error details
-          envVars: { hasUrl, hasKey, url },                    // Include env var status
-          user: null                                           // No user data available
+          connection: 'error',
+          details: 'Missing Supabase environment variables',
+          envVars: { hasUrl, hasKey, url },
+          user: null
         });
-        return;                                               // Exit function early
+        return;
       }
 
-      // Test database connection by querying user_roles table
+      // Test database connection
       const { data: testData, error: testError } = await supabase
-        .from('user_roles')                                   // Query user_roles table
-        .select('count', { count: 'exact', head: true });     // Get count only (no actual data)
+        .from('user_roles')
+        .select('count', { count: 'exact', head: true });
 
-      // If database query fails, set error status and return early
       if (testError) {
         setStatus({
-          connection: 'error',                                 // Set connection status to error
-          details: `Database error: ${testError.message}`,    // Include specific error message
-          envVars: { hasUrl, hasKey, url },                   // Include env var status
-          user: null                                          // No user data available
+          connection: 'error',
+          details: `Database error: ${testError.message}`,
+          envVars: { hasUrl, hasKey, url },
+          user: null
         });
-        return;                                              // Exit function early
+        return;
       }
 
-      // Check current user authentication status
+      // Check current user
       const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-      // If all checks pass, set successful connection status
       setStatus({
-        connection: 'connected',                             // Set connection status to connected
-        details: 'All systems operational',                 // Success message
-        envVars: { hasUrl, hasKey, url },                   // Include env var status
-        user: user                                          // Include authenticated user data
+        connection: 'connected',
+        details: 'All systems operational',
+        envVars: { hasUrl, hasKey, url },
+        user: user
       });
 
     } catch (error) {
-      // Handle any unexpected errors during connection check
       setStatus({
-        connection: 'error',                                                                    // Set connection status to error
-        details: `Connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`, // Include error details
-        envVars: { hasUrl: false, hasKey: false },                                             // Reset env vars to false
-        user: null                                                                             // No user data available
+        connection: 'error',
+        details: `Connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        envVars: { hasUrl: false, hasKey: false },
+        user: null
       });
     }
   };

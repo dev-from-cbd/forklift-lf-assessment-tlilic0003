@@ -21,10 +21,13 @@ import Team from './components/Team';
 import ForInvestors from './components/ForInvestors';
 import ContactForm from './components/ContactForm';
 import ReferralDashboard from './components/ReferralDashboard';
+import TrainingCenterReviews from './components/TrainingCenterReviews';
+import ResumeBuilder from './components/ResumeBuilder';
+import JobBoard from './components/JobBoard';
 import { useAuth } from './contexts/AuthContext';
 import { supabase } from './config/supabase';
 import { useState, useEffect } from 'react';
-import { Plus, BookOpen, Share2 } from 'lucide-react';
+import { Plus, BookOpen, Share2, Building, FileText, Users } from 'lucide-react';
 
 function App() {
   const navigate = useNavigate();
@@ -136,6 +139,13 @@ function App() {
                     <BookOpen className="w-5 h-5 mr-2" />
                     <span>Browse Courses</span>
                   </button>
+                  <button
+                    onClick={() => navigate('/resume')}
+                    className="flex items-center px-6 py-2.5 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <FileText className="w-5 h-5 mr-2" />
+                    <span>My Resume</span>
+                  </button>
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
@@ -161,21 +171,34 @@ function App() {
                     <span>Browse Courses</span>
                   </button>
                   <button
+                    onClick={() => navigate('/reviews')}
+                    className="flex items-center px-8 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <Building className="w-5 h-5 mr-2" />
+                    <span>Training Centers</span>
+                  </button>
+                  <button
+                    onClick={() => navigate('/job-board')}
+                    className="flex items-center px-8 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-200"
+                  >
+                    <Users className="w-5 h-5 mr-2" />
+                    <span>Find Talent</span>
+                  </button>
+                  <button
                     onClick={() => navigate('/referrals')}
                     className="flex items-center px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
                   >
                     <Share2 className="w-5 h-5 mr-2" />
                     <span>Referrals</span>
                   </button>
+                <button
+                  onClick={() => navigate('/referrals')}
+                  className="flex items-center px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200"
+                >
+                  <Share2 className="w-5 h-5 mr-2" />
+                  <span>Referrals</span>
+                </button>
                 </div>
-                <li>
-                  <button
-                    onClick={() => navigate('/referrals')}
-                    className="text-gray-300 hover:text-white transition-colors"
-                  >
-                    Referral Program
-                  </button>
-                </li>
               )}
             </div>
           </div>
@@ -207,6 +230,13 @@ function App() {
               </AuthLayout>
             } />
             <Route path="/courses" element={<CourseBrowser />} />
+            <Route path="/reviews" element={<TrainingCenterReviews />} />
+            <Route path="/resume" element={
+              <AuthLayout requireAuth>
+                <ResumeBuilder />
+              </AuthLayout>
+            } />
+            <Route path="/job-board" element={<JobBoard />} />
             <Route path="/" element={<QuestionPage questionNumber={1} />} />
             <Route path="/question/:id" element={<QuestionPage />} />
             <Route path="/status" element={<DatabaseStatus />} />
@@ -276,6 +306,22 @@ function App() {
                     Create Course
                   </button>
                 </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/reviews')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Training Center Reviews
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/job-board')}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    Job Board
+                  </button>
+                </li>
                 {user && (
                   <li>
                     <button
@@ -283,6 +329,16 @@ function App() {
                       className="text-gray-300 hover:text-white transition-colors"
                     >
                       My Profile
+                    </button>
+                  </li>
+                )}
+                {user && (
+                  <li>
+                    <button
+                      onClick={() => navigate('/resume')}
+                      className="text-gray-300 hover:text-white transition-colors"
+                    >
+                      My Resume
                     </button>
                   </li>
                 )}

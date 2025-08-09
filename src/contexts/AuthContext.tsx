@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       options: {
         emailRedirectTo: `${siteUrl}/auth/callback`,
         data: {
-          email_confirm_redirect_url: `${siteUrl}/auth/callback`
+          email_confirm_redirect_url: `${siteUrl}/auth/callback`,
           ...metadata
         }
       }
