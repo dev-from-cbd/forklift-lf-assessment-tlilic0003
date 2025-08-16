@@ -1,17 +1,21 @@
+// Import React and hooks for state management and side effects
 import React, { useState, useEffect } from 'react';
+// Import authentication context hook
 import { useAuth } from '../contexts/AuthContext';
+// Import Supabase client for database operations
 import { supabase } from '../config/supabase';
+// Import various icons from Lucide React icon library
 import { 
-  BookOpen, 
-  Users, 
-  Clock, 
-  Star, 
-  Search, 
-  Filter,
-  Play,
-  CheckCircle,
-  Award,
-  TrendingUp
+  BookOpen,  // Icon for books/courses
+  Users,     // Icon for user count
+  Clock,     // Icon for time/duration
+  Star,      // Icon for ratings
+  Search,    // Icon for search functionality
+  Filter,    // Icon for filtering
+  Play,      // Icon for play/start actions
+  CheckCircle, // Icon for completion status
+  Award,     // Icon for achievements
+  TrendingUp // Icon for progress/trending
 } from 'lucide-react';
 
 interface Course {
