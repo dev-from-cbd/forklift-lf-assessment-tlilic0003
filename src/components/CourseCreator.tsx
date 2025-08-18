@@ -1,343 +1,454 @@
+// Import React and hooks for state management and side effects
 import React, { useState, useEffect } from 'react';
+// Import authentication context for user management
 import { useAuth } from '../contexts/AuthContext';
+// Import Supabase client for database operations
 import { supabase } from '../config/supabase';
+// Import various icons from Lucide React for UI elements
 import { 
-  Plus, 
-  Save, 
-  Eye, 
-  EyeOff, 
-  Trash2, 
-  BookOpen, 
-  Users, 
-  Clock,
-  Star,
-  Edit3,
-  CheckCircle,
-  AlertCircle,
-  ArrowLeft,
-  ArrowRight
+  Plus,        // Icon for adding new items
+  Save,        // Icon for saving data
+  Eye,         // Icon for published/visible items
+  EyeOff,      // Icon for draft/hidden items
+  Trash2,      // Icon for deleting items
+  BookOpen,    // Icon for courses and learning
+  Users,       // Icon for user enrollment count
+  Clock,       // Icon for time/duration
+  Star,        // Icon for ratings or favorites
+  Edit3,       // Icon for editing content
+  CheckCircle, // Icon for success messages
+  AlertCircle, // Icon for error messages
+  ArrowLeft,   // Icon for navigation back
+  ArrowRight   // Icon for navigation forward
 } from 'lucide-react';
 
+// Interface defining the structure of a course object
 interface Course {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  difficulty_level: string;
-  estimated_duration: number;
-  is_published: boolean;
-  total_questions: number;
-  total_enrollments: number;
-  created_at: string;
+  id: string;                    // Unique identifier for the course
+  title: string;                 // Course title/name
+  description: string;           // Detailed description of the course
+  category: string;              // Course category (e.g., 'forklift', 'safety')
+  difficulty_level: string;      // Difficulty level ('beginner', 'intermediate', 'advanced')
+  estimated_duration: number;    // Estimated time to complete in minutes
+  is_published: boolean;         // Whether the course is published or in draft
+  total_questions: number;       // Total number of questions in the course
+  total_enrollments: number;     // Number of users enrolled in the course
+  created_at: string;            // Timestamp when the course was created
 }
 
+// Interface defining the structure of a question object
 interface Question {
-  id?: string;
-  question_number: number;
-  question_text: string;
-  correct_answer: string;
-  acceptable_answers: string[];
-  explanation: string;
-  difficulty_level: string;
-  question_type: string;
-  multiple_choice_options: string[];
-  word_bank_words: string[];
-  points: number;
+  id?: string;                        // Optional unique identifier for existing questions
+  question_number: number;            // Sequential number of the question in the course
+  question_text: string;              // The actual question text
+  correct_answer: string;             // The primary correct answer
+  acceptable_answers: string[];       // Array of acceptable alternative answers
+  explanation: string;                // Explanation provided after answering
+  difficulty_level: string;           // Question difficulty ('easy', 'medium', 'hard')
+  question_type: string;              // Type of question ('text', 'multiple_choice', 'word_bank')
+  multiple_choice_options: string[];  // Options for multiple choice questions
+  word_bank_words: string[];          // Words available for word bank questions
+  points: number;                     // Points awarded for correct answer
 }
 
+// Main CourseCreator functional component
 const CourseCreator: React.FC = () => {
+  // Get current authenticated user from auth context
   const { user } = useAuth();
+  // State for storing list of user's courses
   const [courses, setCourses] = useState<Course[]>([]);
+  // State for currently selected course being edited
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  // State for storing questions of the selected course
   const [questions, setQuestions] = useState<Question[]>([]);
+  // State for controlling which view is currently displayed
   const [currentView, setCurrentView] = useState<'courses' | 'edit-course' | 'edit-questions'>('courses');
+  // State for loading indicator during data fetching
   const [loading, setLoading] = useState(true);
+  // State for saving indicator during data operations
   const [saving, setSaving] = useState(false);
+  // State for displaying success/error messages to user
   const [message, setMessage] = useState('');
 
-  // Course form state
+  // Course form state - manages form data for creating/editing courses
   const [courseForm, setCourseForm] = useState({
-    title: '',
-    description: '',
-    category: 'general',
-    difficulty_level: 'beginner',
-    estimated_duration: 60,
-    is_published: false
+    title: '',                    // Course title input
+    description: '',              // Course description input
+    category: 'general',          // Selected category (default: general)
+    difficulty_level: 'beginner', // Selected difficulty level (default: beginner)
+    estimated_duration: 60,       // Duration in minutes (default: 60)
+    is_published: false           // Publication status (default: draft)
   });
 
-  // Question form state
+  // Question form state - manages form data for creating/editing questions
   const [questionForm, setQuestionForm] = useState<Question>({
-    question_number: 1,
-    question_text: '',
-    correct_answer: '',
-    acceptable_answers: [''],
-    explanation: '',
-    difficulty_level: 'medium',
-    question_type: 'text',
-    multiple_choice_options: ['', '', '', ''],
-    word_bank_words: [''],
-    points: 1
+    question_number: 1,                           // Sequential question number
+    question_text: '',                            // Question text input
+    correct_answer: '',                           // Primary correct answer
+    acceptable_answers: [''],                     // Array of acceptable answers (starts with one empty)
+    explanation: '',                              // Explanation text for the answer
+    difficulty_level: 'medium',                   // Question difficulty (default: medium)
+    question_type: 'text',                        // Type of question (default: text)
+    multiple_choice_options: ['', '', '', ''],    // Four options for multiple choice questions
+    word_bank_words: [''],                        // Words for word bank questions (starts with one empty)
+    points: 1                                     // Points awarded for correct answer (default: 1)
   });
 
+  // Effect hook to fetch user's courses when component mounts or user changes
   useEffect(() => {
-    fetchUserCourses();
-  }, [user]);
+    fetchUserCourses(); // Load courses for the current user
+  }, [user]); // Dependency array - re-run when user changes
 
+  // Async function to fetch all courses created by the current user
   const fetchUserCourses = async () => {
+    // Exit early if no user is authenticated
     if (!user) return;
 
     try {
+      // Set loading state to show spinner
       setLoading(true);
+      // Query Supabase for courses where creator_id matches current user
       const { data, error } = await supabase
-        .from('courses')
-        .select('*')
-        .eq('creator_id', user.id)
-        .order('created_at', { ascending: false });
+        .from('courses')           // From courses table
+        .select('*')               // Select all columns
+        .eq('creator_id', user.id) // Where creator_id equals current user's id
+        .order('created_at', { ascending: false }); // Order by creation date, newest first
 
+      // Throw error if query failed
       if (error) throw error;
+      // Update courses state with fetched data (or empty array if null)
       setCourses(data || []);
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error fetching courses:', error);
+      // Show error message to user
       setMessage('Failed to load courses');
     } finally {
+      // Always turn off loading state when done
       setLoading(false);
     }
   };
 
+  // Async function to fetch all questions for a specific course
   const fetchCourseQuestions = async (courseId: string) => {
     try {
+      // Query Supabase for questions belonging to the specified course
       const { data, error } = await supabase
-        .from('course_questions')
-        .select('*')
-        .eq('course_id', courseId)
-        .order('question_number', { ascending: true });
+        .from('course_questions')     // From course_questions table
+        .select('*')                  // Select all columns
+        .eq('course_id', courseId)    // Where course_id matches the provided courseId
+        .order('question_number', { ascending: true }); // Order by question number, ascending
 
+      // Throw error if query failed
       if (error) throw error;
+      // Update questions state with fetched data (or empty array if null)
       setQuestions(data || []);
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error fetching questions:', error);
+      // Show error message to user
       setMessage('Failed to load questions');
     }
   };
 
+  // Async function to create a new course in the database
   const createCourse = async () => {
+    // Exit early if no user is authenticated
     if (!user) return;
 
     try {
+      // Set saving state to show loading indicator
       setSaving(true);
+      // Insert new course into Supabase database
       const { data, error } = await supabase
-        .from('courses')
+        .from('courses')                    // Insert into courses table
         .insert({
-          ...courseForm,
-          creator_id: user.id,
-          creator_name: user.email?.split('@')[0] || 'User',
-          creator_email: user.email
+          ...courseForm,                    // Spread all form data
+          creator_id: user.id,              // Add current user's ID as creator
+          creator_name: user.email?.split('@')[0] || 'User', // Extract username from email
+          creator_email: user.email         // Add creator's email
         })
-        .select()
-        .single();
+        .select()                         // Return the inserted record
+        .single();                        // Expect single record back
 
+      // Throw error if insertion failed
       if (error) throw error;
 
+      // Show success message to user
       setMessage('Course created successfully!');
+      // Reset form to initial state
       setCourseForm({
-        title: '',
-        description: '',
-        category: 'general',
-        difficulty_level: 'beginner',
-        estimated_duration: 60,
-        is_published: false
+        title: '',                        // Clear title
+        description: '',                  // Clear description
+        category: 'general',              // Reset to default category
+        difficulty_level: 'beginner',     // Reset to default difficulty
+        estimated_duration: 60,           // Reset to default duration
+        is_published: false               // Reset to draft status
       });
+      // Refresh the courses list to show new course
       fetchUserCourses();
+      // Navigate back to courses list view
       setCurrentView('courses');
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error creating course:', error);
+      // Show error message to user
       setMessage('Failed to create course');
     } finally {
+      // Always turn off saving state when done
       setSaving(false);
     }
   };
 
+  // Async function to update an existing course in the database
   const updateCourse = async () => {
+    // Exit early if no course is selected for editing
     if (!selectedCourse) return;
 
     try {
+      // Set saving state to show loading indicator
       setSaving(true);
+      // Update course record in Supabase database
       const { error } = await supabase
-        .from('courses')
-        .update(courseForm)
-        .eq('id', selectedCourse.id);
+        .from('courses')                  // Update in courses table
+        .update(courseForm)               // Set new values from form
+        .eq('id', selectedCourse.id);     // Where id matches selected course
 
+      // Throw error if update failed
       if (error) throw error;
 
+      // Show success message to user
       setMessage('Course updated successfully!');
+      // Refresh the courses list to show updated data
       fetchUserCourses();
+      // Navigate back to courses list view
       setCurrentView('courses');
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error updating course:', error);
+      // Show error message to user
       setMessage('Failed to update course');
     } finally {
+      // Always turn off saving state when done
       setSaving(false);
     }
   };
 
+  // Async function to delete a course from the database
   const deleteCourse = async (courseId: string) => {
+    // Show confirmation dialog before deletion
     if (!confirm('Are you sure you want to delete this course? This action cannot be undone.')) {
-      return;
+      return; // Exit if user cancels
     }
 
     try {
+      // Delete course record from Supabase database
       const { error } = await supabase
-        .from('courses')
-        .delete()
-        .eq('id', courseId);
+        .from('courses')              // Delete from courses table
+        .delete()                     // Perform delete operation
+        .eq('id', courseId);          // Where id matches provided courseId
 
+      // Throw error if deletion failed
       if (error) throw error;
 
+      // Show success message to user
       setMessage('Course deleted successfully!');
+      // Refresh the courses list to remove deleted course
       fetchUserCourses();
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error deleting course:', error);
+      // Show error message to user
       setMessage('Failed to delete course');
     }
   };
 
+  // Async function to save a question (create new or update existing)
   const saveQuestion = async () => {
+    // Exit early if no course is selected
     if (!selectedCourse) return;
 
     try {
+      // Set saving state to show loading indicator
       setSaving(true);
       
+      // Check if this is an existing question (has ID) or new question
       if (questionForm.id) {
-        // Update existing question
+        // Update existing question in database
         const { error } = await supabase
-          .from('course_questions')
+          .from('course_questions')     // Update in course_questions table
           .update({
-            ...questionForm,
-            course_id: selectedCourse.id
+            ...questionForm,            // Spread all form data
+            course_id: selectedCourse.id // Ensure course_id is set
           })
-          .eq('id', questionForm.id);
+          .eq('id', questionForm.id);   // Where id matches question being edited
 
+        // Throw error if update failed
         if (error) throw error;
       } else {
-        // Create new question
+        // Create new question in database
         const { error } = await supabase
-          .from('course_questions')
+          .from('course_questions')     // Insert into course_questions table
           .insert({
-            ...questionForm,
-            course_id: selectedCourse.id
+            ...questionForm,            // Spread all form data
+            course_id: selectedCourse.id // Associate with selected course
           });
 
+        // Throw error if insertion failed
         if (error) throw error;
       }
 
+      // Show success message to user
       setMessage('Question saved successfully!');
+      // Refresh questions list to show updated data
       fetchCourseQuestions(selectedCourse.id);
+      // Reset form to initial state
       resetQuestionForm();
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error saving question:', error);
+      // Show error message to user
       setMessage('Failed to save question');
     } finally {
+      // Always turn off saving state when done
       setSaving(false);
     }
   };
 
+  // Async function to delete a question from the database
   const deleteQuestion = async (questionId: string) => {
+    // Show confirmation dialog before deletion
     if (!confirm('Are you sure you want to delete this question?')) {
-      return;
+      return; // Exit if user cancels
     }
 
     try {
+      // Delete question record from Supabase database
       const { error } = await supabase
-        .from('course_questions')
-        .delete()
-        .eq('id', questionId);
+        .from('course_questions')     // Delete from course_questions table
+        .delete()                     // Perform delete operation
+        .eq('id', questionId);        // Where id matches provided questionId
 
+      // Throw error if deletion failed
       if (error) throw error;
 
+      // Show success message to user
       setMessage('Question deleted successfully!');
+      // Refresh questions list if a course is selected
       if (selectedCourse) {
         fetchCourseQuestions(selectedCourse.id);
       }
     } catch (error) {
+      // Log error to console for debugging
       console.error('Error deleting question:', error);
+      // Show error message to user
       setMessage('Failed to delete question');
     }
   };
 
+  // Function to reset question form to initial state
   const resetQuestionForm = () => {
+    // Calculate next question number based on existing questions
     const nextQuestionNumber = questions.length + 1;
+    // Reset form with default values
     setQuestionForm({
-      question_number: nextQuestionNumber,
-      question_text: '',
-      correct_answer: '',
-      acceptable_answers: [''],
-      explanation: '',
-      difficulty_level: 'medium',
-      question_type: 'text',
-      multiple_choice_options: ['', '', '', ''],
-      word_bank_words: [''],
-      points: 1
+      question_number: nextQuestionNumber,    // Auto-increment question number
+      question_text: '',                     // Clear question text
+      correct_answer: '',                    // Clear correct answer
+      acceptable_answers: [''],              // Reset to single empty acceptable answer
+      explanation: '',                       // Clear explanation
+      difficulty_level: 'medium',            // Set default difficulty
+      question_type: 'text',                 // Set default question type
+      multiple_choice_options: ['', '', '', ''], // Reset multiple choice options
+      word_bank_words: [''],                 // Reset word bank to single empty word
+      points: 1                              // Set default points value
     });
   };
 
+  // Function to load a question into the form for editing
   const editQuestion = (question: Question) => {
+    // Set form state to the selected question's data
     setQuestionForm(question);
   };
 
+  // Function to add a new empty acceptable answer field
   const addAcceptableAnswer = () => {
+    // Update form by adding empty string to acceptable answers array
     setQuestionForm({
-      ...questionForm,
-      acceptable_answers: [...questionForm.acceptable_answers, '']
+      ...questionForm,                       // Spread existing form data
+      acceptable_answers: [...questionForm.acceptable_answers, ''] // Add empty string to array
     });
   };
 
+  // Function to update a specific acceptable answer at given index
   const updateAcceptableAnswer = (index: number, value: string) => {
+    // Create copy of acceptable answers array
     const newAnswers = [...questionForm.acceptable_answers];
+    // Update the answer at specified index
     newAnswers[index] = value;
+    // Update form state with modified array
     setQuestionForm({
-      ...questionForm,
-      acceptable_answers: newAnswers
+      ...questionForm,                       // Spread existing form data
+      acceptable_answers: newAnswers         // Set updated answers array
     });
   };
 
+  // Function to remove an acceptable answer at given index
   const removeAcceptableAnswer = (index: number) => {
+    // Only allow removal if more than one answer exists
     if (questionForm.acceptable_answers.length > 1) {
+      // Filter out the answer at specified index
       const newAnswers = questionForm.acceptable_answers.filter((_, i) => i !== index);
+      // Update form state with filtered array
       setQuestionForm({
-        ...questionForm,
-        acceptable_answers: newAnswers
+        ...questionForm,                     // Spread existing form data
+        acceptable_answers: newAnswers       // Set filtered answers array
       });
     }
   };
 
+  // Function to update a multiple choice option at given index
   const updateMultipleChoiceOption = (index: number, value: string) => {
+    // Create copy of multiple choice options array
     const newOptions = [...questionForm.multiple_choice_options];
+    // Update the option at specified index
     newOptions[index] = value;
+    // Update form state with modified array
     setQuestionForm({
-      ...questionForm,
-      multiple_choice_options: newOptions
+      ...questionForm,                       // Spread existing form data
+      multiple_choice_options: newOptions    // Set updated options array
     });
   };
 
+  // Function to add a new empty word to word bank
   const addWordBankWord = () => {
+    // Update form by adding empty string to word bank array
     setQuestionForm({
-      ...questionForm,
-      word_bank_words: [...questionForm.word_bank_words, '']
+      ...questionForm,                       // Spread existing form data
+      word_bank_words: [...questionForm.word_bank_words, ''] // Add empty string to array
     });
   };
 
+  // Function to update a word bank word at given index
   const updateWordBankWord = (index: number, value: string) => {
+    // Create copy of word bank words array
     const newWords = [...questionForm.word_bank_words];
+    // Update the word at specified index
     newWords[index] = value;
+    // Update form state with modified array
     setQuestionForm({
-      ...questionForm,
-      word_bank_words: newWords
+      ...questionForm,                       // Spread existing form data
+      word_bank_words: newWords              // Set updated words array
     });
   };
 
+  // Function to remove a word bank word at given index
   const removeWordBankWord = (index: number) => {
+    // Only allow removal if more than one word exists
     if (questionForm.word_bank_words.length > 1) {
+      // Filter out the word at specified index
       const newWords = questionForm.word_bank_words.filter((_, i) => i !== index);
+      // Update form state with filtered array
       setQuestionForm({
         ...questionForm,
         word_bank_words: newWords
