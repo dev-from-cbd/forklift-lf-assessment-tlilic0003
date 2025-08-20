@@ -1,31 +1,31 @@
-import React from 'react';
-import { ArrowLeft, TrendingUp, Target, Zap, Users, Globe, DollarSign, Rocket, BarChart3, Lightbulb } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';                                                    // Import React library for component creation
+import { ArrowLeft, TrendingUp, Target, Zap, Users, Globe, DollarSign, Rocket, BarChart3, Lightbulb } from 'lucide-react'; // Import various icons from Lucide React icon library
+import { useNavigate } from 'react-router-dom';                               // Import navigation hook from React Router
 
-const ForInvestors: React.FC = () => {
-  const navigate = useNavigate();
+const ForInvestors: React.FC = () => {                                         // Define ForInvestors functional component with TypeScript typing
+  const navigate = useNavigate();                                              // Initialize navigation hook for programmatic routing
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center text-blue-600 hover:text-blue-700 mb-6 transition-colors"
+  return (                                                                     // Return JSX for component rendering
+    <div className="min-h-screen bg-gray-50">                                 {/* Main container with full screen height and light gray background */}
+      <div className="container mx-auto px-4 py-8">                           {/* Centered container with horizontal padding and vertical spacing */}
+        <div className="max-w-4xl mx-auto">                                   {/* Content wrapper with maximum width and center alignment */}
+          {/* Header */}                                                       {/* Header section comment */}
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">             {/* White header card with rounded corners, shadow, padding and bottom margin */}
+             <button                                                            {/* Navigation button element */}
+               onClick={() => navigate('/')}                                    {/* Click handler to navigate to home page */}
+               className="flex items-center text-blue-600 hover:text-blue-700 mb-6 transition-colors" // Button styling with flex layout, blue color, hover effect and transition
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Home
-            </button>
+              <ArrowLeft className="w-5 h-5 mr-2" />                          {/* Left arrow icon with size and right margin */}
+              Back to Home                                                     {/* Button text */}
+            </button>                                                          {/* Close button element */}
             
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">For Investors</h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Join us in revolutionizing professional education and training worldwide
-              </p>
-            </div>
-          </div>
+            <div className="text-center">                                       {/* Center-aligned content container */}
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">For Investors</h1> {/* Main page title with large font, bold weight, dark color and bottom margin */}
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">           {/* Subtitle paragraph with large text, gray color, max width and center alignment */}
+                Join us in revolutionizing professional education and training worldwide {/* Subtitle text content */}
+              </p>                                                             {/* Close paragraph element */}
+            </div>                                                             {/* Close center-aligned container */}
+          </div>                                                               {/* Close header card */}
 
           {/* Investment Opportunity */}
           <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg shadow-lg p-8 text-white mb-8">
