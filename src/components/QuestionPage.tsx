@@ -1,17 +1,27 @@
+// Import React library with useState and useEffect hooks
 import React, { useState, useEffect } from 'react';
+// Import routing hooks for navigation and URL parameters
 import { useParams, useNavigate } from 'react-router-dom';
+// Import various icons from lucide-react for UI elements
 import { Check, X, HelpCircle, Eye, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react';
+// Import authentication context hook
 import { useAuth } from '../contexts/AuthContext';
 
 // Demo question for unauthenticated users
 const demoQuestion = {
+  // Unique identifier for the demo question
   id: 10,
+  // The question text displayed to users
   question: "What is the definition of a Hazard?",
+  // The correct answer for the question
   answer: "It is a thing or situation that has the potential to cause harm to a person or cause damage",
+  // Array of acceptable answer variations
   acceptableAnswers: [
     "It is a thing or situation that has the potential to cause harm to a person or cause damage"
   ],
+  // Number of input fields for this question
   inputFields: 2,
+  // Multiple choice options for the question
   multipleChoice: [
     "It is a thing or situation that has the potential to cause harm to a person or cause damage",
     "A potential risk that needs to be assessed and controlled",
@@ -20,124 +30,210 @@ const demoQuestion = {
   ]
 };
 
+// Define QuestionPage functional component with optional questionNumber prop
 const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber }) => {
+  // Extract id parameter from URL
   const { id } = useParams();
+  // Get navigation function for programmatic routing
   const navigate = useNavigate();
+  // Get current user from authentication context
   const { user } = useAuth();
+  // State for storing all questions, initialized with demo question
   const [questions, setQuestions] = useState([demoQuestion]);
+  // State for tracking current question ID
   const [currentQuestionId, setCurrentQuestionId] = useState(10);
+  // State for storing current question object
   const [question, setQuestion] = useState(demoQuestion);
+  // State for user's text input answers
   const [answers, setAnswers] = useState<string[]>(Array(question?.inputFields || 1).fill(''));
+  // State to control visibility of correct answer
   const [showAnswer, setShowAnswer] = useState(false);
+  // State to track if answer has been checked
   const [isChecked, setIsChecked] = useState(false);
+  // State for word bank exercise words
   const [wordBankWords, setWordBankWords] = useState<string[]>([]);
+  // State for words selected by user in word bank
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
+  // State to track if word bank answer has been checked
   const [isWordBankChecked, setIsWordBankChecked] = useState(false);
+  // State to track if word bank answer is correct
   const [isWordBankCorrect, setIsWordBankCorrect] = useState(false);
+  // State to control authentication prompt visibility
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  // State for multiple choice selections using Set for unique values
   const [selectedChoices, setSelectedChoices] = useState<Set<number>>(new Set());
+  // State to track if multiple choice answer has been checked
   const [isMultipleChoiceChecked, setIsMultipleChoiceChecked] = useState(false);
+  // State to track if multiple choice answer is correct
   const [isMultipleChoiceCorrect, setIsMultipleChoiceCorrect] = useState(false);
 
+  // Effect hook to fetch questions based on user authentication status
   useEffect(() => {
+    // If user is authenticated, fetch questions from API
     if (user) {
+      // Make API call to get questions
       fetch('/api/questions')
+        // Parse JSON response
         .then(res => res.json())
+        // Process the fetched data
         .then(data => {
+          // Update questions state with fetched data
           setQuestions(data);
+          // Determine question ID from props, URL param, or default to 1
           const qId = questionNumber || Number(id) || 1;
+          // Set current question ID
           setCurrentQuestionId(qId);
+          // Find and set the specific question or use first one as fallback
           setQuestion(data.find((q: any) => q.id === qId) || data[0]);
         });
     } else {
+      // If user not authenticated, use demo question
       setQuestions([demoQuestion]);
+      // Set demo question ID
       setCurrentQuestionId(10);
+      // Set demo question as current
       setQuestion(demoQuestion);
     }
+    // Re-run effect when user, id, or questionNumber changes
   }, [user, id, questionNumber]);
 
+  // Effect hook to reset question state when question changes
   useEffect(() => {
+    // Only process if question exists
     if (question) {
+      // Parse answer to extract individual words for word bank
       const words = question.answer
+        // Split by semicolon to separate answer parts
         .split(';')
+        // Remove whitespace from each part
         .map(part => part.trim())
+        // Join parts with space
         .join(' ')
+        // Split into individual words
         .split(' ')
+        // Filter out empty strings
         .filter(word => word.length > 0);
       
+      // Set word bank words from parsed answer
       setWordBankWords([...words]);
+      // Clear previously selected words
       setSelectedWords([]);
+      // Reset word bank check status
       setIsWordBankChecked(false);
+      // Reset word bank correctness status
       setIsWordBankCorrect(false);
+      // Clear multiple choice selections
       setSelectedChoices(new Set());
+      // Reset multiple choice check status
       setIsMultipleChoiceChecked(false);
+      // Reset multiple choice correctness status
       setIsMultipleChoiceCorrect(false);
     }
+    // Re-run effect when question changes
   }, [question]);
 
+  // Function to check word bank answer correctness
   const checkWordBankAnswer = () => {
+    // Process correct answer: split, trim, join, and convert to lowercase
     const correctAnswer = question.answer
+      // Split by semicolon to separate answer parts
       .split(';')
+      // Remove whitespace from each part
       .map(part => part.trim())
+      // Join parts with space
       .join(' ')
+      // Convert to lowercase for comparison
       .toLowerCase();
 
+    // Join user's selected words and convert to lowercase
     const userAnswer = selectedWords.join(' ').toLowerCase();
+    // Mark word bank as checked
     setIsWordBankChecked(true);
+    // Set correctness based on exact match
     setIsWordBankCorrect(correctAnswer === userAnswer);
 
+    // Show authentication prompt for non-authenticated users after delay
     if (!user && !showAuthPrompt) {
+      // Set timeout to show auth prompt after 1.5 seconds
       setTimeout(() => {
+        // Display authentication prompt
         setShowAuthPrompt(true);
       }, 1500);
     }
   };
 
+  // Function to handle changes in text input answers
   const handleAnswerChange = (index: number, value: string) => {
+    // Create a copy of current answers array
     const newAnswers = [...answers];
+    // Update the specific answer at given index
     newAnswers[index] = value;
+    // Update answers state
     setAnswers(newAnswers);
+    // Reset checked status when answer changes
     setIsChecked(false);
+    // Hide answer when user is typing
     setShowAnswer(false);
   };
 
+  // Function to check user's text input answers
   const checkAnswer = () => {
+    // Mark answers as checked
     setIsChecked(true);
     
+    // Show authentication prompt for non-authenticated users after delay
     if (!user && !showAuthPrompt) {
+      // Set timeout to show auth prompt after 1.5 seconds
       setTimeout(() => {
+        // Display authentication prompt
         setShowAuthPrompt(true);
       }, 1500);
     }
   };
 
+  // Function to toggle visibility of correct answer
   const toggleShowAnswer = () => {
+    // Toggle show answer state
     setShowAnswer(!showAnswer);
   };
 
+  // Function to check if a specific answer is correct
   const isAnswerCorrect = (answer: string, index: number) => {
+    // Convert answer to lowercase and trim whitespace
     const trimmedAnswer = answer.toLowerCase().trim();
     
+    // Check against acceptable answers if they exist
     if (question.acceptableAnswers) {
+      // Compare with acceptable answer at same index
       return question.acceptableAnswers[index]?.toLowerCase().trim() === trimmedAnswer;
     }
     
+    // Split main answer by semicolon and trim each part
     const correctAnswers = question.answer.split(';').map(a => a.trim());
+    // Compare with correct answer at same index
     return trimmedAnswer === correctAnswers[index]?.toLowerCase().trim();
   };
 
+  // Function to get visual status of answer (correct/incorrect/neutral)
   const getAnswerStatus = (index: number) => {
+    // Return neutral if not checked yet
     if (!isChecked) return 'neutral';
+    // Return correct or incorrect based on answer validation
     return isAnswerCorrect(answers[index], index) ? 'correct' : 'incorrect';
   };
 
+  // Function to handle navigation between questions
   const handleNavigation = (direction: 'prev' | 'next') => {
+    // Show auth prompt if user not authenticated
     if (!user) {
+      // Display authentication prompt
       setShowAuthPrompt(true);
       return;
     }
 
+    // Calculate new question ID based on direction
     const newQuestionId = direction === 'prev' ? currentQuestionId - 1 : currentQuestionId + 1;
+    // Check if new question ID is within valid range
     if (newQuestionId >= 1 && newQuestionId <= questions.length) {
       navigate(`/question/${newQuestionId}`);
       setAnswers(Array(questions[newQuestionId - 1]?.inputFields || 1).fill(''));
@@ -148,25 +244,40 @@ const QuestionPage: React.FC<{ questionNumber?: number }> = ({ questionNumber })
     }
   };
 
+  // Function to handle word selection in word bank exercise
   const handleWordClick = (word: string, isFromBank: boolean) => {
+    // If word is clicked from word bank (moving to selected)
     if (isFromBank) {
+      // Add word to selected words
       setSelectedWords([...selectedWords, word]);
+      // Remove word from available word bank
       setWordBankWords(wordBankWords.filter(w => w !== word));
     } else {
+      // If word is clicked from selected (moving back to bank)
+      // Add word back to word bank
       setWordBankWords([...wordBankWords, word]);
+      // Remove word from selected words
       setSelectedWords(selectedWords.filter(w => w !== word));
     }
+    // Reset check status when selection changes
     setIsWordBankChecked(false);
   };
 
+  // Function to handle multiple choice selection changes
   const handleMultipleChoiceChange = (index: number) => {
+    // Create a copy of current selections
     const newSelectedChoices = new Set(selectedChoices);
+    // Toggle selection: remove if already selected, add if not
     if (newSelectedChoices.has(index)) {
+      // Remove from selection
       newSelectedChoices.delete(index);
     } else {
+      // Add to selection
       newSelectedChoices.add(index);
     }
+    // Update selected choices state
     setSelectedChoices(newSelectedChoices);
+    // Reset check status when selection changes
     setIsMultipleChoiceChecked(false);
   };
 
