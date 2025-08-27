@@ -1,43 +1,71 @@
+// Import React hooks for state management and lifecycle
 import React, { useState, useEffect } from 'react';
+// Import navigation hook from React Router
 import { useNavigate } from 'react-router-dom';
+// Import Supabase client configuration
 import { supabase } from '../config/supabase';
+// Import authentication context hook
 import { useAuth } from '../contexts/AuthContext';
+// Import icons from Lucide React library
 import { Loader2, KeyRound, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
+// Functional component for password reset confirmation
 const ResetPasswordConfirm: React.FC = () => {
+  // State for new password input
   const [newPassword, setNewPassword] = useState('');
+  // State for password confirmation input
   const [confirmPassword, setConfirmPassword] = useState('');
+  // State for success messages
   const [message, setMessage] = useState('');
+  // State for error messages
   const [error, setError] = useState('');
+  // State for loading indicator
   const [loading, setLoading] = useState(false);
+  // State for success completion status
   const [isSuccess, setIsSuccess] = useState(false);
+  // State for new password visibility toggle
   const [showNewPassword, setShowNewPassword] = useState(false);
+  // State for confirm password visibility toggle
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // State to track if session verification is complete
   const [sessionChecked, setSessionChecked] = useState(false);
+  // Extract updatePassword function from auth context
   const { updatePassword } = useAuth();
+  // Navigation hook for programmatic routing
   const navigate = useNavigate();
 
+  // Effect hook to verify password reset session on component mount
   useEffect(() => {
+    // Async function to check and validate the reset session
     const checkSession = async () => {
       try {
         // Check URL hash for tokens (Supabase auth callback)
         const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        // Extract access token from URL hash parameters
         const accessToken = hashParams.get('access_token');
+        // Extract refresh token from URL hash parameters
         const refreshToken = hashParams.get('refresh_token');
+        // Extract type parameter to verify it's a recovery request
         const type = hashParams.get('type');
         
         // Check URL search params for errors
         const urlParams = new URLSearchParams(window.location.search);
+        // Extract error description from URL parameters
         const error_description = urlParams.get('error_description');
         
+        // Check if there's an error description in URL parameters
         if (error_description) {
+          // Handle expired reset link error
           if (error_description.includes('expired')) {
             setError('Password reset link has expired. Please request a new password reset.');
+          // Handle invalid reset link error
           } else if (error_description.includes('invalid')) {
             setError('Password reset link is invalid. Please request a new password reset.');
+          // Handle other reset errors
           } else {
             setError('Password reset failed. Please try again.');
           }
+        // Check if we have valid tokens for password recovery
         } else if (accessToken && type === 'recovery') {
           // Set the session with the tokens from URL
           const { error } = await supabase.auth.setSession({
@@ -45,29 +73,40 @@ const ResetPasswordConfirm: React.FC = () => {
             refresh_token: refreshToken || ''
           });
           
+          // Handle session setting errors
           if (error) {
             setError('Invalid or expired reset link. Please request a new password reset.');
+          // Session set successfully
           } else {
             setMessage('Ready to set your new password!');
             // Clear the URL hash for security
             window.history.replaceState({}, document.title, window.location.pathname);
           }
+        // No valid tokens found, check for existing session
         } else {
           // Check if user has an active session
           const { data: { session } } = await supabase.auth.getSession();
+          // No active session found
           if (!session) {
             setError('No active password reset session. Please request a new password reset.');
           }
         }
+      // Handle any errors during session verification
       } catch (err) {
+        // Log the error for debugging
         console.error('Session check error:', err);
+        // Set user-friendly error message
         setError('Failed to verify reset session. Please try again.');
+      // Always execute regardless of success or failure
       } finally {
+        // Mark session check as complete
         setSessionChecked(true);
       }
     };
     
+    // Execute the session check function
     checkSession();
+  // Empty dependency array - run only on component mount
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
