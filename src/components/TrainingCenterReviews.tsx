@@ -1,203 +1,248 @@
+// Import React library with hooks for state management and lifecycle
 import React, { useState, useEffect } from 'react';
+// Import authentication context hook
 import { useAuth } from '../contexts/AuthContext';
+// Import Supabase client for database operations
 import { supabase } from '../config/supabase';
+// Import various icons from Lucide React icon library
 import { 
-  Star, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Globe, 
-  Plus, 
-  Search, 
-  Filter,
-  ThumbsUp,
-  Calendar,
-  Award,
-  Building,
-  Users,
-  CheckCircle
+  Star,        // Star icon for ratings
+  MapPin,      // Location pin icon
+  Phone,       // Phone icon for contact info
+  Mail,        // Email icon for contact info
+  Globe,       // Globe icon for website links
+  Plus,        // Plus icon for add actions
+  Search,      // Search icon for search functionality
+  Filter,      // Filter icon for filtering options
+  ThumbsUp,    // Thumbs up icon for helpful votes
+  Calendar,    // Calendar icon for dates
+  Award,       // Award icon for certifications
+  Building,    // Building icon for training centers
+  Users,       // Users icon for reviews
+  CheckCircle  // Check circle icon for verification
 } from 'lucide-react';
 
+// Interface defining the structure of a training center object
 interface TrainingCenter {
-  id: string;
-  name: string;
-  description: string;
-  address: string;
-  city: string;
-  phone: string;
-  email: string;
-  website: string;
-  specializations: string[];
-  certifications: string[];
-  average_rating: number;
-  total_reviews: number;
-  is_verified: boolean;
+  id: string;                    // Unique identifier for the training center
+  name: string;                  // Name of the training center
+  description: string;           // Detailed description of the center
+  address: string;               // Physical address of the center
+  city: string;                  // City where the center is located
+  phone: string;                 // Contact phone number
+  email: string;                 // Contact email address
+  website: string;               // Website URL
+  specializations: string[];     // Array of training specializations offered
+  certifications: string[];      // Array of certifications the center provides
+  average_rating: number;        // Average rating from all reviews
+  total_reviews: number;         // Total number of reviews received
+  is_verified: boolean;          // Whether the center is verified
 }
 
+// Interface defining the structure of a review object
 interface Review {
-  id: string;
-  rating: number;
-  title: string;
-  review_text: string;
-  pros: string;
-  cons: string;
-  course_taken: string;
-  completion_date: string;
-  would_recommend: boolean;
-  helpful_votes: number;
-  created_at: string;
-  user_email: string;
+  id: string;                    // Unique identifier for the review
+  rating: number;                // Star rating given (1-5)
+  title: string;                 // Title/summary of the review
+  review_text: string;           // Detailed review text
+  pros: string;                  // Positive aspects mentioned
+  cons: string;                  // Negative aspects mentioned
+  course_taken: string;          // Name of the course taken
+  completion_date: string;       // Date when the course was completed
+  would_recommend: boolean;      // Whether the reviewer recommends the center
+  helpful_votes: number;         // Number of helpful votes received
+  created_at: string;            // Timestamp when review was created
+  user_email: string;            // Email of the user who wrote the review
 }
 
+// Main functional component for training center reviews
 const TrainingCenterReviews: React.FC = () => {
+  // Get current authenticated user from auth context
   const { user } = useAuth();
+  // State for storing array of training centers
   const [centers, setCenters] = useState<TrainingCenter[]>([]);
+  // State for currently selected training center
   const [selectedCenter, setSelectedCenter] = useState<TrainingCenter | null>(null);
+  // State for storing reviews of selected center
   const [reviews, setReviews] = useState<Review[]>([]);
+  // State for loading indicator
   const [loading, setLoading] = useState(true);
+  // State for search term input
   const [searchTerm, setSearchTerm] = useState('');
+  // State for selected city filter
   const [selectedCity, setSelectedCity] = useState('all');
+  // State for showing/hiding review form modal
   const [showReviewForm, setShowReviewForm] = useState(false);
+  // State for review form data
   const [reviewForm, setReviewForm] = useState({
-    rating: 5,
-    title: '',
-    review_text: '',
-    pros: '',
-    cons: '',
-    course_taken: '',
-    completion_date: '',
-    would_recommend: true
+    rating: 5,                     // Default rating of 5 stars
+    title: '',                     // Review title
+    review_text: '',               // Main review content
+    pros: '',                      // Positive aspects
+    cons: '',                      // Negative aspects
+    course_taken: '',              // Course name
+    completion_date: '',           // Course completion date
+    would_recommend: true          // Recommendation flag
   });
 
+  // Effect hook to fetch training centers when component mounts
   useEffect(() => {
-    fetchTrainingCenters();
-  }, []);
+    fetchTrainingCenters(); // Call function to load training centers
+  }, []); // Empty dependency array means this runs once on mount
 
+  // Async function to fetch training centers from database
   const fetchTrainingCenters = async () => {
     try {
-      setLoading(true);
+      setLoading(true); // Set loading state to true
+      // Query Supabase database for training centers
       const { data, error } = await supabase
-        .from('training_centers')
-        .select('*')
-        .order('average_rating', { ascending: false });
+        .from('training_centers')           // From training_centers table
+        .select('*')                        // Select all columns
+        .order('average_rating', { ascending: false }); // Order by rating descending
 
-      if (error) throw error;
-      setCenters(data || []);
+      if (error) throw error; // Throw error if query failed
+      setCenters(data || []); // Set centers state with fetched data or empty array
     } catch (error) {
-      console.error('Error fetching training centers:', error);
+      console.error('Error fetching training centers:', error); // Log any errors
     } finally {
-      setLoading(false);
+      setLoading(false); // Always set loading to false when done
     }
   };
 
+  // Async function to fetch reviews for a specific training center
   const fetchReviews = async (centerId: string) => {
     try {
-      const { data, error } = await supabase
-        .from('center_reviews')
-        .select(`
-          *,
-          user_id
-        `)
-        .eq('center_id', centerId)
-        .order('created_at', { ascending: false });
+      // Query Supabase for reviews of the selected center
+       const { data, error } = await supabase
+         .from('center_reviews')              // From center_reviews table
+         .select(`
+           *,
+           user_id
+         `) // Select all review fields and user_id for email lookup
+         .eq('center_id', centerId)           // Filter by center ID
+         .order('created_at', { ascending: false }); // Order by newest first
 
-      if (error) throw error;
+      if (error) throw error; // Throw error if query failed
 
-      // Get user emails for reviews
+      // Get user emails for reviews by mapping over each review
       const reviewsWithEmails = await Promise.all(
         (data || []).map(async (review) => {
+          // Fetch user data to get email address
           const { data: userData } = await supabase.auth.admin.getUserById(review.user_id);
           return {
-            ...review,
-            user_email: userData.user?.email || 'Anonymous'
+            ...review,                       // Spread all review properties
+            user_email: userData.user?.email || 'Anonymous' // Add email or fallback
           };
         })
       );
 
-      setReviews(reviewsWithEmails);
+      setReviews(reviewsWithEmails); // Update reviews state with email data
     } catch (error) {
-      console.error('Error fetching reviews:', error);
+      console.error('Error fetching reviews:', error); // Log any errors
     }
   };
 
+  // Async function to submit a new review to the database
   const submitReview = async () => {
-    if (!user || !selectedCenter) return;
+    if (!user || !selectedCenter) return; // Exit if no user or center selected
 
     try {
+      // Insert new review into database
       const { error } = await supabase
-        .from('center_reviews')
+        .from('center_reviews')              // Insert into center_reviews table
         .insert({
-          center_id: selectedCenter.id,
-          user_id: user.id,
-          ...reviewForm
+          center_id: selectedCenter.id,      // ID of the training center
+          user_id: user.id,                  // ID of the current user
+          ...reviewForm                      // Spread all form data
         });
 
-      if (error) throw error;
+      if (error) throw error; // Throw error if insert failed
 
-      setShowReviewForm(false);
+      setShowReviewForm(false); // Hide the review form modal
+      // Reset review form to default values
       setReviewForm({
-        rating: 5,
-        title: '',
-        review_text: '',
-        pros: '',
-        cons: '',
-        course_taken: '',
-        completion_date: '',
-        would_recommend: true
+        rating: 5,                           // Reset to 5 stars
+        title: '',                           // Clear title
+        review_text: '',                     // Clear review text
+        pros: '',                            // Clear pros
+        cons: '',                            // Clear cons
+        course_taken: '',                    // Clear course name
+        completion_date: '',                 // Clear completion date
+        would_recommend: true                // Reset to recommend
       });
-      fetchReviews(selectedCenter.id);
-      fetchTrainingCenters(); // Refresh to update ratings
+      fetchReviews(selectedCenter.id); // Refresh reviews for this center
+      fetchTrainingCenters(); // Refresh centers to update ratings
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error('Error submitting review:', error); // Log any errors
     }
   };
 
+  // Create array of unique cities for filter dropdown, with 'all' option first
   const cities = ['all', ...Array.from(new Set(centers.map(c => c.city)))];
 
+  // Filter centers based on search term and selected city
   const filteredCenters = centers.filter(center => {
+    // Check if center name or city matches search term (case insensitive)
     const matchesSearch = center.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          center.city.toLowerCase().includes(searchTerm.toLowerCase());
+    // Check if center matches selected city filter
     const matchesCity = selectedCity === 'all' || center.city === selectedCity;
-    return matchesSearch && matchesCity;
+    return matchesSearch && matchesCity; // Return centers that match both criteria
   });
 
+  // Function to render star rating display
   const renderStars = (rating: number) => {
+    // Create array of 5 star elements
     return Array.from({ length: 5 }, (_, i) => (
       <Star
-        key={i}
+        key={i} // Unique key for each star
         className={`w-4 h-4 ${
-          i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+          i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300' // Filled or empty star
         }`}
       />
     ));
   };
 
+  // Show loading spinner while data is being fetched
   if (loading) {
     return (
+      // Centered container with minimum height
       <div className="flex items-center justify-center min-h-[400px]">
+        {/* Loading content wrapper */}
         <div className="text-center">
+          {/* Spinning loading indicator */}
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          {/* Loading message */}
           <p className="text-gray-600">Loading training centers...</p>
         </div>
       </div>
     );
   }
 
+  // Main component return with JSX
   return (
+    // Main container with max width and padding
     <div className="max-w-7xl mx-auto p-6">
-      {/* Header */}
+      {/* Header section */}
       <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+        {/* Header content with space between elements */}
         <div className="flex items-center justify-between">
+          {/* Left side with title and description */}
           <div>
+            {/* Main page title with building icon */}
             <h1 className="text-3xl font-bold text-gray-900 flex items-center">
               <Building className="w-8 h-8 mr-3 text-blue-600" />
               Training Center Reviews
             </h1>
+            {/* Page description */}
             <p className="text-gray-600 mt-2">Find and review forklift training centers</p>
           </div>
           
+          {/* Right side with statistics */}
           <div className="text-right">
+            {/* Total number of centers */}
             <div className="text-2xl font-bold text-blue-600">{centers.length}</div>
+            {/* Label for the count */}
             <div className="text-sm text-gray-500">Training Centers</div>
           </div>
         </div>
