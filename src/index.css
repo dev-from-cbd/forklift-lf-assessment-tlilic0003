@@ -1,3 +1,8 @@
+/* Import Tailwind's base styles which include CSS reset and default styling for HTML elements */
 @tailwind base;
+
+/* Import Tailwind's component classes which provide pre-designed UI components */
 @tailwind components;
+
+/* Import Tailwind's utility classes which provide single-purpose classes for styling elements */
 @tailwind utilities;
