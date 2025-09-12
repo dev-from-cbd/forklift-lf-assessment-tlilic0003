@@ -1,15 +1,25 @@
+// Import the serve function from Deno's standard HTTP server module to handle HTTP requests
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+// Import createClient function from Supabase JavaScript client library for database operations
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
+// Define CORS headers to allow cross-origin requests from any domain
 const corsHeaders = {
+  // Allow requests from any origin (wildcard)
   'Access-Control-Allow-Origin': '*',
+  // Specify which headers are allowed in cross-origin requests
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Define TypeScript interface for email data structure
 interface EmailData {
+  // Recipient email address
   to: string
+  // Email subject line
   subject: string
+  // HTML content of the email
   html: string
+  // Optional plain text version of the email
   text?: string
 }
 
