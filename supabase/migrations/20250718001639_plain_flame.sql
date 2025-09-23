@@ -1,31 +1,32 @@
 /*
   # Email System Setup
+  Database migration to implement email preferences and notification system
+  
+  1. New Tables - Database table creation for email management
+    - `user_preferences` - user email preferences and unsubscribe status - Main table for storing user email settings
+    - Update `admin_notifications` to handle email events - Enhance existing notification system for email tracking
 
-  1. New Tables
-    - `user_preferences` - user email preferences and unsubscribe status
-    - Update `admin_notifications` to handle email events
+  2. Security - Row Level Security configuration and access control policies
+    - Enable RLS on user_preferences - Activate security protection for user preferences
+    - Users can read/update their own preferences - Allow users to manage their own email settings
+    - Admins can read all preferences - Grant admin users access to all user preferences
 
-  2. Security
-    - Enable RLS on user_preferences
-    - Users can read/update their own preferences
-    - Admins can read all preferences
-
-  3. Functions
-    - Email notification triggers
+  3. Functions - Database functions and triggers for email system automation
+    - Email notification triggers - Automated triggers for email event handling
 */
 
--- Create user_preferences table
-CREATE TABLE IF NOT EXISTS user_preferences (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid NOT NULL,
-  email text NOT NULL,
-  email_notifications boolean DEFAULT true,
-  marketing_emails boolean DEFAULT true,
-  unsubscribed_at timestamptz,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  UNIQUE(user_id)
-);
+-- Create user_preferences table - Create the main table for storing user email preferences and settings
+CREATE TABLE IF NOT EXISTS user_preferences ( -- Create table only if it doesn't already exist
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Primary key with auto-generated UUID
+  user_id uuid NOT NULL, -- Foreign key reference to user, required field
+  email text NOT NULL, -- User email address, required field
+  email_notifications boolean DEFAULT true, -- Email notification preference, defaults to enabled
+  marketing_emails boolean DEFAULT true, -- Marketing email preference, defaults to enabled
+  unsubscribed_at timestamptz, -- Timestamp when user unsubscribed, optional field
+  created_at timestamptz DEFAULT now(), -- Timestamp of record creation, defaults to current time
+  updated_at timestamptz DEFAULT now(), -- Timestamp of last update, defaults to current time
+  UNIQUE(user_id) -- Ensure each user can only have one preferences record
+); -- End of table creation
 
 -- Enable RLS
 ALTER TABLE user_preferences ENABLE ROW LEVEL SECURITY;
