@@ -1,96 +1,97 @@
 /*
   # User-Generated Courses System
+  Database migration to implement comprehensive user-generated course platform
+  
+  1. New Tables - Database table creation for course management system
+    - `courses` - user-created courses - Main table for storing course information and metadata
+    - `course_questions` - questions for each course - Table for storing questions within courses
+    - `course_enrollments` - user enrollments in courses - Table tracking user course registrations
+    - `question_attempts` - user attempts at questions - Table recording user question responses
 
-  1. New Tables
-    - `courses` - user-created courses
-    - `course_questions` - questions for each course
-    - `course_enrollments` - user enrollments in courses
-    - `question_attempts` - user attempts at questions
+  2. Security - Row Level Security configuration and access control policies
+    - Enable RLS on all tables - Activate security protection for all course-related tables
+    - Users can create and manage their own courses - Allow course creators to control their content
+    - Users can enroll in any published course - Enable public access to published courses
+    - Course creators can see their course analytics - Grant creators access to enrollment data
 
-  2. Security
-    - Enable RLS on all tables
-    - Users can create and manage their own courses
-    - Users can enroll in any published course
-    - Course creators can see their course analytics
-
-  3. Features
-    - Course creation and management
-    - Question creation with multiple difficulty levels
-    - Course enrollment system
-    - Progress tracking per course
+  3. Features - Course platform functionality and capabilities
+    - Course creation and management - Tools for creating and editing courses
+    - Question creation with multiple difficulty levels - Support for varied question complexity
+    - Course enrollment system - User registration and tracking system
+    - Progress tracking per course - Individual progress monitoring for each enrolled course
 */
 
--- Create courses table
-CREATE TABLE IF NOT EXISTS courses (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  title text NOT NULL,
-  description text,
-  category text DEFAULT 'general',
-  difficulty_level text DEFAULT 'beginner',
-  estimated_duration integer DEFAULT 60, -- minutes
-  is_published boolean DEFAULT false,
-  is_featured boolean DEFAULT false,
-  creator_id uuid REFERENCES auth.users(id) NOT NULL,
-  creator_name text,
-  creator_email text,
-  thumbnail_url text,
-  total_questions integer DEFAULT 0,
-  total_enrollments integer DEFAULT 0,
-  average_rating decimal(3,2) DEFAULT 0.0,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  published_at timestamptz
-);
+-- Create courses table - Main table for storing user-generated course information
+CREATE TABLE IF NOT EXISTS courses ( -- Create the courses table if it doesn't already exist
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each course, auto-generated UUID
+  title text NOT NULL, -- Course title, required field for course identification
+  description text, -- Optional detailed description of the course content
+  category text DEFAULT 'general', -- Course category classification, defaults to 'general'
+  difficulty_level text DEFAULT 'beginner', -- Course difficulty level, defaults to 'beginner'
+  estimated_duration integer DEFAULT 60, -- minutes -- Estimated completion time in minutes, defaults to 60
+  is_published boolean DEFAULT false, -- Publication status, defaults to unpublished for draft courses
+  is_featured boolean DEFAULT false, -- Featured status for highlighting popular courses
+  creator_id uuid REFERENCES auth.users(id) NOT NULL, -- Foreign key linking to the user who created the course, required
+  creator_name text, -- Name of the course creator, optional cached field
+  creator_email text, -- Email of the course creator, optional cached field
+  thumbnail_url text, -- URL for course thumbnail image, optional field
+  total_questions integer DEFAULT 0, -- Count of questions in the course, defaults to 0
+  total_enrollments integer DEFAULT 0, -- Count of users enrolled in the course, defaults to 0
+  average_rating decimal(3,2) DEFAULT 0.0, -- Average user rating for the course, defaults to 0.0
+  created_at timestamptz DEFAULT now(), -- Timestamp when the course was created
+  updated_at timestamptz DEFAULT now(), -- Timestamp when the course was last modified
+  published_at timestamptz -- Timestamp when the course was published, nullable
+); -- End of courses table creation
 
--- Create course_questions table
-CREATE TABLE IF NOT EXISTS course_questions (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL,
-  question_number integer NOT NULL,
-  question_text text NOT NULL,
-  correct_answer text NOT NULL,
-  acceptable_answers text[], -- array of acceptable answers
-  explanation text,
-  difficulty_level text DEFAULT 'medium', -- easy, medium, hard
-  question_type text DEFAULT 'text', -- text, multiple_choice, word_bank
-  multiple_choice_options text[], -- for multiple choice questions
-  word_bank_words text[], -- for word bank exercises
-  points integer DEFAULT 1,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  UNIQUE(course_id, question_number)
-);
+-- Create course_questions table - Table for storing questions within each course
+CREATE TABLE IF NOT EXISTS course_questions ( -- Create the course_questions table if it doesn't already exist
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each question, auto-generated UUID
+  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to parent course, required, cascades on delete
+  question_number integer NOT NULL, -- Sequential number of the question within the course
+  question_text text NOT NULL, -- The actual question text, required field
+  correct_answer text NOT NULL, -- The correct answer for the question, required field
+  acceptable_answers text[], -- array of acceptable answers -- Array of alternative acceptable answers for flexible grading
+  explanation text, -- Optional explanation for the correct answer
+  difficulty_level text DEFAULT 'medium', -- easy, medium, hard -- Question difficulty level, defaults to 'medium'
+  question_type text DEFAULT 'text', -- text, multiple_choice, word_bank -- Type of question format, defaults to 'text'
+  multiple_choice_options text[], -- for multiple choice questions -- Array of options for multiple choice questions
+  word_bank_words text[], -- for word bank exercises -- Array of words for word bank type questions
+  points integer DEFAULT 1, -- Point value for the question, defaults to 1
+  created_at timestamptz DEFAULT now(), -- Timestamp when the question was created
+  updated_at timestamptz DEFAULT now(), -- Timestamp when the question was last modified
+  UNIQUE(course_id, question_number) -- Ensure unique question numbers within each course
+); -- End of course_questions table creation
 
--- Create course_enrollments table
-CREATE TABLE IF NOT EXISTS course_enrollments (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  enrolled_at timestamptz DEFAULT now(),
-  completed_at timestamptz,
-  progress_percentage decimal(5,2) DEFAULT 0.0,
-  current_question integer DEFAULT 1,
-  total_score integer DEFAULT 0,
-  max_possible_score integer DEFAULT 0,
-  is_completed boolean DEFAULT false,
-  UNIQUE(course_id, user_id)
-);
+-- Create course_enrollments table - Table for tracking user course registrations and progress
+CREATE TABLE IF NOT EXISTS course_enrollments ( -- Create the course_enrollments table if it doesn't already exist
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each enrollment, auto-generated UUID
+  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to the enrolled course, required, cascades on delete
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to the enrolled user, required, cascades on delete
+  enrolled_at timestamptz DEFAULT now(), -- Timestamp when the user enrolled in the course
+  completed_at timestamptz, -- Timestamp when the user completed the course, nullable
+  progress_percentage decimal(5,2) DEFAULT 0.0, -- User's progress through the course as a percentage, defaults to 0.0
+  current_question integer DEFAULT 1, -- Current question number the user is on, defaults to 1
+  total_score integer DEFAULT 0, -- User's total score in the course, defaults to 0
+  max_possible_score integer DEFAULT 0, -- Maximum possible score for the course, defaults to 0
+  is_completed boolean DEFAULT false, -- Whether the user has completed the course, defaults to false
+  UNIQUE(course_id, user_id) -- Ensure each user can only enroll once per course
+); -- End of course_enrollments table creation
 
--- Create question_attempts table
-CREATE TABLE IF NOT EXISTS question_attempts (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL,
-  question_id uuid REFERENCES course_questions(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  user_answer text,
-  is_correct boolean DEFAULT false,
-  difficulty_level text NOT NULL, -- easy, medium, hard
-  points_earned integer DEFAULT 0,
-  attempt_number integer DEFAULT 1,
-  time_spent_seconds integer DEFAULT 0,
-  attempted_at timestamptz DEFAULT now(),
-  UNIQUE(course_id, question_id, user_id, difficulty_level)
-);
+-- Create question_attempts table - Table for recording user question responses and scoring
+CREATE TABLE IF NOT EXISTS question_attempts ( -- Create the question_attempts table if it doesn't already exist
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each attempt, auto-generated UUID
+  course_id uuid REFERENCES courses(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to the course, required, cascades on delete
+  question_id uuid REFERENCES course_questions(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to the question, required, cascades on delete
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL, -- Foreign key linking to the user, required, cascades on delete
+  user_answer text, -- The user's submitted answer, optional field
+  is_correct boolean DEFAULT false, -- Whether the user's answer was correct, defaults to false
+  difficulty_level text NOT NULL, -- easy, medium, hard -- Difficulty level of the question when attempted, required field
+  points_earned integer DEFAULT 0, -- Points earned for this attempt, defaults to 0
+  attempt_number integer DEFAULT 1, -- Number of attempts for this question, defaults to 1
+  time_spent_seconds integer DEFAULT 0, -- Time spent on this question in seconds, defaults to 0
+  attempted_at timestamptz DEFAULT now(), -- Timestamp when the attempt was made
+  UNIQUE(course_id, question_id, user_id, difficulty_level) -- Ensure unique attempts per user per question per difficulty
+); -- End of question_attempts table creation
 
 -- Enable RLS
 ALTER TABLE courses ENABLE ROW LEVEL SECURITY;
