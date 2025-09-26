@@ -1,97 +1,97 @@
 /*
-  # Reviews and Resumes System
+  # Reviews and Resumes System - Database migration for training center reviews and job seeker resumes
 
-  1. New Tables
-    - `training_centers` - training centers database
-    - `center_reviews` - user reviews for training centers
-    - `user_resumes` - published resumes for job seekers
-    - `resume_views` - track resume views by employers
+  1. New Tables - Four main tables to support the reviews and resumes functionality
+    - `training_centers` - training centers database - Stores information about forklift training centers
+    - `center_reviews` - user reviews for training centers - User-generated reviews and ratings for training centers
+    - `user_resumes` - published resumes for job seekers - Job seeker profiles with skills and experience
+    - `resume_views` - track resume views by employers - Analytics tracking for resume visibility
 
-  2. Security
-    - Enable RLS on all tables
-    - Users can manage their own reviews and resumes
-    - Public access to published content
+  2. Security - Row Level Security implementation for data protection
+    - Enable RLS on all tables - Restrict data access based on user authentication and ownership
+    - Users can manage their own reviews and resumes - Users have full control over their own content
+    - Public access to published content - Allow anonymous users to view published reviews and resumes
 
-  3. Features
-    - Training center reviews with ratings
-    - Resume publishing with skills and experience
-    - Search and filtering capabilities
+  3. Features - Core functionality provided by this migration
+    - Training center reviews with ratings - 5-star rating system with detailed review text
+    - Resume publishing with skills and experience - Comprehensive job seeker profiles
+    - Search and filtering capabilities - Performance indexes for efficient data retrieval
 */
 
--- Create training_centers table
+-- Create training_centers table - Main table storing forklift training center information
 CREATE TABLE IF NOT EXISTS training_centers (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name text NOT NULL,
-  description text,
-  address text,
-  city text,
-  country text DEFAULT 'Australia',
-  phone text,
-  email text,
-  website text,
-  specializations text[], -- array of training types
-  certifications text[], -- certifications they offer
-  average_rating decimal(3,2) DEFAULT 0.0,
-  total_reviews integer DEFAULT 0,
-  is_verified boolean DEFAULT false,
-  created_by uuid REFERENCES auth.users(id),
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each training center, auto-generated UUID
+  name text NOT NULL, -- Training center name, required field for identification
+  description text, -- Detailed description of the training center and its services
+  address text, -- Physical street address of the training center
+  city text, -- City where the training center is located
+  country text DEFAULT 'Australia', -- Country location, defaults to Australia for this application
+  phone text, -- Contact phone number for the training center
+  email text, -- Contact email address for inquiries and communication
+  website text, -- Official website URL for the training center
+  specializations text[], -- Array of training types offered (e.g., forklift, crane, etc.)
+  certifications text[], -- Array of certifications the center is authorized to provide
+  average_rating decimal(3,2) DEFAULT 0.0, -- Calculated average rating from user reviews (0.00 to 5.00)
+  total_reviews integer DEFAULT 0, -- Total number of reviews received, updated by trigger
+  is_verified boolean DEFAULT false, -- Admin verification status for legitimate training centers
+  created_by uuid REFERENCES auth.users(id), -- User ID who created this training center record
+  created_at timestamptz DEFAULT now(), -- Timestamp when the record was created
+  updated_at timestamptz DEFAULT now() -- Timestamp when the record was last modified
 );
 
--- Create center_reviews table
+-- Create center_reviews table - User reviews and ratings for training centers
 CREATE TABLE IF NOT EXISTS center_reviews (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  center_id uuid REFERENCES training_centers(id) ON DELETE CASCADE NOT NULL,
-  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  rating integer NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  title text NOT NULL,
-  review_text text NOT NULL,
-  pros text,
-  cons text,
-  course_taken text, -- which course they took
-  completion_date date,
-  would_recommend boolean DEFAULT true,
-  is_verified boolean DEFAULT false, -- verified by admin
-  helpful_votes integer DEFAULT 0,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  UNIQUE(center_id, user_id) -- one review per user per center
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each review record, auto-generated UUID
+  center_id uuid REFERENCES training_centers(id) ON DELETE CASCADE NOT NULL, -- Foreign key to training center being reviewed, cascades on delete
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL, -- Foreign key to user who wrote the review, cascades on delete
+  rating integer NOT NULL CHECK (rating >= 1 AND rating <= 5), -- Star rating from 1 to 5, enforced by check constraint
+  title text NOT NULL, -- Short title/summary of the review, required field
+  review_text text NOT NULL, -- Detailed review content describing the experience, required field
+  pros text, -- Positive aspects mentioned in the review, optional field
+  cons text, -- Negative aspects or areas for improvement, optional field
+  course_taken text, -- Specific course or training program the reviewer completed
+  completion_date date, -- Date when the reviewer completed their training
+  would_recommend boolean DEFAULT true, -- Whether the reviewer would recommend this center to others
+  is_verified boolean DEFAULT false, -- Admin verification status for authentic reviews
+  helpful_votes integer DEFAULT 0, -- Number of users who found this review helpful
+  created_at timestamptz DEFAULT now(), -- Timestamp when the review was created
+  updated_at timestamptz DEFAULT now(), -- Timestamp when the review was last modified
+  UNIQUE(center_id, user_id) -- Constraint ensuring one review per user per training center
 );
 
--- Create user_resumes table
+-- Create user_resumes table - Job seeker profiles with skills and experience information
 CREATE TABLE IF NOT EXISTS user_resumes (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  title text NOT NULL, -- job title seeking
-  full_name text NOT NULL,
-  email text NOT NULL,
-  phone text,
-  location text,
-  summary text, -- professional summary
-  experience jsonb, -- work experience array
-  education jsonb, -- education array
-  certifications jsonb, -- certifications array
-  skills text[], -- skills array
-  languages text[], -- languages spoken
-  availability text, -- full-time, part-time, contract
-  salary_expectation text,
-  is_published boolean DEFAULT false,
-  is_featured boolean DEFAULT false,
-  views_count integer DEFAULT 0,
-  contact_count integer DEFAULT 0,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  UNIQUE(user_id) -- one resume per user
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each resume record, auto-generated UUID
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL, -- Foreign key to user who owns this resume, cascades on delete
+  title text NOT NULL, -- Job title or position the user is seeking, required field
+  full_name text NOT NULL, -- User's full name as it appears on the resume, required field
+  email text NOT NULL, -- Contact email address for potential employers, required field
+  phone text, -- Contact phone number for direct communication, optional field
+  location text, -- Geographic location or preferred work area, optional field
+  summary text, -- Professional summary or career objective statement, optional field
+  experience jsonb, -- Work experience array stored as JSON with job history details
+  education jsonb, -- Education history array stored as JSON with degrees and institutions
+  certifications jsonb, -- Professional certifications array stored as JSON with details
+  skills text[], -- Array of skills and competencies relevant to forklift operation
+  languages text[], -- Array of languages spoken by the job seeker
+  availability text, -- Employment type preference (full-time, part-time, contract, etc.)
+  salary_expectation text, -- Expected salary range or hourly rate, stored as text for flexibility
+  is_published boolean DEFAULT false, -- Whether the resume is publicly visible to employers
+  is_featured boolean DEFAULT false, -- Admin flag to feature outstanding resumes in search results
+  views_count integer DEFAULT 0, -- Number of times this resume has been viewed by employers
+  contact_count integer DEFAULT 0, -- Number of times employers have contacted this job seeker
+  created_at timestamptz DEFAULT now(), -- Timestamp when the resume was created
+  updated_at timestamptz DEFAULT now(), -- Timestamp when the resume was last modified
+  UNIQUE(user_id) -- Constraint ensuring one resume per user account
 );
 
--- Create resume_views table
+-- Create resume_views table - Analytics tracking for resume visibility and employer engagement
 CREATE TABLE IF NOT EXISTS resume_views (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  resume_id uuid REFERENCES user_resumes(id) ON DELETE CASCADE NOT NULL,
-  viewer_ip text,
-  viewer_user_agent text,
-  viewed_at timestamptz DEFAULT now()
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), -- Unique identifier for each view record, auto-generated UUID
+  resume_id uuid REFERENCES user_resumes(id) ON DELETE CASCADE NOT NULL, -- Foreign key to resume being viewed, cascades on delete
+  viewer_ip text, -- IP address of the viewer for analytics and duplicate detection
+  viewer_user_agent text, -- Browser/device information of the viewer for analytics
+  viewed_at timestamptz DEFAULT now() -- Timestamp when the resume was viewed, defaults to current time
 );
 
 -- Enable RLS
