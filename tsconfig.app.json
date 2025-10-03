@@ -1,24 +1,44 @@
 {
+  // Root JSON object for TypeScript configuration
   "compilerOptions": {
+    // Configuration options for the TypeScript compiler
     "target": "ES2020",
+    // Specifies ECMAScript target version for compiled JavaScript (ES2020 supports modern features)
     "useDefineForClassFields": true,
+    // Uses Object.defineProperty for class fields instead of direct assignment for better encapsulation
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    // Standard library declarations to include (ES2020 features, DOM APIs, and DOM iteration protocols)
     "module": "ESNext",
+    // Module code generation method (ESNext for latest ECMAScript module syntax)
     "skipLibCheck": true,
+    // Skip type checking of declaration files (.d.ts) for better performance
 
     /* Bundler mode */
+    // Settings optimized for bundlers like Vite or webpack
     "moduleResolution": "bundler",
+    // Module resolution strategy specific for bundlers
     "allowImportingTsExtensions": true,
+    // Allows imports with TypeScript extensions (.ts, .tsx) without transpilation errors
     "isolatedModules": true,
+    // Ensures each file can be safely transpiled without relying on other imports
     "moduleDetection": "force",
+    // Forces files to be treated as modules
     "noEmit": true,
+    // Does not generate output files (Vite/bundler handles this)
     "jsx": "react-jsx",
+    // JSX handling for React 17+ (doesn't require React import in JSX files)
 
     /* Linting */
+    // Type checking and code quality settings
     "strict": true,
+    // Enables all strict type checking options
     "noUnusedLocals": true,
+    // Reports errors on unused local variables
     "noUnusedParameters": true,
+    // Reports errors on unused parameters in functions
     "noFallthroughCasesInSwitch": true
+    // Ensures switch cases use break statements to prevent fallthrough
   },
   "include": ["src"]
+  // Specifies files to be included in compilation (only files in src directory)
 }
