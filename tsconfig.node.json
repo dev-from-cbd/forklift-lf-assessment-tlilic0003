@@ -1,22 +1,40 @@
 {
+  // Root JSON object for Node.js-specific TypeScript configuration
   "compilerOptions": {
+    // Configuration options for the TypeScript compiler when processing Node.js files
     "target": "ES2022",
+    // Specifies ECMAScript target version for Node.js environment (ES2022 supports modern Node.js features)
     "lib": ["ES2023"],
+    // Standard library declarations to include (ES2023 for latest ECMAScript features in Node.js)
     "module": "ESNext",
+    // Module code generation method (ESNext for latest ECMAScript module syntax)
     "skipLibCheck": true,
+    // Skip type checking of declaration files (.d.ts) for better performance
 
     /* Bundler mode */
+    // Settings optimized for bundlers like Vite or webpack
     "moduleResolution": "bundler",
+    // Module resolution strategy specific for bundlers
     "allowImportingTsExtensions": true,
+    // Allows imports with TypeScript extensions (.ts, .tsx) without transpilation errors
     "isolatedModules": true,
+    // Ensures each file can be safely transpiled without relying on other imports
     "moduleDetection": "force",
+    // Forces files to be treated as modules
     "noEmit": true,
+    // Does not generate output files (Vite/bundler handles this)
 
     /* Linting */
+    // Type checking and code quality settings
     "strict": true,
+    // Enables all strict type checking options
     "noUnusedLocals": true,
+    // Reports errors on unused local variables
     "noUnusedParameters": true,
+    // Reports errors on unused parameters in functions
     "noFallthroughCasesInSwitch": true
+    // Ensures switch cases use break statements to prevent fallthrough
   },
   "include": ["vite.config.ts"]
+  // Specifies files to be included in compilation (only the Vite configuration file)
 }
