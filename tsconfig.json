@@ -1,7 +1,13 @@
 {
+  // Root JSON object for TypeScript project configuration
   "files": [],
+  // Empty array indicating no files are directly included in this config (uses referenced configs instead)
   "references": [
+    // Array of project references for TypeScript's Project References feature
     { "path": "./tsconfig.app.json" },
+    // Reference to application-specific TypeScript configuration for the main app code
     { "path": "./tsconfig.node.json" }
+    // Reference to Node.js-specific TypeScript configuration for build scripts and tooling
   ]
+  // Project references enable TypeScript to build projects in the correct order and enable better editor support
 }
